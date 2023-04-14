@@ -76,75 +76,83 @@ async function createTables() {
 }
 
 async function seedTables() {
-    console.log("Starting to seed tables...");
-    try {
-      await client.query('BEGIN');
-    
-    console.log("Starting to create users...");
-    // async function createInitialUsers() {
-      // Seed users table
-      await client.query(`
+	console.log("Starting to seed tables...");
+	try {
+		await client.query("BEGIN");
+
+		// async function createInitialUsers() {
+		console.log("Starting to create users...");
+		// Seed users table
+		await client.query(`
         INSERT INTO users (name, email, username, password, admin)
         VALUES ('John Smith', 'john.smith@example.com', 'johnsmith', 'password123', true),
                ('Jane Doe', 'jane.doe@example.com', 'janedoe', 'password123', false)
       `);
-    // }
-    console.log("Finished creating users...");
+		console.log("Finished creating users...");
+		// }
 
-    // Seed products table with movies
-    // async function createInitialMovies() {
-      await client.query(`
+		// Seed products table with movies
+		// async function createInitialMovies() {
+		console.log("Starting to create products...");
+		await client.query(`
         INSERT INTO products (name, description, price, genre, quantity, image_url)
         VALUES ('The Shawshank Redemption', 'Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.', 9.99, 'Drama', 100, 'https://www.example.com/shawshank.jpg'),
                ('The Godfather', 'The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.', 12.99, 'Crime', 50, 'https://www.example.com/godfather.jpg'),
                ('The Dark Knight', 'When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.', 14.99, 'Action', 75, 'https://www.example.com/darkknight.jpg')
       `);
-    // }
+		console.log("Finished creating products...");
+		// }
 
-    // Seed orders table
-    // async function createInitialOrders() {
-      await client.query(`
+		// Seed orders table
+		// async function createInitialOrders() {
+		console.log("Starting to create orders...");
+		await client.query(`
         INSERT INTO orders (user_id, product_id, quantity, shipping_address, billing_address)
         VALUES (1, 1, 2, '123 Main St', '456 Elm St'),
                (2, 3, 1, '789 Maple Ave', '1011 Oak St')
       `);
-    // }
+		console.log("Finished creating orders...");
+		// }
 
-      // Seed cart table
-    // async function createInitialCart() {
-      await client.query(`
+		// Seed cart table
+		// async function createInitialCart() {
+		console.log("Starting to create carts...");
+		await client.query(`
         INSERT INTO cart (user_id, product_id, quantity, price)
         VALUES (1, 2, 1, 12.99),
                (2, 1, 2, 19.98)
       `);
-    // }
+		console.log("Finished creating carts...");
+		// }
 
-      // Seed reviews table
-    // async function createInitialReviews() {
-      await client.query(`
+		// Seed reviews table
+		// async function createInitialReviews() {
+		console.log("Starting to create reviews...");
+		await client.query(`
         INSERT INTO reviews (user_id, product_id, title, description, rating)
         VALUES (1, 1, 'Amazing movie!', 'I loved this movie from start to finish. The acting was superb and the storyline kept me engaged throughout.', 5),
                (2, 3, 'One of the best superhero movies ever', 'This movie had everything - great action, amazing performances, and a compelling story. Highly recommended!', 4)
       `);
-    // }
+		console.log("Finished creating reviews...");
+		// }
 
-      await client.query('COMMIT');
-      console.log("Tables seeded successfully!");
-    } catch (error) {
-      await client.query('ROLLBACK');
-      console.error("Error seeding tables:", error);
-    } finally {
-      client.end();
-    }
-  }
-  
-  async function rebuildDB() {
+		await client.query("COMMIT");
+		console.log("Tables seeded successfully!");
+	} catch (error) {
+		await client.query("ROLLBACK");
+		console.error("Error seeding tables:", error);
+	} finally {
+		client.end();
+	}
+}
+
+async function rebuildDB() {
 	try {
 		client.connect();
 
 		await dropTables();
 		await createTables();
-        await seedTables();
+		await seedTables();
 		// await createInitialTags(); now creating tags through createPost
 	} catch (error) {
 		console.log("Error during rebuildDB");
