@@ -81,8 +81,8 @@ async function seedTables() {
 		await client.query("BEGIN");
 
 		// async function createInitialUsers() {
-		console.log("Starting to create users...");
-		// Seed users table
+            // Seed users table
+        console.log("Starting to create users...");
 		await client.query(`
         INSERT INTO users (name, email, username, password, admin)
         VALUES ('John Smith', 'john.smith@example.com', 'johnsmith', 'password123', true),
