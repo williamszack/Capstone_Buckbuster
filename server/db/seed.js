@@ -39,7 +39,7 @@ async function createTables() {
             price DECIMAL(10,2),
             genre VARCHAR(255),
             quantity INT,
-            image_url VARCHAR(255),
+            image_url VARCHAR(255)
         );
         CREATE TABLE orders (
             order_id SERIAL PRIMARY KEY,
@@ -80,6 +80,7 @@ async function seedTables() {
     try {
       await client.query('BEGIN');
     
+    console.log("Starting to create users...");
     // async function createInitialUsers() {
       // Seed users table
       await client.query(`
@@ -88,6 +89,7 @@ async function seedTables() {
                ('Jane Doe', 'jane.doe@example.com', 'janedoe', 'password123', false)
       `);
     // }
+    console.log("Finished creating users...");
 
     // Seed products table with movies
     // async function createInitialMovies() {
