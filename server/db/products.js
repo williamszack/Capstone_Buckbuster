@@ -11,7 +11,7 @@ async function getAllProducts() {
 
         return products
     } catch (error) {
-        console.error('error with getting all products')
+        console.error('error with getting all products', error)
     }
 }
 
@@ -28,12 +28,12 @@ async function addNewProduct({
         (name, description, price, genre, quantity, image_url)
         VALUES
         ($1, $2, $3, $4, $5, $6)
-        RETURNING *
+        RETURNING *;
         `, [name, description, price, genre, quantity, image_url])
 
     return product
     } catch (error) {
-        console.error('error with adding new product')
+        console.error('error with adding new product', error)
     }
 }
 
@@ -43,6 +43,7 @@ async function updateProduct({product_id, ...fields}) {
       ).join(', ');
     
       if (setString.length === 0) {
+        console.log('ERROR setString was 0 get gud')
         return;
       }
     
@@ -57,7 +58,7 @@ async function updateProduct({product_id, ...fields}) {
           
           return product;
         } catch (error) {
-          console.error('error with updating a product');
+          console.error('error with updating a product', error);
         }
 }
 
@@ -66,12 +67,12 @@ async function getProductById(product_id) {
         const {rows: [ product ]} = await client.query(`
         SELECT *
         FROM products
-        WHERE product_id=$1
+        WHERE product_id = $1;
         `, [product_id])
 
     return product
     } catch (error) {
-        console.error('error with getting product by id')
+        console.error('error with getting product by id', error)
     }
 }
 
@@ -80,12 +81,12 @@ async function getProductByname(name) {
         const {rows: [ product ]} = await client.query(`
         SELECT *
         FROM products
-        WHERE name=$1
+        WHERE name = $1;
         `, [name])
 
     return product
     } catch (error) {
-        console.error('error with getting product by name')
+        console.error('error with getting product by name', error)
     }
 }
 
@@ -94,26 +95,26 @@ async function getAllProductsByGenre(genre) {
         const {rows: products } = await client.query(`
         SELECT *
         FROM products
-        WHERE genre = $1
+        WHERE genre = $1;
         `, [genre])
 
     return products
     } catch (error) {
-        console.error('error with getting all products by genre')
+        console.error('error with getting all products by genre', error)
     }
 }
 
 async function deleteProduct(product_id) {
     try {
-        const {rows: product } = await client.query(`
+        const {rows: [product] } = await client.query(`
         DELETE FROM products
-        FROM product_id = $1
-        RETURNING *
+        WHERE product_id = $1
+        RETURNING *;
         `, [product_id])
 
     return product
     } catch (error) {
-        console.error('error with deleting product')
+        console.error('error with deleting product', error)
     }
 }
 
