@@ -11,11 +11,11 @@ async function createUser({ name, email, username, password, admin }) {
 	const create = { name, email, username, hashedPassword, admin };
 	try {
 		const {
-			rows: [user],
+			rows: [user]
 		} = await client.query(
 			`
-        INSERT INTO users(name, email, username, password )
-        VALUES ($1, $2, $3, $4, $4)
+        INSERT INTO users(name, email, username, password, admin)
+        VALUES ($1, $2, $3, $4, $5)
         ON CONFLICT (username) DO NOTHING
         RETURNING *;
         `,
@@ -74,7 +74,7 @@ async function getUser({ username, password }) {
 	}
 }
 
-async function getUserById(userId) {
+async function getUserById(user_id) {
 	try {
 		const {
 			rows: [user],
@@ -82,12 +82,12 @@ async function getUserById(userId) {
 			`
         SELECT *
         FROM users
-        WHERE id = $1;
+        WHERE user_id = $1;
         `,
 			[user]
 		);
 		if (!user) {
-			console.log(`${userId} does not exist`);
+			console.log(`${user_id} does not exist`);
 			return null;
 		} else {
 			delete user.password;
