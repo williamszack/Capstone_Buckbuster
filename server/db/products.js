@@ -116,3 +116,13 @@ async function deleteProduct(product_id) {
         console.error('error with deleting product')
     }
 }
+
+module.exports = {
+    getAllProducts,
+    getProductById,
+    getProductByname,
+    getAllProductsByGenre,
+    addNewProduct,
+    deleteProduct,
+    updateProduct
+}
