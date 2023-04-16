@@ -17,7 +17,7 @@ async function getAllOrders() {
 	}
 }
 
-async function getOrdersByUserId(userId) {
+async function getOrdersByUserId(user_id) {
 	try {
 		const {
 			rows: [order],
@@ -27,10 +27,10 @@ async function getOrdersByUserId(userId) {
         FROM orders
         WHERE user_id = $1;
             `,
-			[userId]
+			[user_id]
 		);
 		if (!order) {
-			console.log(`${userId} does not exist`);
+			console.log(`${user_id} does not exist`);
 			return null;
 		}
 
@@ -40,67 +40,110 @@ async function getOrdersByUserId(userId) {
 	}
 }
 
-async function getOrdersByProductId(productId) {
+async function getOrdersByProductId(product_id) {
 	try {
-		const {
-			rows: [order],
-		} = await client.query(
+		const { rows } = await client.query(
 			`
         SELECT *
         FROM orders
-        WHERE product_id = $1
+        WHERE product_id = $1;
             `,
-			[productId]
+			[product_id]
 		);
-		if (!order) {
-			console.log(`${productId} does not exist`);
+		if (!rows) {
+			console.log(`${product_id} does not exist`);
 			return null;
 		}
 
-		return order;
+		return rows;
 	} catch (error) {
 		console.error("Error retreiving orders by productId:", error);
 	}
 }
 
-async function deleteOrder(id) {
+async function cancelOrder(order_id) {
 	try {
-        const { rows: [order], } =  await client.query(
+		await client.query("BEGIN");
+		// Get the order details
+		const {
+			rows: [order],
+		} = await client.query(
 			`
-        DELETE FROM orders
-        WHERE order_id = $1
-        RETURNING *;
+          SELECT *
+          FROM orders
+          WHERE order_id = $1
+          FOR UPDATE;
         `,
-			[id]
+			[order_id]
 		);
-
-		return order;
+		// Update the product quantity(return back to inventory) by adding qty from order
+		await client.query(
+			`
+          UPDATE products
+          SET quantity = quantity + $1
+          WHERE product_id = $2;
+        `,
+			[order.quantity, order.product_id]
+		);
+		// Delete the order
+		await client.query(
+			`
+          DELETE FROM orders WHERE order_id = $1;
+        `,
+			[order_id]
+		);
+		await client.query("COMMIT");
 	} catch (error) {
-		console.error("Error deleting order Id:", error);
+		await client.query("ROLLBACK");
+		console.error("Error canceling order:", error);
 	}
 }
 
 async function createOrder(user_id, product_id, quantity, shipping_address, billing_address) {
-    try {
-        const { rows: [order] } = await client.query(
-            `
+	try {
+		const {
+			rows: [order],
+		} = await client.query(
+			`
         INSERT INTO orders (user_id, product_id, quantity, shipping_address, billing_address)
+        SELECT $1, $2, $3, $4, $5
+        FROM cart
+        WHERE user_id = $1
+        RETURNING *;
             `,
-            
-            )
-    } catch (error)
-}
+			[user_id, product_id, quantity, shipping_address, billing_address]
+		);
 
-
-
-async function orderDetails() {
-
+		return order;
+	} catch (error) {
+		console.error("Error creating order:", error);
+	}
 }
 
 module.export = {
 	getAllOrders,
 	getOrdersByUserId,
 	getOrdersByProductId,
-	deleteOrder,
-
+	cancelOrder,
+	createOrder,
 };
+
+// async function deleteOrder(id) {
+// 	try {
+
+//         //sql query to insert back product qty into products
+
+//         const { rows: [order], } =  await client.query(
+// 			`
+//         DELETE FROM orders
+//         WHERE order_id = $1
+//         RETURNING *;
+//         `,
+// 			[id]
+// 		);
+
+// 		return order;
+// 	} catch (error) {
+// 		console.error("Error deleting order Id:", error);
+// 	}
+// }
