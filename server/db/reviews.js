@@ -45,7 +45,7 @@ async function getReviewsByProductId(product_id) {
   }
 }
 
-// need to join users table to grab username to display
+// need to join users table to grab username to display for the frontend
 async function getReviewsByUserId(user_id) {
   try {
     const { rows: reviews } = await client.query(
