@@ -120,7 +120,7 @@ async function createOrder(user_id, product_id, quantity, shipping_address, bill
 	}
 }
 
-module.export = {
+module.exports = {
 	getAllOrders,
 	getOrdersByUserId,
 	getOrdersByProductId,
