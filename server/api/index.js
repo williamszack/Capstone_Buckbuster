@@ -9,15 +9,15 @@ const usersRouter = require("./users");
 router.use("/users", usersRouter);
 
 // ROUTER: /api/orders
-const usersRouter = require("./orders");
+const ordersRouter = require("./orders");
 router.use("/orders", ordersRouter);
 
 // ROUTER: /api/products
-const usersRouter = require("./products");
+const productsRouter = require("./products");
 router.use("/products", productsRouter);
 
 // ROUTER: /api/cart
-const usersRouter = require("./cart");
+const cartRouter = require("./cart");
 router.use("/cart", cartRouter);
 
 module.exports = router;
