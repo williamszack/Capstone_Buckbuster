@@ -1,6 +1,29 @@
+const express = require('express');
+const ordersRouter = require('./orders');
+const productsRouter = express.Router();
+const { getAllProducts } = require("../db")
+
+/*-------api/products/health-------*/
+productsRouter.get('/health', async (req, res,) => {
+    res.send({
+        message: "products endpoint is working"
+      });
+});
+
 // adding reviews api to products
 
 //GET api/products
+productsRouter.get('/', async (req, res, next) => {
+    try {
+    const products = await getAllProducts();
+
+    res.send(
+      products
+    );
+    } catch (error) {
+        next({error})
+    }
+  });
 
 //GET api/products/:productid/reviews
 
@@ -14,3 +37,5 @@
 
 //DELTE api/products/:productid
 //admin only
+
+module.exports = productsRouter

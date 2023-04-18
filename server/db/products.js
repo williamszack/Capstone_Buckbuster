@@ -1,4 +1,5 @@
-const client = require("./index");
+const { client } = require('./client');
+
 
 //products database functions
 
