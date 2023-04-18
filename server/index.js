@@ -14,6 +14,3 @@ client.connect();
 app.listen(PORT, () => {
   console.log("The server is up on port", PORT);
 });
-
-
-

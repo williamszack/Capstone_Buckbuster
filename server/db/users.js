@@ -1,8 +1,8 @@
-const { client } = require("./index");
+const { client } = require("./client");
 const bcrypt = require("bcrypt");
 
 //users databse functions
-
+ 
 const SALT_COUNT = 10;
 
 async function createUser({ name, email, username, password, admin }) {
