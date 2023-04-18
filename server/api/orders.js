@@ -1,5 +1,6 @@
 const express = require('express');
 const ordersRouter = express.Router();
+const { requiredUser } = require("./utils");
 
 /*-------api/orders/health-------*/
 ordersRouter.get('/health', async (req, res,) => {

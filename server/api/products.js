@@ -1,6 +1,6 @@
 const express = require('express');
-const ordersRouter = require('./orders');
 const productsRouter = express.Router();
+const { requiredUser } = require("./utils");
 const { getAllProducts } = require("../db")
 
 /*-------api/products/health-------*/

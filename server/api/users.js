@@ -1,6 +1,8 @@
 const express = require('express');
-const ordersRouter = require('./orders');
 const usersRouter = express.Router();
+const bcrypt = require("bcrypt");
+const { requiredUser } = require("./utils");
+
 
 /*-------api/users/health-------*/
 usersRouter.get('/health', async (req, res,) => {

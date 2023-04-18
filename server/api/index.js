@@ -30,6 +30,7 @@ router.use((req, res,) => {
     res.status(404).send(
         { 
         message: "Please enter a valid endpoint",
+        examples: "api/products or api/products/health"
         },
     );
   });
