@@ -1,5 +1,4 @@
-const { client } = require('./client');
-
+const { client } = require("./client");
 
 async function addNewReview({
   user_id,
@@ -46,15 +45,15 @@ async function getReviewsByProductId(product_id) {
   }
 }
 
-// need to join users table to grab username to display for the frontend
+// added new statement to grab username for the reviews
 async function getReviewsByUserId(user_id) {
   try {
     const { rows: reviews } = await client.query(
       `
-        SELECT *
-        FROM reviews
-        WHERE user_id = $1;
-        `,
+      SELECT reviews.*, users.username
+      FROM reviews
+      JOIN users ON reviews.user_id = users.user_id
+      WHERE reviews.user_id = $1;`,
       [user_id]
     );
 
