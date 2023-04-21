@@ -7,6 +7,7 @@ const {
   createUser,
   getAllUsers,
   getUser,
+  getUserById,
 } = require("../db");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = process.env;
@@ -137,7 +138,25 @@ usersRouter.post("/login", async (req, res, next) => {
 });
 
 //GET api/users/me
+usersRouter.get("/me", async (req, res, next) => {
+  const { user_id: user_id } = req.body;
 
+  try {
+    const user = await getUserById(user_id);
+    if (!user) {
+      res.send({
+        name: "UserNotFoundError",
+        message: "User not found",
+      });
+    }
+    res.send({
+      id: user.user_id,
+      username: user.username,
+    });
+  } catch ({ name, message }) {
+    next({ name, message });
+  }
+});
 //POST api/users/admin
 // admin view page to conduct certain functionality
 

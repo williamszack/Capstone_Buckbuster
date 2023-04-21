@@ -88,7 +88,7 @@ async function getUserById(user_id) {
         FROM users
         WHERE user_id = $1;
         `,
-      [user]
+      [user_id]
     );
     if (!user) {
       console.log(`${user_id} does not exist`);
