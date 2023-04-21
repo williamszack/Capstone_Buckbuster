@@ -2,10 +2,10 @@
 
 import React from 'react'
 
-const Login = () => {
+const Cart = () => {
   return (
-    <div>Login</div>
+    <div>Cart</div>
   )
 }
 
-export default Login
+export default Cart
