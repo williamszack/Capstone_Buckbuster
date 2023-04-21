@@ -19,8 +19,8 @@ usersRouter.get("/health", async (req, res) => {
   });
 });
 
-//GET api/users/
-usersRouter.get("/", async (req, res, next) => {
+//GET api/users/admin
+usersRouter.get("/admin", async (req, res, next) => {
   try {
     const users = await getAllUsers();
 
@@ -157,7 +157,5 @@ usersRouter.get("/me", async (req, res, next) => {
     next({ name, message });
   }
 });
-//POST api/users/admin
-// admin view page to conduct certain functionality
 
 module.exports = usersRouter;
