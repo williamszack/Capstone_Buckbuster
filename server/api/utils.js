@@ -4,28 +4,27 @@ const { getUserById } = require("../db");
 
 //*Middleware helper function for required log-in
 const requiredUser = async (req, res, next) => {
-	//*Sets variable of header upon request
-	const authHeader = req.headers.authorization;
-	console.log("auth header", authHeader);
-	//*Sends error response if request not sent with header
-	if (!authHeader) {
+	//*client request with token value in header set as new const variable 'token'
+	const token = req.headers['access-token'];
+	console.log("TOKEN VALUE", token);
+	//*Sends error response if request sent without token
+	if (!token) {
 		res.status(401).send({
 			error: "UnauthorizationError",
 			name: "401 - Unauthorized",
 			message: "You must be logged in to perform this action",
 		});
 	} else {
-		//*Extract token by splitting header object and taking 2nd array as token value
-		const token = authHeader.split(" ")[1];
+		//*if request sent with token, proceed...
 		try {
-			//*Verify token using 'JWT_SECRET'
+			//*Verify token with 'JWT_SECRET'
 			const decoded = jwt.verify(token, JWT_SECRET);
 
-			//*Assign value of id from decoded token
-			const userId = decoded.id;
-			//*New const set and using 'userId' as param for fetching data 'getUserById'
-			//*Check if 'user is in DB, and if not, if statement to handle error
-			const user = await getUserById(userId);
+			//*Assign 'user_id' from decoded token as new const variable 'id'
+			const id = decoded.user_id;
+			//*New const variable 'id' used as param in 'getUserById' function to fetch user data
+			const user = await getUserById(id);
+			//*Check if 'user' is in DB, else sends error
 			if (!user) {
 				res.send({
 					error: "UnauthorizedError",
@@ -34,12 +33,12 @@ const requiredUser = async (req, res, next) => {
 				});
 			}
 
-			//*Re-assigns 'user' value as 'req.user' for client request to be identified as logged in user
+			//*Re-assigns 'user' variable as 'req.user' for client request to be identified as logged in user
 			req.user = user;
-			console.log("REQ", req.user);
+			console.log("REQ.USER", req.user);
 			next();
-		} catch ({ name, message }) {
-			next({ name, message });
+		} catch (error) {
+			next(error);
 		}
 	}
 };
