@@ -51,10 +51,9 @@ async function createTables() {
             billing_address VARCHAR(255),
             FOREIGN KEY (user_id) REFERENCES users(user_id),
             FOREIGN KEY (product_id) REFERENCES products(product_id)
-        );
+        );  
         CREATE TABLE cart (
-            cart_id SERIAL PRIMARY KEY,
-            user_id INT,
+            user_id INT, 
             product_id INT,
             quantity INT,
             price DECIMAL(10,2),
@@ -118,9 +117,10 @@ async function seedTables() {
 		// async function createInitialCart() {
 		console.log("Starting to create carts...");
 		await client.query(`
-        INSERT INTO cart (user_id, product_id, quantity, price)
-        VALUES (1, 2, 1, 12.99),
-               (2, 1, 2, 19.98)
+        INSERT INTO cart (user_id, product_id)
+        VALUES (1, 2),
+               (1, 1),
+               (2, 1)
       `);
 		console.log("Finished creating carts...");
 		// }

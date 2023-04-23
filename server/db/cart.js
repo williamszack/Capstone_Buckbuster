@@ -2,29 +2,35 @@ const { client } = require("./client");
 
 async function addToCart({
     user_id,
-    product_id,
-    quantity,
-    price
+    product_id
 }) {
     try {
-        const { rows: [cartItem] } = await client.query(`
-        INSERT INTO cart
-        (user_id, product_id, quantity, price)
-        VALUES
-        ($1, $2, $3, $4)
-        RETURNING *;
-        `, [user_id, product_id, quantity, price])
+        const { rows: [existingCartItem] } = await client.query(`
+        SELECT *
+        FROM cart
+        WHERE user_id = $1 AND product_id = $2
+        `, [user_id, product_id])
 
-        return cartItem
+        if (existingCartItem) {
+            return { error: "Item already exists in cart" }
+        } else {
+            await client.query(`
+            INSERT INTO cart (user_id, product_id)
+            VALUES ($1, $2)
+            RETURNING *;
+            `, [user_id, product_id])
+            
+            return {message: "item successfully added to cart"}
+        }
     } catch (error) {
         console.log('error with adding to cart', error)
     }
-}
-
+} 
+ 
 async function getCartItemsByUserId(user_id) {
     try {
         const { rows: cartItems } = await client.query(`
-        SELECT cart.quantity, products.name, products.price
+        SELECT products.name, products.price, products.product_id
         FROM cart
         JOIN products ON cart.product_id = products.product_id
         WHERE cart.user_id = $1;
@@ -36,38 +42,13 @@ async function getCartItemsByUserId(user_id) {
     }
 }
 
-async function updateCartItem({cart_id, ...fields}) {
-    const setString = Object.keys(fields).map(
-        (key, index) => `"${ key }"=$${ index + 1 }`
-      ).join(', ');
-    
-      if (setString.length === 0) {
-        console.log('ERROR setString was 0 get gud')
-        return;
-      }
-    
-        try {
-          const { rows: [ cartItem ] } = await client.query(`
-            UPDATE cart
-            SET ${ setString }
-            WHERE cart_id=${ cart_id }
-            RETURNING *;
-          `, Object.values(fields)
-          );
-          
-          return cartItem;
-        } catch (error) {
-          console.error('error with updating a cart item', error);
-        }
-}
-
-async function deleteCartItem(cart_id) {
+async function deleteCartItem(user_id, product_id) {
     try {
         const {rows: [cartItem] } = await client.query(`
         DELETE FROM cart
-        WHERE cart_id = $1
+        WHERE product_id = $2 AND user_id = $1
         RETURNING *;
-        `, [cart_id])
+        `, [user_id, product_id])
 
         return cartItem
     } catch (error) {
@@ -78,6 +59,5 @@ async function deleteCartItem(cart_id) {
 module.exports = {
 	addToCart,
     getCartItemsByUserId,
-    updateCartItem,
     deleteCartItem
 };
