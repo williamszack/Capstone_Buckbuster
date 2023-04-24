@@ -39,7 +39,8 @@ async function createTables() {
             price DECIMAL(10,2),
             genre VARCHAR(255),
             quantity INT,
-            image_url VARCHAR(255)
+            image_url VARCHAR(255),
+            active BOOLEAN DEFAULT true
         );
         CREATE TABLE orders (
             order_id SERIAL PRIMARY KEY,
@@ -95,10 +96,10 @@ async function seedTables() {
 		// async function createInitialMovies() {
 		console.log("Starting to create products...");
 		await client.query(`
-        INSERT INTO products (name, description, price, genre, quantity, image_url)
-        VALUES ('The Shawshank Redemption', 'Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.', 9.99, 'Drama', 100, 'https://www.example.com/shawshank.jpg'),
-               ('The Godfather', 'The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.', 12.99, 'Crime', 50, 'https://www.example.com/godfather.jpg'),
-               ('The Dark Knight', 'When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.', 14.99, 'Action', 75, 'https://www.example.com/darkknight.jpg')
+        INSERT INTO products (name, description, price, genre, quantity, image_url, active)
+        VALUES ('The Shawshank Redemption', 'Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.', 9.99, 'Drama', 100, 'https://www.example.com/shawshank.jpg', true),
+               ('The Godfather', 'The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.', 12.99, 'Crime', 50, 'https://www.example.com/godfather.jpg', true),
+               ('The Dark Knight', 'When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.', 14.99, 'Action', 75, 'https://www.example.com/darkknight.jpg', true)
       `);
 		console.log("Finished creating products...");
 		// }
