@@ -2,13 +2,14 @@ const { client } = require("./client");
 const bcrypt = require("bcrypt");
 
 //users databse functions
- 
+
 const SALT_COUNT = 10;
 
 async function createUser({ name, email, username, password, admin }) {
   //do not show/offer admin select on FE register screen, autmatically set to default
   const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
   const create = { name, email, username, hashedPassword, admin };
+
   try {
     const {
       rows: [user],
@@ -40,20 +41,17 @@ async function getUserByUsername(userName) {
       rows: [user],
     } = await client.query(
       `
-        SELECT *
-        FROM users
-        WHERE username = $1;
-        `,
+    SELECT *
+    FROM users
+    WHERE username = $1;
+    `,
       [userName]
     );
-    if (!user) {
-      console.log(`${userName} does not exist`);
-      return null;
-    } else {
-      return user;
-    }
+
+    return user;
   } catch (error) {
-    console.log("Error finding user:", error);
+    console.error("Error finding user by username:", error);
+    throw error;
   }
 }
 
@@ -90,7 +88,7 @@ async function getUserById(user_id) {
         FROM users
         WHERE user_id = $1;
         `,
-      [user]
+      [user_id]
     );
     if (!user) {
       console.log(`${user_id} does not exist`);
@@ -104,10 +102,21 @@ async function getUserById(user_id) {
     console.log("Error finding id:", error);
   }
 }
+async function getAllUsers() {
+  try {
+    const result = await client.query("SELECT * FROM users");
+    const users = result.rows;
+    console.log(users);
+    return users;
+  } catch (error) {
+    console.log("Error finding users:", error);
+  }
+}
 
 module.exports = {
   createUser,
   getUser,
   getUserByUsername,
   getUserById,
+  getAllUsers,
 };

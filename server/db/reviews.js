@@ -32,13 +32,13 @@ async function getReviewsByProductId(product_id) {
   try {
     const { rows: reviews } = await client.query(
       `
-        SELECT *
-        FROM reviews
-        WHERE product_id = $1;
+      SELECT users.username, reviews.*
+      FROM reviews
+      JOIN users ON reviews.user_id = users.user_id
+      WHERE product_id = $1;
         `,
       [product_id]
     );
-
     return reviews;
   } catch (error) {
     console.log("error with getting reviews by productId", error);

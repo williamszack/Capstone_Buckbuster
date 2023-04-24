@@ -18,7 +18,7 @@ usersRouter.get("/health", async (req, res) => {
     message: "users endpoint is working",
   });
 });
-   
+
 //GET api/users/admin
 usersRouter.get("/admin", async (req, res, next) => {
   try {
@@ -52,7 +52,13 @@ usersRouter.post("/register", async (req, res, next) => {
         name: "Short Password",
       });
     } else {
-      const user = await createUser({ username, password, name, email });
+      const user = await createUser({
+        username,
+        password,
+        name,
+        email,
+        admin: false,
+      });
       console.log("user", user);
       if (user) {
         const jwtToken = jwt.sign(user, JWT_SECRET);
@@ -63,7 +69,7 @@ usersRouter.post("/register", async (req, res, next) => {
             id: user.user_id,
             username: user.username,
           },
-        }; 
+        };
         console.log("response", response);
         res.send(response);
       }
@@ -88,20 +94,20 @@ usersRouter.post("/login", async (req, res, next) => {
         name: "UnauthorizedError",
       });
     }
- 
+
     const user = await getUserByUsername(username);
- 
+
     if (!user) {
       // const error = new Error("User not found");
       // error.status = 401;
       // throw error;
       res.status(400).send({
         error: "UnauthorizedError",
-        message: "Please input a username",
+        message: "Invalid username",
         name: "UnauthorizedError",
       });
     }
- 
+
     const hashedPassword = user.password;
     const passwordsMatch = await bcrypt.compare(password, hashedPassword);
 
@@ -111,22 +117,22 @@ usersRouter.post("/login", async (req, res, next) => {
       // throw error;
       res.status(401).send({
         error: "UnauthorizedError",
-        message: "Please input a password",
+        message: "Invalid password",
         name: "UnauthorizedError",
       });
     }
-   
+
     const token = jwt.sign(
       {
-        id: user.id,
+        id: user.user_id,
         username,
       },
       JWT_SECRET
     );
-  
+
     res.send({
       user: {
-        id: user.id,
+        id: user.user_id,
         username: username,
       },
       token: token,
@@ -136,7 +142,7 @@ usersRouter.post("/login", async (req, res, next) => {
     next(error);
   }
 });
- 
+
 //GET api/users/me
 usersRouter.get("/me", async (req, res, next) => {
   const { user_id: user_id } = req.body;
