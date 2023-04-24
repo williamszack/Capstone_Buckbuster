@@ -1,5 +1,5 @@
 const { client } = require("./client");
-
+const { getCartItemsByUserId } = require("./cart")
 // orders database functions
 
 async function getAllOrders() {
@@ -20,7 +20,7 @@ async function getAllOrders() {
 async function getOrdersByUserId(user_id) {
 	try {
 		const {
-			rows: [order],
+			rows: order,
 		} = await client.query(
 			`
         SELECT *
@@ -99,26 +99,54 @@ async function cancelOrder(order_id) {
 	}
 }
 
-async function createOrder(user_id, product_id, quantity, shipping_address, billing_address) {
-	try {
-		const {
-			rows: [order],
-		} = await client.query(
-			`
-        INSERT INTO orders (user_id, product_id, quantity, shipping_address, billing_address)
-        SELECT $1, $2, $3, $4, $5
-        FROM cart
-        WHERE user_id = $1
-        RETURNING *;
-            `,
-			[user_id, product_id, quantity, shipping_address, billing_address]
-		);
+// async function createOrder(user_id, product_id, quantity, shipping_address, billing_address) {
+// 	try {
+// 		const {
+// 			rows: [order],
+// 		} = await client.query(
+// 			`
+//         INSERT INTO orders (user_id, product_id, quantity, shipping_address, billing_address)
+//         SELECT $1, $2, $3, $4, $5
+//         FROM cart
+//         WHERE user_id = $1
+//         RETURNING *;
+//             `,
+// 			[user_id, product_id, quantity, shipping_address, billing_address]
+// 		);
 
-		return order;
+// 		return order;
+// 	} catch (error) {
+// 		console.error("Error creating order:", error);
+// 	}
+// }
+
+async function createOrder(user_id) {
+	try {
+	  const {rows: cartItems} = await client.query(`
+		SELECT products.product_id, products.name
+		FROM cart
+		JOIN products ON cart.product_id = products.product_id
+		WHERE cart.user_id = $1;
+	  `, [user_id]);
+  
+	  const orderValues = cartItems.map((item) => `(${user_id}, '${item.name}', ${item.product_id})`).join(',');
+		console.log('RIGHT HERE', orderValues)
+	  const {rows: order} = await client.query(`
+		INSERT INTO orders (user_id, name, product_id)
+		VALUES ${orderValues}
+		RETURNING *;
+	  `);
+   
+	  await client.query(`
+		DELETE FROM cart
+		WHERE user_id = $1;
+	  `, [user_id]);
+  
+	  return order;
 	} catch (error) {
-		console.error("Error creating order:", error);
+	  console.error("Error creating order:", error);
 	}
-}
+  }
 
 module.exports = {
 	getAllOrders,

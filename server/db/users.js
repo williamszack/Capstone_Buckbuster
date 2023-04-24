@@ -38,7 +38,7 @@ async function getUserByUsername(userName) {
   try {
     const {
       rows: [user],
-    } = client.query(
+    } = await client.query(
       `
         SELECT *
         FROM users
