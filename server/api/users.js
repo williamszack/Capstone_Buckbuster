@@ -52,7 +52,13 @@ usersRouter.post("/register", async (req, res, next) => {
         name: "Short Password",
       });
     } else {
-      const user = await createUser({ username, password, name, email });
+      const user = await createUser({
+        username,
+        password,
+        name,
+        email,
+        admin: false,
+      });
       console.log("user", user);
       if (user) {
         const jwtToken = jwt.sign(user, JWT_SECRET);
@@ -97,7 +103,7 @@ usersRouter.post("/login", async (req, res, next) => {
       // throw error;
       res.status(400).send({
         error: "UnauthorizedError",
-        message: "Please input a username",
+        message: "Invalid username",
         name: "UnauthorizedError",
       });
     }
@@ -111,14 +117,14 @@ usersRouter.post("/login", async (req, res, next) => {
       // throw error;
       res.status(401).send({
         error: "UnauthorizedError",
-        message: "Please input a password",
+        message: "Invalid password",
         name: "UnauthorizedError",
       });
     }
 
     const token = jwt.sign(
       {
-        id: user.id,
+        id: user.user_id,
         username,
       },
       JWT_SECRET
@@ -126,7 +132,7 @@ usersRouter.post("/login", async (req, res, next) => {
 
     res.send({
       user: {
-        id: user.id,
+        id: user.user_id,
         username: username,
       },
       token: token,
