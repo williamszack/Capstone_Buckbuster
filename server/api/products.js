@@ -88,19 +88,16 @@ productsRouter.post("/", requiredUser, async (req, res, next) => {
 			error: "403 - UnauthorizedError",
 			message: "Action requires administrator credentials to add products",
 		});
-	} else if (
-		movie.name === name &&
-		movie.description === description &&
-		movie.price === price &&
-		movie.genre === genre &&
-		movie.quantity === quantity &&
-		movie.image_url === image_url
-	) {
-		res.status(400).send({
-			error: "400 - DuplicateError",
-			message: "Duplicate product already exist",
-		});
-	}
+		console.log("Action requires administrator credentials to add products");
+		return;
+	} else if (movie) {
+			res.send({
+				error: "400 - DuplicateError",
+				message: "Duplicate product already exist",
+			});
+			console.log("Duplicate product already exist");
+			return;
+		}
 	try {
 		const addProduct = await addNewProduct({
 			name,
@@ -110,9 +107,9 @@ productsRouter.post("/", requiredUser, async (req, res, next) => {
 			quantity,
 			image_url,
 		});
-
+		
 		console.log("POST/addnewproduct", addProduct);
-		res.send(addProduct);
+		res.send({message: "Product added to library", addProduct});
 	} catch (error) {
 		next(error);
 	}
@@ -124,6 +121,7 @@ productsRouter.patch("/:product_id", requiredUser, async (req, res, next) => {
 	const isAdmin = req.user && req.user.admin;
 	const { product_id } = req.params;
 	const { name, description, price, genre, quantity, image_url } = req.body;
+	const updatedAttr = {};
 
 	const movie = await getProductById(product_id);
 	if (!isAdmin) {
@@ -131,41 +129,42 @@ productsRouter.patch("/:product_id", requiredUser, async (req, res, next) => {
 			error: "403 - UnauthorizedError",
 			message: "Action requires administrator credentials to update product attributes",
 		});
+		console.log("Action requires administrator credentials to update product attributes")
+		return;
 	} else if (!movie) {
 		res.status(404).send({
 			error: "404 - ProductDoesNotExist",
 			message: `Product ID: ${product_id} does not exist`,
 		});
-	} else if (
-		movie.name === name &&
-		movie.description === description &&
-		movie.price === price &&
-		movie.genre === genre &&
-		movie.quantity === quantity &&
-		movie.image_url === image_url
-	) {
-		res.status(400).send({
-			error: "400 - DuplicateError",
-			message: "Duplicate product attributes already exist",
-		});
+		console.log(`Product ID: ${product_id} does not exist`);
+		return;
 	} else if (Object.keys(req.body).length === 0) {
 		res.status(400).send({
 			error: "400 - UpdatesdRequiredError",
 			message: "Field(s) must be updated to process change",
 		});
+		console.log("Field(s) must be updated to process change");
+		return;
+	} else {
+		    // Update the `updatedAttr` object with the updated fields
+			if (name) updatedAttr.name = name.split(" ").map(title => {return title.charAt(0).toUpperCase() + title.slice(1)}).join(" ");
+				else if(name === "") {res.send({message: "name field null, cannot process update"})}
+			if (description) updatedAttr.description = description.toUpperCase().charAt(0) + description.slice(1);
+				else if(description === "") {res.send({message: "description field null, cannot process update"})}
+			if (price) updatedAttr.price = price;
+				else if(price === "") {res.send({message: "price field null, cannot process update"})}
+			if (genre) updatedAttr.genre = genre.toUpperCase().charAt(0) + genre.slice(1);
+				else if(genre === "") {res.send({message: "genre field null, cannot process update"})}
+			if (quantity) updatedAttr.quantity = quantity;
+				else if(quantity === "") {res.send({message: "quantity field null, cannot process update"})}
+			if (image_url) updatedAttr.image_url = image_url;
+				else if(image_url === "") {res.send({message: "image_url field null, cannot process update"})}
 	}
 	try {
-		const updateMovie = await updateProduct({
-			name,
-			description,
-			price,
-			genre,
-			quantity,
-			image_url,
-		});
+		await updateProduct({product_id, ...updatedAttr });
 
-		console.log("UPDATE/:product_id", updateMovie);
-		res.send(updateMovie);
+		console.log("UPDATE/:product_id");
+		res.send({message: `'${movie.name}' with product ID ${product_id} attributes updated to`, updatedAttr});
 	} catch (error) {
 		next(error);
 	}
