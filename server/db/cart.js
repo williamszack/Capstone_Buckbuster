@@ -14,13 +14,13 @@ async function addToCart({
         if (existingCartItem) {
             return { error: "Item already exists in cart" }
         } else {
-            await client.query(`
+           const {rows: [newItem]} = await client.query(`
             INSERT INTO cart (user_id, product_id)
             VALUES ($1, $2)
             RETURNING *;
             `, [user_id, product_id])
             
-            return {message: "item successfully added to cart"}
+            return newItem
         }
     } catch (error) {
         console.log('error with adding to cart', error)
