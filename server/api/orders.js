@@ -11,8 +11,7 @@ ordersRouter.get('/health', async (req, res,) => {
 });
 
 
-//GET /api/orders
-//admin
+//GET /api/orders  admin
 
 ordersRouter.get('/', async (req, res) => {
   try {
@@ -24,7 +23,6 @@ ordersRouter.get('/', async (req, res) => {
 })
 
 //GET /api/orders/:userid
-
 ordersRouter.get('/:userId', async (req, res) => {
   const { userId } = req.params;
   try {
@@ -40,7 +38,6 @@ ordersRouter.get('/:userId', async (req, res) => {
 })
 
 //POST /api/orders/:userid
-
 ordersRouter.post('/:user_id', async (req, res, next) => {
   const { user_id } = req.params;
   try {
@@ -54,5 +51,5 @@ ordersRouter.post('/:user_id', async (req, res, next) => {
   }
 })
 
-
 module.exports = ordersRouter
+

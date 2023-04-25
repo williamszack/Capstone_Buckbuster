@@ -39,7 +39,8 @@ async function createTables() {
             price DECIMAL(10,2),
             genre VARCHAR(255),
             quantity INT,
-            image_url VARCHAR(255)
+            image_url VARCHAR(255),
+            active BOOLEAN DEFAULT true
         );
         CREATE TABLE orders (
             order_id SERIAL PRIMARY KEY,
@@ -47,14 +48,11 @@ async function createTables() {
             product_id INT,
             quantity INT,
             order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            shipping_address VARCHAR(255),
-            billing_address VARCHAR(255),
             FOREIGN KEY (user_id) REFERENCES users(user_id),
             FOREIGN KEY (product_id) REFERENCES products(product_id)
         );
         CREATE TABLE cart (
-            cart_id SERIAL PRIMARY KEY,
-            user_id INT,
+            user_id INT, 
             product_id INT,
             quantity INT,
             price DECIMAL(10,2),
@@ -95,10 +93,10 @@ async function seedTables() {
 		// async function createInitialMovies() {
 		console.log("Starting to create products...");
 		await client.query(`
-        INSERT INTO products (name, description, price, genre, quantity, image_url)
-        VALUES ('The Shawshank Redemption', 'Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.', 9.99, 'Drama', 100, 'https://www.example.com/shawshank.jpg'),
-               ('The Godfather', 'The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.', 12.99, 'Crime', 50, 'https://www.example.com/godfather.jpg'),
-               ('The Dark Knight', 'When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.', 14.99, 'Action', 75, 'https://www.example.com/darkknight.jpg')
+        INSERT INTO products (name, description, price, genre, quantity, image_url, active)
+        VALUES ('The Shawshank Redemption', 'Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.', 9.99, 'Drama', 100, 'https://www.example.com/shawshank.jpg', true),
+               ('The Godfather', 'The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.', 12.99, 'Crime', 50, 'https://www.example.com/godfather.jpg', true),
+               ('The Dark Knight', 'When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.', 14.99, 'Action', 75, 'https://www.example.com/darkknight.jpg', true)
       `);
 		console.log("Finished creating products...");
 		// }
@@ -107,9 +105,9 @@ async function seedTables() {
 		// async function createInitialOrders() {
 		console.log("Starting to create orders...");
 		await client.query(`
-        INSERT INTO orders (user_id, product_id, quantity, shipping_address, billing_address)
-        VALUES (1, 1, 2, '123 Main St', '456 Elm St'),
-               (2, 3, 1, '789 Maple Ave', '1011 Oak St')
+        INSERT INTO orders (user_id, product_id, quantity)
+        VALUES (1, 1, 2),
+               (2, 3, 1)
       `);
 		console.log("Finished creating orders...");
 		// }
@@ -118,9 +116,10 @@ async function seedTables() {
 		// async function createInitialCart() {
 		console.log("Starting to create carts...");
 		await client.query(`
-        INSERT INTO cart (user_id, product_id, quantity, price)
-        VALUES (1, 2, 1, 12.99),
-               (2, 1, 2, 19.98)
+        INSERT INTO cart (user_id, product_id)
+        VALUES (1, 2),
+               (1, 1),
+               (2, 1)
       `);
 		console.log("Finished creating carts...");
 		// }
