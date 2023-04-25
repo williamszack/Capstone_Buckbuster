@@ -144,24 +144,29 @@ usersRouter.post("/login", async (req, res, next) => {
 });
 
 //GET api/users/me
-usersRouter.get("/me", async (req, res, next) => {
-  const { user_id: user_id } = req.body;
+usersRouter.get("/me", requiredUser, async (req, res, next) => {
+	const { user_id: id } = req.user;
 
-  try {
-    const user = await getUserById(user_id);
-    if (!user) {
-      res.send({
-        name: "UserNotFoundError",
-        message: "User not found",
-      });
-    }
-    res.send({
-      id: user.user_id,
-      username: user.username,
-    });
-  } catch ({ name, message }) {
-    next({ name, message });
-  }
+	try {
+		const user = await getUserById(id);
+		if (!user) {
+			res.status(404).send({
+				error: "404 - IDNotFound",
+				message: `User ID: ${user} does not exist`,
+			});
+			console.log(`User ID: ${user} does not exist`);
+			return;
+		}
+
+		res.send({
+			id: user.user_id,
+			username: user.username,
+			message: "Viewing your profile",
+		});
+		console.log(`Viewing profile ID: ${id}`);
+	} catch (error) {
+		next(error);
+	}
 });
 
 module.exports = usersRouter;
