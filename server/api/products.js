@@ -242,7 +242,7 @@ productsRouter.patch("/deactivate/:product_id", requiredUser, async (req, res, n
 		return;
 	} else if (!movie.active) {
 		res.send({
-			message: `Product ID ${product_id}, ${movie.name} already set to inactive`
+			message: `Product ID ${product_id}, ${movie.name} already inactive`
 		})
 		return;
 	}
