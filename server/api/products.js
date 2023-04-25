@@ -88,6 +88,7 @@ productsRouter.get("/:product_id/reviews", async (req, res, next) => {
 productsRouter.post("/", requiredUser, async (req, res, next) => {
 	const isAdmin = req.user && req.user.admin;
 	const { name, description, price, genre, quantity, image_url, active } = req.body;
+	const format = {};
 
 	const movie = await getProductByname(name);
 	if (!isAdmin) {
@@ -106,15 +107,20 @@ productsRouter.post("/", requiredUser, async (req, res, next) => {
 		return;
 	}
 	try {
-		const addProduct = await addNewProduct({
-			name,
-			description,
-			price,
-			genre,
-			quantity,
-			image_url,
-			active,
-		});
+		//formatting
+		format.name = name
+			.split(" ")
+			.map((title) => {
+				return title.charAt(0).toUpperCase() + title.slice(1);
+			})
+			.join(" ");
+		format.description = description.toUpperCase().charAt(0) + description.slice(1);
+		format.price = price;
+		format.genre = genre.toUpperCase().charAt(0) + genre.slice(1);
+		format.quantity = quantity;
+		format.image_url = image_url;
+
+		const addProduct = await addNewProduct({ ...format, active });
 
 		console.log("POST/addnewproduct", addProduct);
 		res.send({ message: "Product added to library", addProduct });
