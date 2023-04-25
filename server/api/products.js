@@ -240,6 +240,11 @@ productsRouter.patch("/deactivate/:product_id", requiredUser, async (req, res, n
 		});
 		console.log(`Product ID: ${product_id} does not exist`);
 		return;
+	} else if (!movie.active) {
+		res.send({
+			message: `Product ID ${product_id}, ${movie.name} already set to inactive`
+		})
+		return;
 	}
 	try {
 		const deactivate = await deactivateProduct(product_id);
@@ -269,6 +274,11 @@ productsRouter.patch("/reactivate/:product_id", requiredUser, async (req, res, n
 			message: `Product ID: ${product_id} does not exist`,
 		});
 		console.log(`Product ID: ${product_id} does not exist`);
+		return;
+	} else if (movie.active) {
+		res.send({
+			message: `Product ID ${product_id}, ${movie.name} already set to active`
+		})
 		return;
 	}
 	try {
