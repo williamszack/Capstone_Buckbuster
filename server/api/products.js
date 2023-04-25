@@ -277,7 +277,7 @@ productsRouter.patch("/reactivate/:product_id", requiredUser, async (req, res, n
 		return;
 	} else if (movie.active) {
 		res.send({
-			message: `Product ID ${product_id}, ${movie.name} already set to active`
+			message: `Product ID ${product_id}, ${movie.name} already active`
 		})
 		return;
 	}
