@@ -1,3 +1,5 @@
+import React from 'react'
+import '../css/AdminPage.css'
 //child of App.js
 
 //adding new products
@@ -8,7 +10,7 @@
 
 //view all orders
 
-import React from 'react'
+
 
 const AdminPage = () => {
   return (

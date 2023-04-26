@@ -3,7 +3,7 @@
 
 
 import React from 'react'
-
+import '../css/SingleProductView.css'
 const SingleProductView = () => {
   return (
     <div>SingleProductView</div>
