@@ -18,7 +18,7 @@ ordersRouter.get('/', async (req, res) => {
     const allOrders = await getAllOrders();
     res.send(allOrders);
   } catch (error) {
-    console.error(error);
+    next (error);
   }
 })
 
@@ -28,12 +28,11 @@ ordersRouter.get('/:userId', async (req, res) => {
   try {
     const ordersByUserId = await getOrdersByUserId(userId);
     if (!ordersByUserId) {
-      return res.status(404).send({ message: 'Orders not found'});
+      return res.status(404).send({ message: 'No orders found for this user'});
     }
     res.send(ordersByUserId);
   } catch (error) {
-    console.error(error);
-    res.status(500).send({ message: 'Internal server error'});
+    next (error);
   }
 })
 
@@ -44,8 +43,10 @@ ordersRouter.post('/:user_id', async (req, res, next) => {
     const order = await createOrder(user_id);
     if (!order) {
       res.status(404).send({ message: 'No products in cart'})
+    } else {
+      res.send({ message: 'Order created successfully', order: order })
     }
-    res.send(order);
+    
   } catch (error) {
     next (error);
   }

@@ -109,7 +109,7 @@ async function createOrder(user_id) {
 	  `, [user_id]);
   
 	  const orderValues = cartItems.map((item) => `(${user_id}, '${item.name}', ${item.product_id})`).join(',');
-		console.log('RIGHT HERE', orderValues)
+		
 	  const {rows: order} = await client.query(`
 		INSERT INTO orders (user_id, name, product_id)
 		VALUES ${orderValues}
