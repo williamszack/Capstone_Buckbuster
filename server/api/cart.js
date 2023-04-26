@@ -51,12 +51,8 @@ cartRouter.post('/', async (req, res, next) => {
   try {
 
     const newCartItem = await addToCart({user_id, product_id})
-    if (!newCartItem) {
-      res.status(404).send({error: "no products by that Id exist" })
-      return
-    }
-    res.send(newCartItem)
 
+    res.send(newCartItem)
   }catch (error){
     next(error);
   }
