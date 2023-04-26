@@ -16,7 +16,7 @@ import {
 function App() {
   return (
     <div className="App">
-      <h1>yert</h1>
+      <AdminPage />
     </div>
   );
 }

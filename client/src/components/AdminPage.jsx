@@ -4,7 +4,9 @@ import '../css/AdminPage.css'
 
 //adding new products
 
-//removing products
+//deactivate products
+
+//reactivate products
 
 //viewing all users
 
