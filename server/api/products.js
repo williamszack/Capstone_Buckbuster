@@ -74,10 +74,10 @@ productsRouter.get("/:product_id/reviews", async (req, res, next) => {
 		return;
 	}
 	try {
-		const reviewByMovieId = await getReviewsByProductId(product_id);
+		const review = await getReviewsByProductId(product_id);
 
-		console.log("GET/:product_id/reviews", reviewByMovieId);
-		res.send(reviewByMovieId);
+		console.log("GET/:product_id/reviews", review);
+		res.send(review);
 	} catch (error) {
 		next(error);
 	}
@@ -106,7 +106,7 @@ productsRouter.post("/", requiredUser, async (req, res, next) => {
 		console.log("Duplicate product already exist");
 		return;
 	}
-	try {
+
 		//formatting
 		format.name = name
 			.split(" ")
@@ -119,7 +119,7 @@ productsRouter.post("/", requiredUser, async (req, res, next) => {
 		format.genre = genre.toUpperCase().charAt(0) + genre.slice(1);
 		format.quantity = quantity;
 		format.image_url = image_url;
-
+        try {
 		const addProduct = await addNewProduct({ ...format, active });
 
 		console.log("POST/addnewproduct", addProduct);
@@ -211,7 +211,7 @@ productsRouter.patch("/:product_id", requiredUser, async (req, res, next) => {
 
 		console.log("UPDATE/:product_id");
 		res.send({
-			message: `'${movie.name}' with product ID ${product_id} attributes updated to`,
+			message: `'${movie.name}' with product ID: ${product_id} attributes updated to`,
 			updatedAttr,
 		});
 	} catch (error) {
@@ -242,7 +242,7 @@ productsRouter.patch("/deactivate/:product_id", requiredUser, async (req, res, n
 		return;
 	} else if (!movie.active) {
 		res.send({
-			message: `Product ID ${product_id}, ${movie.name} already inactive`
+			message: `Product ID: ${product_id}, ${movie.name} already inactive`
 		})
 		return;
 	}
@@ -250,7 +250,7 @@ productsRouter.patch("/deactivate/:product_id", requiredUser, async (req, res, n
 		const deactivate = await deactivateProduct(product_id);
 
 		console.log(`DEACTIVATE/:product_id: deactivated Product ID ${product_id}`);
-		res.send({ message: `Product ID ${product_id} deactivated`, deactivate });
+		res.send({ message: `Product ID: ${product_id} deactivated`, deactivate });
 	} catch (error) {
 		next(error);
 	}
@@ -277,7 +277,7 @@ productsRouter.patch("/reactivate/:product_id", requiredUser, async (req, res, n
 		return;
 	} else if (movie.active) {
 		res.send({
-			message: `Product ID ${product_id}, ${movie.name} already active`
+			message: `Product ID: ${product_id}, ${movie.name} already active`
 		})
 		return;
 	}
@@ -285,7 +285,7 @@ productsRouter.patch("/reactivate/:product_id", requiredUser, async (req, res, n
 		const reactivate = await reactivateProduct(product_id);
 
 		console.log(`REACTIVATE/:product_id: reactivated Product ID ${product_id}`);
-		res.send({ message: `Product ID ${product_id} reactivated`, reactivate });
+		res.send({ message: `Product ID: ${product_id} reactivated`, reactivate });
 	} catch (error) {
 		next(error);
 	}
