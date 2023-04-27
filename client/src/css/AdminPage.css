@@ -9,13 +9,13 @@ h2 {
 
 
 /* users table */
-.user-table {
+.user-table, .orders-table {
     display: table;
     border-collapse: collapse;
     width: 100%;
   }
 
-  .user-table-header {
+  .user-table-header, .orders-table-header{
     display: table-row;
     font-weight: bold;
     background-color: lightgray;
@@ -24,7 +24,7 @@ h2 {
     border: 1px solid black;
   }
 
-  .user-table-header > p {
+  .user-table-header > p, .orders-table-header > p {
     display: table-cell;
     padding: 8px;
   }

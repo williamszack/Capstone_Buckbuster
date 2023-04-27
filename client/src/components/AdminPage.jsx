@@ -67,6 +67,21 @@ const AdminPage = () => {
       </ul>
       <br />
       <h2>Orders</h2>
+      <ul className="orders-table">
+      <div className="orders-table-header">
+        <p><strong>Order ID</strong></p>
+        <p><strong>Name</strong></p>
+        <p><strong>User ID</strong></p>
+        <p><strong>Product ID</strong></p>
+        <p><strong>Quantity</strong></p>
+        <p><strong>Order Date</strong></p>
+      </div>
+      {allOrders.map((order) => (
+        <li key={order._id} className="user-table-row">
+
+        </li>
+      ))}
+      </ul>
     </div>
   )
 }
