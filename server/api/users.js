@@ -24,11 +24,11 @@ usersRouter.get("/admin", async (req, res, next) => {
   try {
     const users = await getAllUsers();
 
-    res.send({
+    res.send(
       users,
-    });
-  } catch ({ name, message }) {
-    next({ name, message });
+    );
+  } catch (error) {
+    next(error);
   }
 });
 
@@ -74,8 +74,8 @@ usersRouter.post("/register", async (req, res, next) => {
         res.send(response);
       }
     }
-  } catch ({ name, message }) {
-    next({ name, message });
+  } catch (error) {
+    next(error);
   }
 });
 

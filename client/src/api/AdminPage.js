@@ -1,8 +1,27 @@
 const BASE_URL = "http://localhost:3001/api";
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJrZW50IiwiaWF0IjoxNjgyNTYzMTYzfQ.U9-ISxYwTuNl0jIzhrn4SkEojnpNWsw1yfqZdBJBloI"
 
-export const getSomething = async (params) => {
+export const getAllUsers = async () => {
 	try {
-		const response = await fetch(`${BASE_URL}/endpoint`, {
+		const response = await fetch(`${BASE_URL}/users/admin`, {
+			method: "GET",
+			// headers: {
+			// 	"Content-Type": "application/json",
+			// 	Authorization: `Bearer ${token}`,
+			// },
+		});
+		const result = await response.json();
+
+		console.log("getAllUsers ", result);
+		return result;
+	} catch (error) {
+		console.error(error);
+	}
+};
+
+export const getAllOrders = async () => {
+	try {
+		const response = await fetch(`${BASE_URL}/orders`, {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
@@ -11,23 +30,7 @@ export const getSomething = async (params) => {
 		});
 		const result = await response.json();
 
-		console.log("getSomething ", result);
-		return result;
-	} catch (error) {
-		console.error(error);
-	}
-};
-
-export const getAll = async () => {
-	try {
-		const response = await fetch(`${BASE_URL}/endpoint`, {
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
-		const result = await response.json();
-
-		console.log("getAll ", result);
+		console.log("getAllOrders ", result);
 		return result;
 	} catch (error) {
 		console.error(error);
