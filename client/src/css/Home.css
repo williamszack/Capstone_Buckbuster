@@ -1,0 +1,59 @@
+
+.allProducts--container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.product--container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(253, 249, 211);
+    margin: 2rem;
+    gap: 5px;
+    width: 20rem;
+    margin-left: 5rem;
+    box-shadow: 0 5px 5px 0 rgba(150, 150, 150, 0.2), 0 6px 30px 0 rgba(182, 182, 182, 0.2);
+}
+
+.product--image {
+    min-width: 15rem;
+    min-height: 15rem;
+    max-width: 15rem;
+    max-height: 15rem;
+}
+
+.movie--title{
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+.prices{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.was--price {
+    color: red;
+    text-decoration: line-through;
+}
+
+.now--price {
+    color: green;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.addToCart--button{
+    height: 3rem;
+    margin: 1rem;
+    width: 10rem;
+    cursor: pointer;
+}
+
+.addToCart--button:hover {
+    background-color: rgb(103, 239, 103);
+}
