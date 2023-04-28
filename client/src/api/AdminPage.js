@@ -40,7 +40,7 @@ export const getAllOrders = async () => {
 
 export const addProduct = async ({ name, description, price, genre, quantity, image, active }) => {
 	try {
-		const response = await fetch(`${BASE_URL}/routines`, {
+		const response = await fetch(`${BASE_URL}/products`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

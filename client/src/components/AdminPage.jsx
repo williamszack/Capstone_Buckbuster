@@ -5,17 +5,9 @@ import { getAllUsers, getAllOrders, addProduct } from '../api/AdminPage'
 
 //child of App.js
 
-//deactivate products
-
-//reactivate products
-
-
-
-
-
 const AdminPage = () => {
 
-  //viewing all users - done
+  //view all users - done
   const [allUsers, setAllUsers] = useState([]);
 
   useEffect(() => {
@@ -26,7 +18,7 @@ const AdminPage = () => {
     fetchAllUsers();
   }, [])
   
-  //view all orders
+  //view all orders - done
   const [allOrders, setAllOrders] = useState([]);
 
   useEffect(() => {
@@ -48,7 +40,7 @@ const AdminPage = () => {
     return accumulator;
   }, {});
 
-  //adding new products
+  //add product - done
   // { token, name, description, price, genre, quantity, image_url, active }
   const [newMovie, setNewMovie] = useState([]);
   const [name, setName] = useState("");
@@ -57,15 +49,33 @@ const AdminPage = () => {
   const [genre, setGenre] = useState("");
   const [quantity, setQuantity] = useState("");
   const [image, setImage] = useState("");
-  const [active, setActive] = useState("");
+  const [active, setActive] = useState(true);
 
   // useEffect(() => {
   //   const createProduct = async () => {
-  //     const result = await addProduct({ name, description, price, genre, quantity, image, active });
   //     setNewMovie(result);
   //   }
   //   createProduct()
-  // }, [])
+  // }, [name, description, price, genre, quantity, image, active])
+  
+  const handleAdd = async (event) => {
+    event.preventDefault();
+
+    const result = await addProduct({ name, description, price, genre, quantity, image, active });
+    const message = result.error ? `Error ${result.message}` : `Product added to library`
+
+    console.log(message);
+  }
+  
+  console.log("active value", active);
+
+  //update product
+
+  //deactivate product
+
+  //reactivate product
+
+
 
   return (
     <div>
@@ -104,10 +114,10 @@ const AdminPage = () => {
         {/* <p><strong>Order Date</strong></p> */}
       </div>
       {Object.keys(ordersByDate).map((date, index) => (
-    <Fragment key={date}>
-      <li className="date-row">
-        {/* <p><strong>Order Date: </strong>{date}</p> */}
-      </li>
+      <Fragment key={date}>
+        <li className="date-row">
+          {/* <p><strong>Order Date: </strong>{date}</p> */}
+        </li>
       {ordersByDate[date].map((order, orderIndex) => (
         <li key={order._id} className={`order-table-row ${index % 2 === 0 ? 'even' : 'odd'}`}>
           <p className={`date ${orderIndex === 0 ? 'bold-date' : 'rest-date'}`}>{date}</p>
@@ -119,9 +129,28 @@ const AdminPage = () => {
           {/* <p>{order.order_date}</p> */}
         </li>
       ))}
-    </Fragment>
-  ))}
-</ul>
+      </Fragment>
+      ))}
+      </ul>
+      <h2>Add</h2>
+      <div>
+        <form onSubmit={handleAdd} id="add-form">
+          <input type="text" required placeholder="name" onChange={(event) => setName(event.target.value)} />
+          <input type="text" required placeholder="description" onChange={(event) => setDescription(event.target.value)}  />
+          <input type="number" step="0.01" required placeholder="price" onChange={(event) => setPrice(parseFloat(event.target.value))} />
+          <input type="text" required placeholder="genre" onChange={(event) => setGenre(event.target.value)} />
+          <input type="number" required placeholder="quantity" onChange={(event) => setQuantity(event.target.value)} />
+          <input type="text" required placeholder="image_url" onChange={(event) => setImage(event.target.value)} />
+          <span>active</span>
+            <select value={active.toString()} onChange={(event) => setActive(event.target.value)}>
+              <option value={true}>Yes</option>
+              <option value={false}>No</option>
+            </select>
+          <button type="submit" formType="add-form" >Add To Library</button>
+        </form> 
+      </div>
+      <h2>Deactivate</h2>
+      <h2>Reactivate</h2>
     </div>
   )
 }
