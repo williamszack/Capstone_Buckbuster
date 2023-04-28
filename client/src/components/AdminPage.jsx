@@ -41,8 +41,6 @@ const AdminPage = () => {
   }, {});
 
   //add product - done
-  // { token, name, description, price, genre, quantity, image_url, active }
-  const [newMovie, setNewMovie] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -50,13 +48,6 @@ const AdminPage = () => {
   const [quantity, setQuantity] = useState("");
   const [image, setImage] = useState("");
   const [active, setActive] = useState(true);
-
-  // useEffect(() => {
-  //   const createProduct = async () => {
-  //     setNewMovie(result);
-  //   }
-  //   createProduct()
-  // }, [name, description, price, genre, quantity, image, active])
   
   const handleAdd = async (event) => {
     event.preventDefault();

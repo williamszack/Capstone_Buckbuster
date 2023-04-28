@@ -47,10 +47,15 @@ export const addProduct = async ({ name, description, price, genre, quantity, im
 				Authorization: `Bearer ${token}`,
 			},
 			body: JSON.stringify({
-				name: name,
-				description: description,
+				name: name
+					.split(" ")
+					.map((title) => {
+						return title.charAt(0).toUpperCase() + title.slice(1);
+					})
+					.join(" "),
+				description: description.toUpperCase().charAt(0) + description.slice(1),
 				price: price,
-				genre: genre,
+				genre: genre.toUpperCase().charAt(0) + genre.slice(1),
 				quantity: quantity,
 				image_url: image,
 				active: active,
