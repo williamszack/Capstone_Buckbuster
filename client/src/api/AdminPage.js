@@ -1,14 +1,15 @@
 const BASE_URL = "http://localhost:3001/api";
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJrZW50IiwiaWF0IjoxNjgyNTYzMTYzfQ.U9-ISxYwTuNl0jIzhrn4SkEojnpNWsw1yfqZdBJBloI"
+const token =
+	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJldmFuIiwiaWF0IjoxNjgyNjQ3NjI0fQ.S513ZtZ31muiBnN1yz7Vze5_eBDiryOINCH3IeWKcUM";
 
 export const getAllUsers = async () => {
 	try {
 		const response = await fetch(`${BASE_URL}/users/admin`, {
 			method: "GET",
-			// headers: {
-			// 	"Content-Type": "application/json",
-			// 	Authorization: `Bearer ${token}`,
-			// },
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
 		});
 		const result = await response.json();
 
@@ -37,8 +38,7 @@ export const getAllOrders = async () => {
 	}
 };
 
-export const something = async ({ token, routineName, goal, isPublic }) => {
-	// const capitalizedStr = str.charAt(0).toUpperCase() + str.slice(1);
+export const addProduct = async ({ name, description, price, genre, quantity, image, active }) => {
 	try {
 		const response = await fetch(`${BASE_URL}/routines`, {
 			method: "POST",
@@ -47,13 +47,17 @@ export const something = async ({ token, routineName, goal, isPublic }) => {
 				Authorization: `Bearer ${token}`,
 			},
 			body: JSON.stringify({
-				name: routineName.charAt(0).toUpperCase() + routineName.slice(1),
-				goal: goal.charAt(0).toUpperCase() + goal.slice(1),
-				isPublic: isPublic,
+				name: name,
+				description: description,
+				price: price,
+				genre: genre,
+				quantity: quantity,
+				image_url: image,
+				active: active,
 			}),
 		});
 		const result = await response.json();
-		console.log("something ", result);
+		console.log("addNewProduct ", result);
 		return result;
 	} catch (error) {
 		console.error(error);

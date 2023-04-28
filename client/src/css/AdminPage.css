@@ -7,6 +7,9 @@ h2 {
     text-align: center;
 }
 
+.break {
+    border: 1px dotted black;
+}
 
 /* users table */
 .user-table, .orders-table {
@@ -15,7 +18,7 @@ h2 {
     width: 100%;
   }
 
-  .user-table-header, .orders-table-header{
+.user-table-header, .orders-table-header{
     display: table-row;
     font-weight: bold;
     background-color: lightgray;
@@ -24,29 +27,50 @@ h2 {
     border: 1px solid black;
   }
 
-  .user-table-header > p, .orders-table-header > p {
+.user-table-header > p, .orders-table-header > p {
     display: table-cell;
     padding: 8px;
+    border: 1px solid black; /*header border*/
   }
 
-  .user-table-row {
+.user-table-row, .order-table-row {
     display: table-row;
     border-bottom: 1px solid #ddd;
     border: 1px solid black;
   }
 
-  .user-table-row > p {
+.user-table-row > p, .order-table-row > p {
     display: table-cell;
     padding: 8px;
+    border: 1px solid black; /*data border*/
   }
 
-  .admin-row {
+.admin-row {
     background-color: rgb(251, 213, 213);
   }
 
-  /* orders table */
+/* orders table */
+  
+.bold-date {
+    font-weight: bold;
+}
 
+.rest-date {
+    opacity: 0;
+}
 
+.even {
+    background-color: rgb(238, 235, 235);
+}
+    
+.odd {
+    background-color: white;
+}
+    
+/* .date-row {
+    background-color: #ddd;
+    font-weight: bold;
+} */
 
 
 
