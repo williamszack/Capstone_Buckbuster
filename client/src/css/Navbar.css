@@ -1,0 +1,35 @@
+.navbar {
+    background-color: lightblue;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo img {
+    width: 50px;
+    margin-right: 10px;
+  }
+  
+  .links a, .links button {
+    text-decoration: none;
+    color: black;
+    margin-right: 10px;
+  }
+  
+  .links button {
+    background-color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .links a:hover, .links button:hover {
+    color: white;
+    background-color: black;
+  }
