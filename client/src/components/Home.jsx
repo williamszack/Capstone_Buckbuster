@@ -33,7 +33,10 @@ useEffect(() => {
                 <div className='now--price'>Now only ${movie.price}!!</div>
               </div>
             <div>{movie.quantity} Left in stock</div>   
-            <button onClick={() => alert('Virus installing...')}className='addToCart--button'>Add to cart</button>    
+              <button 
+              onClick={() => alert('Virus installing...')}
+              className='addToCart--button'>Add to cart
+              </button>    
             </div> 
           )
         })}

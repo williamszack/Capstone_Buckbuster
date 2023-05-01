@@ -12,5 +12,5 @@ export const getAllProducts = async () => {
     } catch (error) {
       console.error(error)
     }
-    
+     
 }
