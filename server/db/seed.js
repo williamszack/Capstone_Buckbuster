@@ -120,6 +120,9 @@ async function seedTables() {
         INSERT INTO cart (user_id, product_id)
         VALUES (1, 2),
                (1, 1),
+               (2, 1),
+               (2, 2),
+               (2, 3),
                (2, 1)
       `);
 		console.log("Finished creating carts...");
