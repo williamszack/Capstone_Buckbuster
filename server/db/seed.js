@@ -44,6 +44,7 @@ async function createTables() {
         );
         CREATE TABLE orders (
             order_id SERIAL PRIMARY KEY,
+            name VARCHAR(255),
             user_id INT,
             product_id INT,
             quantity INT,

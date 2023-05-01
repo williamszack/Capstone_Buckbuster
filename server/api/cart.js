@@ -49,9 +49,10 @@ res.send(DeleteItem)
 cartRouter.post('/', async (req, res, next) => {
   const { user_id , product_id } =req.body;
   try {
-    const newItem = await addToCart({user_id, product_id})
-    res.send(newItem)
 
+    const newCartItem = await addToCart({user_id, product_id})
+
+    res.send(newCartItem)
   }catch (error){
     next(error);
   }

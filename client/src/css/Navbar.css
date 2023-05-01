@@ -1,0 +1,44 @@
+.navbar {
+    background-color: rgb(15, 64, 169);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo img {
+   width: 5rem;
+   height: 4rem;
+   margin-left: 2rem;
+  }
+  
+  .links a, .links button {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    margin-right: 10px;
+  }
+  
+  .links button {
+    background-color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .links a:hover, .links button:hover {
+    color: white;
+    background-color: black;
+  }
+
+  .title{
+    color: white;
+    margin: 0;
+    margin-left: 2rem;
+    font-size: 50px;
+    text-shadow: 1px 1px 2px black;
+  }

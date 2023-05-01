@@ -1,4 +1,4 @@
-import './App.css';
+import "./App.css";
 import {
   AdminPage,
   Cart,
@@ -10,14 +10,14 @@ import {
   Register,
   Reviews,
   Search,
-  SingleProductView
-} from './components'
+  SingleProductView,
+} from "./components";
 
 function App() {
   return (
     <div className="App">
-      <h1 className='navbar'>Welcome to Buckbuster</h1>
-      <Home />
+      <h1>yert</h1>
+      <Register path="/register"></Register>
     </div>
   );
 }
