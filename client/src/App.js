@@ -16,6 +16,7 @@ import {
 function App() {
   return (
     <div className="App">
+      <h1 className='navbar'>Welcome to Buckbuster</h1>
       <Home />
     </div>
   );
