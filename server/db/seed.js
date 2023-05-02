@@ -107,14 +107,8 @@ async function seedTables() {
                ('The Departed', 'An undercover cop and a mole in the police attempt to identify each other while infiltrating an Irish gang in South Boston.', 13.99, 'Crime', 55, 'https://dtvimages.hs.llnwd.net/e1/db_photos/movies/AllPhotosAPGI/162564/162564_aa.jpg', false),
                ('Happy Tree Friends: First Blood', 'The cute and cuddly residents of Happy Tree Friends are back, this time with even more blood and gore as they embark on a series of horrific misadventures that will leave you cringing and laughing at the same time.', 10000000.00, 'Animation', 20, 'https://m.media-amazon.com/images/M/MV5BYTYwMTcyYjMtYzMwMS00OWY2LWFhMmQtZjY5OTE1MWM4ZTY4XkEyXkFqcGdeQXVyMzU0NzkwMDg@._V1_.jpg', true)
       `);
-    
-    
 
-    
-   
-    
-    //   ('Happy Tree Friends: First Blood', 'The cute and cuddly residents of Happy Tree Friends are back, this time with even more blood and gore as they embark on a series of horrific misadventures that will leave you cringing and laughing at the same time.', 6.99, 'Animation', 20, 'https://m.media-amazon.com/images/M/MV5BYTYwMTcyYjMtYzMwMS00OWY2LWFhMmQtZjY5OTE1MWM4ZTY4XkEyXkFqcGdeQXVyMzU0NzkwMDg@._V1_.jpg', true)
-
+		//   ('Happy Tree Friends: First Blood', 'The cute and cuddly residents of Happy Tree Friends are back, this time with even more blood and gore as they embark on a series of horrific misadventures that will leave you cringing and laughing at the same time.', 6.99, 'Animation', 20, 'https://m.media-amazon.com/images/M/MV5BYTYwMTcyYjMtYzMwMS00OWY2LWFhMmQtZjY5OTE1MWM4ZTY4XkEyXkFqcGdeQXVyMzU0NzkwMDg@._V1_.jpg', true)
 
 		console.log("Finished creating products...");
 		// }

@@ -15,7 +15,7 @@ const Navbar = () => {
           <h1 className='title'>Buckbuster</h1>
         </div>
         <div className="links">
-          <a href="..">Login</a>
+          <Link to="/login"><a href="login">Login</a></Link>
           <Link to="/register"><a href="register">Register</a></Link>
           <Link to="/cart"><a href="cart">Cart</a></Link>
           <Link to="/"><a href="home">Home</a></Link>
