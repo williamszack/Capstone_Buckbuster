@@ -1,7 +1,6 @@
 .shoppingPage--container {
   display: flex;
   flex-direction: column;
-  background-color: rgb(183, 246, 248);
   align-items: center;
 }
 
