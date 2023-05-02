@@ -3,6 +3,9 @@
 import image from '../pictures/bb-donkey.png'
 import React from 'react'
 import '../css/Navbar.css'
+import { Link } from 'react-router-dom'
+
+
 const Navbar = () => {
   return (
     <div>
@@ -13,9 +16,9 @@ const Navbar = () => {
         </div>
         <div className="links">
           <a href="..">Login</a>
-          <a href="..">Register</a>
-          <a href="..">Cart</a>
-          <a href="..">Home</a>
+          <Link to="/register"><a href="register">Register</a></Link>
+          <Link to="/cart"><a href="cart">Cart</a></Link>
+          <Link to="/"><a href="home">Home</a></Link>
           <a href="..">Profile</a>
         </div>
       </nav>

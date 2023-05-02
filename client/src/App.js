@@ -1,4 +1,5 @@
 import "./App.css";
+import { Routes, Route } from 'react-router-dom';
 import {
   AdminPage,
   Cart,
@@ -16,10 +17,12 @@ import {
 function App() {
   return (
     <div className="App">
-
-      <h1>yert</h1>
-      <Register path="/register"></Register>
-
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />}/>
+        <Route path="/cart" element={<Cart />}/>
+        <Route path="/register" element={<Register />}/>
+      </Routes>
     </div>
   );
 }

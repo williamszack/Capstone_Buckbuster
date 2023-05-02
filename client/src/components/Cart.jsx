@@ -22,7 +22,7 @@ const fetchUserCart = async()=>{
     <h2>Shopping Cart</h2>
       {cartItems.map((item) => (
         <div className='cartItem--container'>
-        <img className='image' src={item.image_url}></img>
+        <img className='image' src={item.image_url} alt="movieImage"></img>
 
         <div>
         <h2>Title</h2>
