@@ -1,10 +1,20 @@
+body {
+    /* background-image: url("bbbg.png"); */
+    background: linear-gradient(to top, gray, pink);
+    background-size: cover;
+    /* background-position: center -70px; */
+}
+
 h1 {
     text-align: center;
+    color: rgb(255, 170, 7);
 }
 
 h2 {
     font-size: x-large;
     text-align: center;
+    color: white;
+
 }
 
 .break {
@@ -37,6 +47,7 @@ h2 {
     display: table-row;
     border-bottom: 1px solid #ddd;
     border: 1px solid black;
+    background-color: white;
   }
 
 .user-table-row > p, .order-table-row > p {
@@ -60,7 +71,7 @@ h2 {
 }
 
 .even {
-    background-color: rgb(238, 235, 235);
+    background-color: rgb(232, 231, 231);
 }
     
 .odd {
@@ -76,7 +87,9 @@ h2 {
 
 
   /* add product */
-
+.active-select {
+    color: white;
+}
 
 
 

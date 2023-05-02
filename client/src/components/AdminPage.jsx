@@ -1,6 +1,5 @@
-import React from 'react'
 import '../css/AdminPage.css'
-import { useEffect, useState, Fragment } from 'react'
+import { useCallback, useEffect, useState, Fragment } from 'react'
 import { getAllUsers, getAllOrders, addProduct } from '../api/AdminPage'
 
 //child of App.js
@@ -10,25 +9,30 @@ const AdminPage = () => {
   //view all users - done
   const [allUsers, setAllUsers] = useState([]);
 
+  const fetchAllUsers = useCallback(async () => {
+    const result = await getAllUsers();
+    setAllUsers(result);
+  }, []);
+
   useEffect(() => {
-    const fetchAllUsers = async () => {
-      const result = await getAllUsers();
-      setAllUsers(result);
-    }
     fetchAllUsers();
-  }, [])
+  }, [fetchAllUsers])
+
+  // console.log("allusers", allUsers);
   
   //view all orders - done
   const [allOrders, setAllOrders] = useState([]);
 
+  const fetchAllOrders = useCallback(async () => {
+    const result = await getAllOrders();
+    setAllOrders(result);
+  }, []);
+
   useEffect(() => {
-    const fetchAllOrders = async () => {
-      const result = await getAllOrders();
-      setAllOrders(result);
-    }
     fetchAllOrders();
-  }, [])
-  console.log("allorders", allOrders);
+  }, [fetchAllOrders]);
+
+  // console.log("allorders", allOrders);
   
   const ordersByDate = allOrders.reduce((accumulator, order) => {
     const date = order.order_date;
@@ -58,7 +62,7 @@ const AdminPage = () => {
     console.log(message);
   }
   
-  console.log("active value", active);
+  // console.log("active value", active);
 
   //update product
 
@@ -127,12 +131,12 @@ const AdminPage = () => {
       <div>
         <form onSubmit={handleAdd} id="add-form">
           <input type="text" required placeholder="name" onChange={(event) => setName(event.target.value)} />
-          <input type="text" required placeholder="description" onChange={(event) => setDescription(event.target.value)}  />
+          <textarea type="text" required placeholder="description" onChange={(event) => setDescription(event.target.value)}  />
           <input type="number" step="0.01" required placeholder="price" onChange={(event) => setPrice(parseFloat(event.target.value))} />
           <input type="text" required placeholder="genre" onChange={(event) => setGenre(event.target.value)} />
           <input type="number" required placeholder="quantity" onChange={(event) => setQuantity(event.target.value)} />
           <input type="text" required placeholder="image_url" onChange={(event) => setImage(event.target.value)} />
-          <span>active</span>
+          <span className="active-select">active</span>
             <select value={active.toString()} onChange={(event) => setActive(event.target.value)}>
               <option value={true}>Yes</option>
               <option value={false}>No</option>
@@ -140,6 +144,7 @@ const AdminPage = () => {
           <button type="submit" formType="add-form" >Add To Library</button>
         </form> 
       </div>
+      <h2>Update</h2>
       <h2>Deactivate</h2>
       <h2>Reactivate</h2>
     </div>
