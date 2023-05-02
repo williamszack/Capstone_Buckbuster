@@ -15,6 +15,7 @@ const Login = ({ username, setUsername }) => {
     const result = await userLogin({ username, password });
     if (result && result.token) {
         navigate("/");
+        alert("You're logged in!");
         console.log("logged-in user:", username);
         // localStorage.setItem("token", result.token);
         // console.log("what's in my localStorage", localStorage);
