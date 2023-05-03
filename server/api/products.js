@@ -74,10 +74,10 @@ productsRouter.get("/:product_id/reviews", async (req, res, next) => {
 		return;
 	}
 	try {
-		const reviewByMovieId = await getReviewsByProductId(product_id);
+		const review = await getReviewsByProductId(product_id);
 
-		console.log("GET/:product_id/reviews", reviewByMovieId);
-		res.send(reviewByMovieId);
+		console.log("GET/:product_id/reviews", review);
+		res.send(review);
 	} catch (error) {
 		next(error);
 	}
@@ -88,6 +88,7 @@ productsRouter.get("/:product_id/reviews", async (req, res, next) => {
 productsRouter.post("/", requiredUser, async (req, res, next) => {
 	const isAdmin = req.user && req.user.admin;
 	const { name, description, price, genre, quantity, image_url, active } = req.body;
+	const format = {};
 
 	const movie = await getProductByname(name);
 	if (!isAdmin) {
@@ -105,16 +106,21 @@ productsRouter.post("/", requiredUser, async (req, res, next) => {
 		console.log("Duplicate product already exist");
 		return;
 	}
-	try {
-		const addProduct = await addNewProduct({
-			name,
-			description,
-			price,
-			genre,
-			quantity,
-			image_url,
-			active,
-		});
+
+		//formatting
+		format.name = name
+			.split(" ")
+			.map((title) => {
+				return title.charAt(0).toUpperCase() + title.slice(1);
+			})
+			.join(" ");
+		format.description = description.toUpperCase().charAt(0) + description.slice(1);
+		format.price = price;
+		format.genre = genre.toUpperCase().charAt(0) + genre.slice(1);
+		format.quantity = quantity;
+		format.image_url = image_url;
+        try {
+		const addProduct = await addNewProduct({ ...format, active });
 
 		console.log("POST/addnewproduct", addProduct);
 		res.send({ message: "Product added to library", addProduct });
@@ -205,7 +211,7 @@ productsRouter.patch("/:product_id", requiredUser, async (req, res, next) => {
 
 		console.log("UPDATE/:product_id");
 		res.send({
-			message: `'${movie.name}' with product ID ${product_id} attributes updated to`,
+			message: `'${movie.name}' with product ID: ${product_id} attributes updated to`,
 			updatedAttr,
 		});
 	} catch (error) {
@@ -234,12 +240,17 @@ productsRouter.patch("/deactivate/:product_id", requiredUser, async (req, res, n
 		});
 		console.log(`Product ID: ${product_id} does not exist`);
 		return;
+	} else if (!movie.active) {
+		res.send({
+			message: `Product ID: ${product_id}, ${movie.name} already inactive`
+		})
+		return;
 	}
 	try {
 		const deactivate = await deactivateProduct(product_id);
 
 		console.log(`DEACTIVATE/:product_id: deactivated Product ID ${product_id}`);
-		res.send({ message: `Product ID ${product_id} deactivated`, deactivate });
+		res.send({ message: `Product ID: ${product_id} deactivated`, deactivate });
 	} catch (error) {
 		next(error);
 	}
@@ -264,12 +275,17 @@ productsRouter.patch("/reactivate/:product_id", requiredUser, async (req, res, n
 		});
 		console.log(`Product ID: ${product_id} does not exist`);
 		return;
+	} else if (movie.active) {
+		res.send({
+			message: `Product ID: ${product_id}, ${movie.name} already active`
+		})
+		return;
 	}
 	try {
 		const reactivate = await reactivateProduct(product_id);
 
 		console.log(`REACTIVATE/:product_id: reactivated Product ID ${product_id}`);
-		res.send({ message: `Product ID ${product_id} reactivated`, reactivate });
+		res.send({ message: `Product ID: ${product_id} reactivated`, reactivate });
 	} catch (error) {
 		next(error);
 	}
