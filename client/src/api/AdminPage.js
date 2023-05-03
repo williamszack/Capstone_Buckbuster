@@ -1,6 +1,6 @@
 const BASE_URL = "http://localhost:3001/api";
 const token =
-	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJldmFuIiwiaWF0IjoxNjgyOTkzOTgxfQ.4jOpk7zzO7MfHAubDeTBCZXs7NCQMN1BYVfM9sgfVps";
+	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJldmFuIiwiaWF0IjoxNjgzMTQ0NzQyfQ.rcKjfpNiFDU8e-2x7yWr5urHks081ODDgqFq1uPLGJA";
 
 export const getAllUsers = async () => {
 	try {
@@ -121,57 +121,57 @@ export const updateProduct = async ({
 	}
 };
 
-export const deactivateProduct = async ({ active }) => {
+export const deactivateProduct = async ({ productId }) => {
 	try {
-		const response = await fetch(`${BASE_URL}/products/deactivate/:product_id`, {
+		const response = await fetch(`${BASE_URL}/products/deactivate/${productId}`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
 				Authorization: `Bearer ${token}`,
 			},
-			body: JSON.stringify({
-				active: active,
-			}),
 		});
 		const result = await response.json();
-		console.log("deactivateProduct:", deactivateProduct);
+		console.log("deactivateProduct:", result);
 		return result;
 	} catch (error) {
 		console.error(error);
 	}
 };
 
-export const reactivateProduct = async ({ active }) => {
+export const reactivateProduct = async ({ productId }) => {
 	try {
-		const response = await fetch(`${BASE_URL}/products/reactivate/:product_id`, {
+		const response = await fetch(`${BASE_URL}/products/reactivate/${productId}`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
 				Authorization: `Bearer ${token}`,
 			},
-			body: JSON.stringify({
-				active: active,
-			}),
 		});
 		const result = await response.json();
-		console.log("reactivateProduct:", reactivateProduct);
+		console.log("reactivateProduct:", result);
 		return result;
 	} catch (error) {
 		console.error(error);
 	}
 };
 
+//product selector for dropdown menu
+// const handleProductChange = (event) => {
+//   const productId = parseInt(event.target.value);
+//   const selectedProduct = allProducts.find(product => product._id === productId);
+//   setSelectedProduct(selectedProduct);
+// };
 
-  //product selector for dropdown menu
-  // const handleProductChange = (event) => {
-  //   const productId = parseInt(event.target.value);
-  //   const selectedProduct = allProducts.find(product => product._id === productId);
-  //   setSelectedProduct(selectedProduct);
-  // };
+//product selector for dropdown menu
+// const productOptions = allProducts.sort((a, b) => a.product_id - b.product_id).map((product) => (
+//   <option key={product._id} value={product._id}>{product.product_id} - {product.name} -
+//   <span>{product.active ? <span className="product-active-indicator">&nbsp;active</span>
+//   : <span className="product-inactive-indicator">&nbsp;inactive</span>}</span></option>
+// ));
 
-  //product selector for dropdown menu
-  // const productOptions = allProducts.sort((a, b) => a.product_id - b.product_id).map((product) => (
-  //   <option key={product._id} value={product._id}>{product.product_id} - {product.name} - 
-  //   <span>{product.active ? <span className="product-active-indicator">&nbsp;active</span> 
-  //   : <span className="product-inactive-indicator">&nbsp;inactive</span>}</span></option>
-  // ));
+// {selectedProduct && (
+// 	<div>
+// 	  <p>Product Name: {selectedProduct.product_id}</p>
+// 	  <span>Active: {selectedProduct.active ? <span>&nbsp;Yes</span> : <span>&nbsp;No</span>}</span>
+// 	</div>
+//   )}

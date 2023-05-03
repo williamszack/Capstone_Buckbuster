@@ -1,12 +1,12 @@
 import '../css/AdminPage.css'
 import { useCallback, useEffect, useState, Fragment } from 'react'
-import { addProduct, getAllOrders, getAllProducts, getAllUsers } from '../api/AdminPage'
+import { addProduct, deactivateProduct, getAllOrders, getAllProducts, getAllUsers, reactivateProduct } from '../api/AdminPage'
 
 //child of App.js
 
-const AdminPage = () => {
+const AdminPage = ({ token }) => {
 
-//view all users - done
+//View all users - done
   const [allUsers, setAllUsers] = useState([]);
 
   //*fetch all users
@@ -21,10 +21,10 @@ const AdminPage = () => {
 
   // console.log("allusers", allUsers);
   
-//view all orders - done
+//View all orders - done
   const [allOrders, setAllOrders] = useState([]);
 
-  //*fetch all orders
+  //fetch all orders
   const fetchAllOrders = useCallback(async () => {
     const result = await getAllOrders();
     setAllOrders(result);
@@ -46,7 +46,7 @@ const AdminPage = () => {
     return accumulator;
   }, {});
 
-//add product - done
+//Add product - done
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -60,8 +60,14 @@ const AdminPage = () => {
 
     const result = await addProduct({ name, description, price, genre, quantity, image, active });
     const message = result.error ? `Error ${result.message}` : `Product added to library`
-
+    setName("");
+    setDescription("");
+    setPrice("");
+    setGenre("");
+    setQuantity("");
+    setImage("");
     console.log(message);
+    alert(message)
   }
   
   // console.log("active value", active);
@@ -69,7 +75,8 @@ const AdminPage = () => {
   //------------------------------------------------------------------------------------
   //helper for bottom 3 functions
   const [allProducts, setAllProducts] = useState([]);
-  const [selectProduct, setSelectProduct] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState([]);
+  const [products, setProducts] = useState(allProducts);
   
   const fetchAllProducts = useCallback(async () => {
     const result = await getAllProducts();
@@ -80,30 +87,51 @@ const AdminPage = () => {
     fetchAllProducts();
   }, [fetchAllProducts])
 
-  const handleProductChange = (event) => {
+  const handleOptionChange = (event) => {
     const productId = parseInt(event.target.value);
     const selectedProduct = allProducts.find(product => product.product_id === productId);
-    setSelectProduct(selectedProduct);
-    console.log("selected product:", selectProduct);
+    setSelectedProduct(selectedProduct);
+    console.log("selected product:", selectedProduct, "selected Id:", productId);
   };
 
-  const productOptions = allProducts.sort((a, b) => a.product_id - b.product_id).map(product => (
-    <option key={product._id} value={product._id}>{product.product_id} - {product.name} - <span>{product.active ? <span className="product-active-indicator">&nbsp;active</span> : <span className="product-active-indicator">&nbsp;inactive</span>}</span></option>
-  ));
+  const productOptions = allProducts ? allProducts.sort((a, b) => a.product_id - b.product_id).map(product => (
+    <option key={product._id} value={product.product_id}>{product.product_id} - {product.name} - 
+    <span>{product.active ? <span className="product-active-indicator">&nbsp;active</span> 
+    : <span className="product-active-indicator">&nbsp;inactive</span>}</span></option>
+  )) : null;
 
 
-  // console.log("allProducts:", allProducts);
+//Update product
 
-//update product
+//Deactivate product
+const handleDeact = async (productId) => {
+  if(!selectedProduct.active) {
+    alert("product already inactive");
+    return;
+  } else if (!productId) {
+    alert("Please select a product");
+  }
+  await deactivateProduct({ token, productId });
+  alert(`Product ID: ${selectedProduct.product_id} deactivated`)
+  
+  //refresh product list after deactivation
+  const updatedProducts = await fetchAllProducts(); // Fetch updated data
+  setAllProducts(updatedProducts); // Update state with new data
+  setSelectedProduct(null);
+};
 
-//deactivate product
-
-  const handleDeactivate = (event) => {
-    // setActiveOnly(event.target.checked);
-  };
-
-//reactivate product
-
+//Reactivate product
+const handleReact = async (productId) => {
+  if(selectedProduct.active) {
+    alert("product already active");
+    return;
+  } else if (!productId) {
+    alert("Please select a product");
+  }
+  await reactivateProduct({ token, productId });
+  alert(`Product ID: ${selectedProduct.product_id} reactivated`)
+  setSelectedProduct([]);
+};
 
 
   return (
@@ -178,24 +206,20 @@ const AdminPage = () => {
           <button type="submit" formtype="add-form" >Add To Library</button>
         </form>
       </div>
-      <h2>Update----------------</h2>
-      <h2>Deactivate</h2>
-
-      <select id="productInput" value={selectProduct || ""} onChange={(event) => handleProductChange(event.target.value)}>
-        <option value="">Select a product to deactivate</option>
-        {productOptions}
-      </select>
-      {selectProduct && (
-        <div>
-          <p>Product Name: {selectProduct.name}</p>
-          <span>Active: {selectProduct.active ? <span>&nbsp;Yes</span> : <span>&nbsp;No</span>}</span>
-        </div>
-      )}
-        {/* <span>Active: {product.active === true ? <span>&nbsp;Yes</span> : <span>&nbsp;No</span>}</span> */}
-        <button>Deactivate Product</button>
-
-          {/* <span>Active: {product.active === true ? <span>&nbsp;Yes</span> : <span>&nbsp;No</span>}</span> */}
-      <h2>Reactivate-------------</h2>
+      <h2>Update</h2>
+      <select className="productSelect" value={selectedProduct?.product_id} onChange={handleOptionChange}>
+            <option value="">Select a product to update</option>
+            {productOptions}
+          </select>
+          <input />
+          <button onClick={() => handleReact(selectedProduct?.product_id)} >Update {selectedProduct?.name}</button>
+      <h2>Deactivate / Reactivate</h2>
+          <select className="productSelect" value={selectedProduct?.product_id} onChange={handleOptionChange}>
+            <option value="">Select a product to deactivate / reactivate</option>
+            {productOptions}
+          </select>
+          <button onClick={() => handleDeact(selectedProduct?.product_id)} >Deactivate Product</button>
+          <button onClick={() => handleReact(selectedProduct?.product_id)} >Reactivate Product</button>
     </div>
   )
 }
