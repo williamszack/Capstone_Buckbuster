@@ -1,14 +1,15 @@
 import '../css/AdminPage.css'
 import { useCallback, useEffect, useState, Fragment } from 'react'
-import { getAllUsers, getAllOrders, addProduct } from '../api/AdminPage'
+import { addProduct, getAllOrders, getAllProducts, getAllUsers } from '../api/AdminPage'
 
 //child of App.js
 
 const AdminPage = () => {
 
-  //view all users - done
+//view all users - done
   const [allUsers, setAllUsers] = useState([]);
 
+  //*fetch all users
   const fetchAllUsers = useCallback(async () => {
     const result = await getAllUsers();
     setAllUsers(result);
@@ -20,9 +21,10 @@ const AdminPage = () => {
 
   // console.log("allusers", allUsers);
   
-  //view all orders - done
+//view all orders - done
   const [allOrders, setAllOrders] = useState([]);
 
+  //*fetch all orders
   const fetchAllOrders = useCallback(async () => {
     const result = await getAllOrders();
     setAllOrders(result);
@@ -44,7 +46,7 @@ const AdminPage = () => {
     return accumulator;
   }, {});
 
-  //add product - done
+//add product - done
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -64,11 +66,43 @@ const AdminPage = () => {
   
   // console.log("active value", active);
 
-  //update product
+  //------------------------------------------------------------------------------------
+  //helper for bottom 3 functions
+  const [allProducts, setAllProducts] = useState([]);
+  const [selectProduct, setSelectProduct] = useState(null);
+  
+  const fetchAllProducts = useCallback(async () => {
+    const result = await getAllProducts();
+    setAllProducts(result);
+  }, []);
 
-  //deactivate product
+  useEffect(() => {
+    fetchAllProducts();
+  }, [fetchAllProducts])
 
-  //reactivate product
+  const handleProductChange = (event) => {
+    const productId = parseInt(event.target.value);
+    const selectedProduct = allProducts.find(product => product.product_id === productId);
+    setSelectProduct(selectedProduct);
+    console.log("selected product:", selectProduct);
+  };
+
+  const productOptions = allProducts.sort((a, b) => a.product_id - b.product_id).map(product => (
+    <option key={product._id} value={product._id}>{product.product_id} - {product.name} - <span>{product.active ? <span className="product-active-indicator">&nbsp;active</span> : <span className="product-active-indicator">&nbsp;inactive</span>}</span></option>
+  ));
+
+
+  // console.log("allProducts:", allProducts);
+
+//update product
+
+//deactivate product
+
+  const handleDeactivate = (event) => {
+    // setActiveOnly(event.target.checked);
+  };
+
+//reactivate product
 
 
 
@@ -127,7 +161,7 @@ const AdminPage = () => {
       </Fragment>
       ))}
       </ul>
-      <h2>Add</h2>
+      <h2>Add Product</h2>
       <div>
         <form onSubmit={handleAdd} id="add-form">
           <input type="text" required placeholder="name" onChange={(event) => setName(event.target.value)} />
@@ -141,12 +175,27 @@ const AdminPage = () => {
               <option value={true}>Yes</option>
               <option value={false}>No</option>
             </select>
-          <button type="submit" formType="add-form" >Add To Library</button>
-        </form> 
+          <button type="submit" formtype="add-form" >Add To Library</button>
+        </form>
       </div>
-      <h2>Update</h2>
+      <h2>Update----------------</h2>
       <h2>Deactivate</h2>
-      <h2>Reactivate</h2>
+
+      <select id="productInput" value={selectProduct || ""} onChange={(event) => handleProductChange(event.target.value)}>
+        <option value="">Select a product to deactivate</option>
+        {productOptions}
+      </select>
+      {selectProduct && (
+        <div>
+          <p>Product Name: {selectProduct.name}</p>
+          <span>Active: {selectProduct.active ? <span>&nbsp;Yes</span> : <span>&nbsp;No</span>}</span>
+        </div>
+      )}
+        {/* <span>Active: {product.active === true ? <span>&nbsp;Yes</span> : <span>&nbsp;No</span>}</span> */}
+        <button>Deactivate Product</button>
+
+          {/* <span>Active: {product.active === true ? <span>&nbsp;Yes</span> : <span>&nbsp;No</span>}</span> */}
+      <h2>Reactivate-------------</h2>
     </div>
   )
 }

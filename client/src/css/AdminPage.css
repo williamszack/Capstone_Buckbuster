@@ -1,6 +1,6 @@
 body {
     /* background-image: url("bbbg.png"); */
-    background: linear-gradient(to top, gray, pink);
+    background: linear-gradient(gray, pink, gray);
     background-size: cover;
     /* background-position: center -70px; */
 }
@@ -89,6 +89,7 @@ h2 {
   /* add product */
 .active-select {
     color: white;
+    font-size: 20px;
 }
 
 
@@ -96,8 +97,13 @@ h2 {
 
 
   /* deactivate product */
+.product-active-indicator {
+  color: green;
+}
 
-
+.product-inactive-indicator {
+  color: red;
+}
 
 
 
