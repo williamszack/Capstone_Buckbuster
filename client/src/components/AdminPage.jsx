@@ -6,7 +6,7 @@ import { addProduct, deactivateProduct, getAllOrders, getAllProducts, getAllUser
 
 const AdminPage = ({ token }) => {
 
-//View all users - done
+//**************View all users - done
   const [allUsers, setAllUsers] = useState([]);
 
   //*fetch all users
@@ -21,7 +21,7 @@ const AdminPage = ({ token }) => {
 
   // console.log("allusers", allUsers);
   
-//View all orders - done
+//**************View all orders - done
   const [allOrders, setAllOrders] = useState([]);
 
   //fetch all orders
@@ -46,7 +46,7 @@ const AdminPage = ({ token }) => {
     return accumulator;
   }, {});
 
-//Add product - done
+//**************Add product - done
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -101,9 +101,9 @@ const AdminPage = ({ token }) => {
   )) : null;
 
 
-//Update product
+//**************Update product
 
-//Deactivate product
+//**************Deactivate product
 const handleDeact = async (productId) => {
   if(!selectedProduct.active) {
     alert("product already inactive");
@@ -113,14 +113,14 @@ const handleDeact = async (productId) => {
   }
   await deactivateProduct({ token, productId });
   alert(`Product ID: ${selectedProduct.product_id} deactivated`)
-  
+  window.location.reload(true);
   //refresh product list after deactivation
   const updatedProducts = await fetchAllProducts(); // Fetch updated data
   setAllProducts(updatedProducts); // Update state with new data
   setSelectedProduct(null);
 };
 
-//Reactivate product
+//**************Reactivate product
 const handleReact = async (productId) => {
   if(selectedProduct.active) {
     alert("product already active");
@@ -130,9 +130,11 @@ const handleReact = async (productId) => {
   }
   await reactivateProduct({ token, productId });
   alert(`Product ID: ${selectedProduct.product_id} reactivated`)
+  window.location.reload(true);
   setSelectedProduct([]);
 };
 
+console.log("is this: ", active);
 
   return (
     <div>
@@ -199,7 +201,7 @@ const handleReact = async (productId) => {
           <input type="number" required placeholder="quantity" onChange={(event) => setQuantity(event.target.value)} />
           <input type="text" required placeholder="image_url" onChange={(event) => setImage(event.target.value)} />
           <span className="active-select">active</span>
-            <select value={active.toString()} onChange={(event) => setActive(event.target.value)}>
+            <select value={active ?? false} onChange={(event) => setActive(event.target.value)}>
               <option value={true}>Yes</option>
               <option value={false}>No</option>
             </select>
@@ -211,7 +213,21 @@ const handleReact = async (productId) => {
             <option value="">Select a product to update</option>
             {productOptions}
           </select>
-          <input />
+          <br/>
+          <input type="text" placeholder={selectedProduct?.name} onChange={(event) => setName(event.target.value)}/>
+          <textarea type="text" placeholder={selectedProduct?.description} onChange={(event) => setDescription(event.target.value)} />
+          <input type="number" step="0.01" placeholder={selectedProduct?.price} onChange={(event) => setPrice(event.target.value)} />
+          <input type="text" placeholder={selectedProduct?.genre} onChange={(event) => setGenre(event.target.value)} />
+          <input type="number" placeholder={selectedProduct?.quantity} onChange={(event) => setQuantity(event.target.value)} />
+          <input type="text" placeholder={selectedProduct?.genre} onChange={(event) => setGenre(event.target.value)} />
+          <input type="text" placeholder={selectedProduct?.image_url} onChange={(event) => setImage(event.target.value)} />
+          <span className="active-select">active</span>
+            <select value={selectedProduct?.active ?? false} onChange={(event) => setActive(event.target.value)}>
+              <option value={true}>Yes</option>
+              <option value={false}>No</option>
+            </select>
+          <br/>
+          <br/>
           <button onClick={() => handleReact(selectedProduct?.product_id)} >Update {selectedProduct?.name}</button>
       <h2>Deactivate / Reactivate</h2>
           <select className="productSelect" value={selectedProduct?.product_id} onChange={handleOptionChange}>
