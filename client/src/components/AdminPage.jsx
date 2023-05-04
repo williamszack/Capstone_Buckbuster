@@ -76,7 +76,6 @@ const AdminPage = ({ token }) => {
   //helper for bottom 3 functions
   const [allProducts, setAllProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState([]);
-  const [products, setProducts] = useState(allProducts);
   
   const fetchAllProducts = useCallback(async () => {
     const result = await getAllProducts();
@@ -84,6 +83,10 @@ const AdminPage = ({ token }) => {
   }, []);
 
   useEffect(() => {
+    // async function fetchAllProducts() {
+    //   const result = await getAllProducts();
+    //   setAllProducts(result);
+    // }
     fetchAllProducts();
   }, [fetchAllProducts])
 
@@ -111,13 +114,17 @@ const handleDeact = async (productId) => {
   } else if (!productId) {
     alert("Please select a product");
   }
-  await deactivateProduct({ token, productId });
-  alert(`Product ID: ${selectedProduct.product_id} deactivated`)
-  window.location.reload(true);
-  //refresh product list after deactivation
-  const updatedProducts = await fetchAllProducts(); // Fetch updated data
-  setAllProducts(updatedProducts); // Update state with new data
-  setSelectedProduct(null);
+  try {
+    await deactivateProduct({ token, productId });
+    setSelectedProduct([]);
+    console.log(`Product ID: ${selectedProduct.product_id} deactivated`)
+
+    //refresh product list after deactivation
+    const updatedProducts = await getAllProducts(); //fetch updated data
+    setAllProducts(updatedProducts); //update state with new data
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 //**************Reactivate product
@@ -128,10 +135,17 @@ const handleReact = async (productId) => {
   } else if (!productId) {
     alert("Please select a product");
   }
-  await reactivateProduct({ token, productId });
-  alert(`Product ID: ${selectedProduct.product_id} reactivated`)
-  window.location.reload(true);
-  setSelectedProduct([]);
+  try{
+    await reactivateProduct({ token, productId });
+    console.log(`Product ID: ${selectedProduct.product_id} reactivated`)
+    setSelectedProduct([]);
+
+    //refresh product list after reactivation
+    const updatedProducts = await getAllProducts(); //fetch updated data
+    setAllProducts(updatedProducts); //update state with new data
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 console.log("is this: ", active);
@@ -219,7 +233,6 @@ console.log("is this: ", active);
           <input type="number" step="0.01" placeholder={selectedProduct?.price} onChange={(event) => setPrice(event.target.value)} />
           <input type="text" placeholder={selectedProduct?.genre} onChange={(event) => setGenre(event.target.value)} />
           <input type="number" placeholder={selectedProduct?.quantity} onChange={(event) => setQuantity(event.target.value)} />
-          <input type="text" placeholder={selectedProduct?.genre} onChange={(event) => setGenre(event.target.value)} />
           <input type="text" placeholder={selectedProduct?.image_url} onChange={(event) => setImage(event.target.value)} />
           <span className="active-select">active</span>
             <select value={selectedProduct?.active ?? false} onChange={(event) => setActive(event.target.value)}>
@@ -232,7 +245,7 @@ console.log("is this: ", active);
       <h2>Deactivate / Reactivate</h2>
           <select className="productSelect" value={selectedProduct?.product_id} onChange={handleOptionChange}>
             <option value="">Select a product to deactivate / reactivate</option>
-            {productOptions}
+              {productOptions}
           </select>
           <button onClick={() => handleDeact(selectedProduct?.product_id)} >Deactivate Product</button>
           <button onClick={() => handleReact(selectedProduct?.product_id)} >Reactivate Product</button>
