@@ -2,7 +2,8 @@
 //child of App.js
 import '../css/Home.css'
 import React, { useEffect, useState } from 'react'
-import { getAllProducts } from '../api/home'
+import { getAllProducts, addProductToUsersCart} from '../api/home'
+
 
 const Aside = () => {
   return (
@@ -30,6 +31,23 @@ useEffect(() => {
   fetchData()
 },[])
 
+const handleAddToCart = async (product_id) => {
+const user_id = localStorage.getItem("user_id")
+
+  try {
+    const response = await addProductToUsersCart(product_id, user_id)
+    console.log(response)
+    if (!response.error) {
+      alert("movie added to your cart!")
+    } else if (response.error) {
+      alert("This movie already exists in your cart!")
+    }
+   
+  } catch (error) {
+    console.error(error)
+  
+  }
+}
 
   return (
   <div>
@@ -40,7 +58,7 @@ useEffect(() => {
         
           {products.map(movie => {
             return (
-              <div className='product--container'>
+              <div className='product--container' key={movie.product_id}>
               <div className='movie--title'>{movie.name}</div>
               <div>{movie.genre}</div>
               <img className='product--image' src={movie.image_url} alt="movie"></img>
@@ -50,7 +68,11 @@ useEffect(() => {
                 </div>
              <div>{movie.quantity} Left in stock</div>   
                <button 
-                onClick={() => alert('Virus installing...')}
+                value={movie.product_id}
+                onClick={e => {
+                  const product_id = (e.target.value)
+                  handleAddToCart(product_id)
+                }}
                 className='addToCart--button'>Add to cart
                 </button>    
               </div> 

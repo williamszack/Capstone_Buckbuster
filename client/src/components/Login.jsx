@@ -13,13 +13,15 @@ const Login = ({ username, setUsername }) => {
 
     try {
     const result = await userLogin({ username, password });
+    console.log(result)
     if (result && result.token) {
+
         alert("You're logged in!");
         console.log("logged-in user:", username);
         localStorage.setItem("token", result.token);
         localStorage.setItem("user", username)
+        localStorage.setItem("user_id", result.user.id)
         navigate("/");
-        console.log("what's in my localStorage", localStorage);
         } else {
           alert("Invalid Credentials");
         }
@@ -27,8 +29,6 @@ const Login = ({ username, setUsername }) => {
       console.error(error);
     }
   }
-  console.log("username:", username);
-  console.log("password:", password);
 
   return (
     <>
