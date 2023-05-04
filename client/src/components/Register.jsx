@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { createAccount } from "../api/Register";
 import "../css/Register.css";
+import { useNavigate } from "react-router-dom";
 const Register = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -9,6 +10,8 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
+
+  const navigate = useNavigate()
 
   //form to create the account
   return (
@@ -57,6 +60,7 @@ const Register = () => {
               setConfirmPassword("");
               setEmail("");
               setName("");
+              navigate('/login')
             }
             // console.log("navigating");
             // navigateLogin("/login");
