@@ -28,6 +28,7 @@
     flex-wrap: wrap;
     align-items: center;
     flex:5;
+    margin-top: 2rem;
 }
 
 .product--container {
@@ -35,7 +36,7 @@
     flex-direction: column;
     align-items: center;
     background-color: rgb(206, 247, 237);
-    margin: 2rem;
+    margin: 0.5rem;
     gap: 5px;
     width: 20rem;
     margin-left: 5rem;
@@ -48,6 +49,7 @@
     text-align: center;
     margin: auto;
     font-size: 60px;
+    margin-top: 1rem;
 }
 .product--image {
     min-width: 15rem;

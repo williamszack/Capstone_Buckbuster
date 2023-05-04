@@ -17,22 +17,15 @@
    margin-left: 2rem;
   }
   
-  .links a, .links button {
+  .links a {
     text-decoration: none;
     color: rgb(255, 255, 255);
     margin-right: 10px;
+    cursor: pointer;
   }
-  
-  .links button {
-    background-color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  
-  .links a:hover, .links button:hover {
-    color: white;
-    background-color: black;
+
+  .links a:hover {
+    text-shadow: 1px 1px 2px rgb(254, 246, 2);
   }
 
   .title{
@@ -41,4 +34,8 @@
     margin-left: 2rem;
     font-size: 50px;
     text-shadow: 1px 1px 2px black;
+  }
+
+  .loggedInUser{
+    color: yellow;
   }
