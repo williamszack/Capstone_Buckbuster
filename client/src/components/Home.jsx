@@ -33,7 +33,10 @@ useEffect(() => {
 
 const handleAddToCart = async (product_id) => {
 const user_id = localStorage.getItem("user_id")
-
+  if (!user_id) {
+    alert ("You must be logged in to add an item to cart")
+    return;
+  }
   try {
     const response = await addProductToUsersCart(product_id, user_id)
     console.log(response)
