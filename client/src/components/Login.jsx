@@ -1,5 +1,5 @@
 //child of App.js
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { userLogin } from "../api/Login";
 import { useNavigate } from "react-router-dom";
 import '../css/Login.css'
@@ -14,11 +14,12 @@ const Login = ({ username, setUsername }) => {
     try {
     const result = await userLogin({ username, password });
     if (result && result.token) {
-        navigate("/");
         alert("You're logged in!");
         console.log("logged-in user:", username);
-        // localStorage.setItem("token", result.token);
-        // console.log("what's in my localStorage", localStorage);
+        localStorage.setItem("token", result.token);
+        localStorage.setItem("user", username)
+        navigate("/");
+        console.log("what's in my localStorage", localStorage);
         } else {
           alert("Invalid Credentials");
         }
