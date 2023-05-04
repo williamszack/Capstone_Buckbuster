@@ -92,7 +92,7 @@ export const updateProduct = async ({
 	active,
 }) => {
 	try {
-		const response = await fetch(`${BASE_URL}/products/:product_id`, {
+		const response = await fetch(`${BASE_URL}/products/${productId}`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
