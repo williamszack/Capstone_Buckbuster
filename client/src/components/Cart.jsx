@@ -1,16 +1,28 @@
 //child of App.js
 import React, { useState, useEffect } from "react";
-import { getUsersCart } from "../api/cart";
+import { getUsersCart, removeItem } from "../api/cart";
 import '../css/Cart.css'
 
 const Cart = () => {
 const [cartItems, setCartItems] =useState([])
 
+const handleDelete =  async (product_id) => {
+  const user_id = localStorage.getItem("user_id")
+  
+  try{
+    const response = await removeItem( product_id, user_id)
+    console.log(response)
+    const updateCart = await getUsersCart()
+    setCartItems(updateCart)
+  } catch(err){
+    console.error(err)
+  }
+}
+
   useEffect(() => {
 const fetchUserCart = async()=>{
   const data = await getUsersCart()
   setCartItems(data)
-
 }
  fetchUserCart()
   },[])
@@ -37,10 +49,18 @@ const fetchUserCart = async()=>{
           <h2>Price</h2>
           <p>{item.price}</p>
         </div>
-
+        <button className="delete--btn"
+        value={item.product_id}
+        onClick={e => {
+          const product_id = (e.target.value)
+          handleDelete(product_id)
+        }}
+        >delete</button>
   </div>
 ))}
+
 <button className="checkout--btn">Check Out</button>
+
 </div> 
   )
 }
