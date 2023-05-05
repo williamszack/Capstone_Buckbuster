@@ -21,47 +21,46 @@ h2 {
     border: 1px dotted black;
 }
 
-/* users table */
-.user-table, .orders-table {
-    display: table;
-    border-collapse: collapse;
-    width: 100%;
-  }
 
-.user-table-header, .orders-table-header{
-    display: table-row;
-    font-weight: bold;
-    background-color: lightgray;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-    border: 1px solid black;
-  }
 
-.user-table-header > p, .orders-table-header > p {
+/*** users table ***/
+.users-table, .orders-table {
+  /* display: table; */
+  /* border-collapse: collapse; */
+  border-spacing: 1px;
+  width: 100%;
+  background-color: black;
+}
+
+.users-table-header, .orders-table-header {
+  display: table-row;
+  font-weight: bold;
+  background-color: lightgray;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  border: 1px solid black;
+}
+
+.users-table-row, .orders-table-row {
+  /* display: table-row; */
+  /* border-bottom: 1px solid #ddd; */
+  border: 1px solid black;
+  background-color: white;
+}
+
+  
+/* .user-table-row, .order-table-row {
     display: table-cell;
     padding: 8px;
-    border: 1px solid black; /*header border*/
-  }
-
-.user-table-row, .order-table-row {
-    display: table-row;
-    border-bottom: 1px solid #ddd;
     border: 1px solid black;
-    background-color: white;
-  }
-
-.user-table-row > p, .order-table-row > p {
-    display: table-cell;
-    padding: 8px;
-    border: 1px solid black; /*data border*/
-  }
+  } */
 
 .admin-row {
     background-color: rgb(251, 213, 213);
   }
 
-/* orders table */
-  
+
+/*** orders table ***/
 .bold-date {
     font-weight: bold;
 }
@@ -78,25 +77,27 @@ h2 {
     background-color: white;
 }
     
-/* .date-row {
-    background-color: #ddd;
+.date-row {
     font-weight: bold;
-} */
+    display: table-cell;
+    padding: 8px;
+}
 
 
 
 
-  /* add product */
+/*** add product ***/
 .active-select {
     color: white;
     font-size: 20px;
 }
 
 
+/*** update product ***/
 
 
 
-  /* deactivate product */
+/*** deactivate/reactivate product ***/
 .product-active-indicator {
   color: green;
 }
@@ -105,7 +106,12 @@ h2 {
   color: red;
 }
 
+option[data-active="true"] {
+  background-color: rgb(83, 191, 83);
+  color: white;
+}
 
-
-
-  /* reactivate product */
+option[data-active="false"] {
+  background-color: rgb(252, 58, 58);
+  color: white;
+}

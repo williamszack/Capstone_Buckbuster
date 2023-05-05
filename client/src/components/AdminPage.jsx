@@ -5,6 +5,15 @@ import { addProduct, deactivateProduct, getAllOrders, getAllProducts, getAllUser
 //child of App.js
 
 const AdminPage = ({ token }) => {
+  const [usersView, setUsersView] = useState(false);
+  const [ordersView, setOrdersView] = useState(false);
+  const [addView, setAddView] = useState(false);
+  const [updateView, setUpdateView] = useState(false);
+  const [drView, setDRView] = useState(false);
+
+//**************Toggle view buttons - 
+
+
 
 //**************View all users - done
   const [allUsers, setAllUsers] = useState([]);
@@ -31,8 +40,6 @@ const AdminPage = ({ token }) => {
   useEffect(() => {
     fetchAllOrders();
   }, [fetchAllOrders]);
-
-  // console.log("allorders", allOrders);
   
   const ordersByDate = allOrders.reduce((accumulator, order) => {
     const date = order.order_date;
@@ -90,10 +97,8 @@ const AdminPage = ({ token }) => {
   };
 
   const productOptions = allProducts ? allProducts.sort((a, b) => a.product_id - b.product_id).map(product => (
-    <option key={product._id} value={product.product_id}>{product.product_id} - {product.name} - 
-    <span>{product.active ? <span className="product-active-indicator">&nbsp;active</span> 
-    : <span className="product-active-indicator">&nbsp;inactive</span>}</span></option>
-  )) : null;
+    <option key={product._id} value={product.product_id} data-active={product.active}>{product.product_id} - {product.name} - {product.active ? "active" : "inactive"}</option>
+    )) : null;
 
 
 //**************Update product - done
@@ -131,8 +136,8 @@ const AdminPage = ({ token }) => {
   alert(message)
 
   //refresh product list after update
-  const updatedProductsData = await getAllProducts(); //fetch updated data
-  setAllProducts(updatedProductsData); //update state with new data
+  const updatedProductsData = await getAllProducts();
+  setAllProducts(updatedProductsData);
  }
 
 //**************Deactivate product - done
@@ -149,8 +154,8 @@ const handleDeact = async (productId) => {
     setSelectedProduct("");
 
     //refresh product list after deactivation
-    const updatedProductsData = await getAllProducts(); //fetch updated data
-    setAllProducts(updatedProductsData); //update state with new data
+    const updatedProductsData = await getAllProducts();
+    setAllProducts(updatedProductsData);
   } catch (error) {
     console.error(error);
   }
@@ -170,8 +175,8 @@ const handleReact = async (productId) => {
     setSelectedProduct("");
 
     //refresh product list after reactivation
-    const updatedProductsData= await getAllProducts(); //fetch updated data
-    setAllProducts(updatedProductsData); //update state with new data
+    const updatedProductsData= await getAllProducts();
+    setAllProducts(updatedProductsData);
   } catch (error) {
     console.error(error);
   }
@@ -180,59 +185,84 @@ const handleReact = async (productId) => {
   return (
     <div>
       <h1>AdminPage</h1>
-      <h2>Users</h2>
-      <ul className="user-table">
-      <div className="user-table-header">
-        <p><strong>User ID</strong></p>
-        <p><strong>Name</strong></p>
-        <p><strong>Email</strong></p>
-        <p><strong>Username</strong></p>
-        <p><strong>Password</strong></p>
-        <p><strong>Admin</strong></p>
+      <div className="toggle-buttons">
+        <button onClick={() => setUsersView(prev => !prev)}>Users</button>
+        <button onClick={() => setOrdersView(prev => !prev)}>Orders</button>
+        <button onClick={() => setAddView(prev => !prev)}>Add Product</button>
+        <button onClick={() => setUpdateView(prev => !prev)}>Update Product</button>
+        <button onClick={() => setDRView(prev => !prev)}>Product Status (active/inactive)</button>
       </div>
-      {allUsers.map((user) => (
-        <li key={user._id} className={user.admin === true ? "admin-row user-table-row" : "user-table-row"}>
-          <p>{user.user_id}</p>
-          <p>{user.name}</p>
-          <p>{user.email}</p>
-          <p>{user.username}</p>
-          <p>{user.password}</p>
-          <span>{user.admin === true ? <span>&nbsp;Yes</span> : <span>&nbsp;No</span>}</span>
-        </li>
-        ))}
-      </ul>
+      {usersView ?
+      <div className="users-box">
+        <h2>Users</h2>
+        <table className="users-table">
+          <thead>
+            <tr className="users-table-header">
+              <th><strong>User ID</strong></th>
+              <th><strong>Name</strong></th>
+              <th><strong>Email</strong></th>
+              <th><strong>Username</strong></th>
+              <th><strong>Password</strong></th>
+              <th><strong>Admin</strong></th>
+            </tr>
+          </thead>
+          {allUsers.map((user) => (
+            <tbody key={user._id}>
+              <tr className={user.admin === true ? "admin-row users-table-row" : "users-table-row"}>
+                <td>{user.user_id}</td>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.username}</td>
+                <td>{user.password}</td>
+                <td>{user.admin ? "Yes" : "No"}</td>
+              </tr>
+            </tbody>
+            ))}
+        </table>
+      </div>
+      : "" }
       <br />
-      <h2>Orders</h2>
-      <ul className="orders-table">
-      <div className="orders-table-header">
-        <p><strong>Order Date</strong></p>
-        <p><strong>Order ID</strong></p>
-        <p><strong>Name</strong></p>
-        <p><strong>User ID</strong></p>
-        <p><strong>Product ID</strong></p>
-        <p><strong>Quantity</strong></p>
-        {/* <p><strong>Order Date</strong></p> */}
+      {ordersView ?
+      <div className="orders-box">
+        <h2>Orders</h2>
+        <table className="orders-table">
+          <thead>
+            <tr className="orders-table-header">
+              <th><strong>Order Date</strong></th>
+              <th><strong>Order ID</strong></th>
+              <th><strong>Name</strong></th>
+              <th><strong>User ID</strong></th>
+              <th><strong>Product ID</strong></th>
+              <th><strong>Quantity</strong></th>
+              {/* <p><strong>Order Date</strong></p> */}
+            </tr>
+          </thead>
+          {Object.keys(ordersByDate).map((date, index) => (
+          <Fragment key={date}>
+            <tbody className="date-row">
+              {/* <p><strong>Order Date: </strong>{date}</p> */}
+            </tbody>
+          {ordersByDate[date].map((order, orderIndex) => (
+            <tbody key={order._id}>
+              <tr className={`orders-table-row ${index % 2 === 0 ? 'even' : 'odd'}`}>
+                <td className={`date ${orderIndex === 0 ? 'bold-date' : 'rest-date'}`}>{date}</td>
+                <td>{order.order_id}</td>
+                <td>{order.name}</td>
+                <td>{order.user_id}</td>
+                <td>{order.product_id}</td>
+                <td>{order.quantity}</td>
+              </tr>
+            </tbody>
+          ))}
+          </Fragment>
+          ))}
+        </table>
       </div>
-      {Object.keys(ordersByDate).map((date, index) => (
-      <Fragment key={date}>
-        <li className="date-row">
-          {/* <p><strong>Order Date: </strong>{date}</p> */}
-        </li>
-      {ordersByDate[date].map((order, orderIndex) => (
-        <li key={order._id} className={`order-table-row ${index % 2 === 0 ? 'even' : 'odd'}`}>
-          <p className={`date ${orderIndex === 0 ? 'bold-date' : 'rest-date'}`}>{date}</p>
-          <p>{order.order_id}</p>
-          <p>{order.name}</p>
-          <p>{order.user_id}</p>
-          <p>{order.product_id}</p>
-          <p>{order.quantity}</p>
-        </li>
-      ))}
-      </Fragment>
-      ))}
-      </ul>
+      : "" }
+      <br />
+      {addView ? 
+      <div className="add-box">
       <h2>Add Product</h2>
-      <div>
         <form onSubmit={handleAdd} id="add-form">
           <input type="text" required placeholder="name" onChange={(event) => setName(event.target.value)} />
           <textarea type="text" required placeholder="description" onChange={(event) => setDescription(event.target.value)}  />
@@ -248,64 +278,75 @@ const handleReact = async (productId) => {
           <button type="submit" formtype="add-form" >Add To Library</button>
         </form>
       </div>
-      <h2>Update</h2>
-        <label>Product Selection</label>
-        <br/>
-        <select className="productSelect" value={selectedProduct?.product_id || ""} onChange={handleOptionChange}>
-            <option value="">Select a product to update</option>
-            {productOptions}
-        </select>
-        <br/>
-        <br/>
-        <form onSubmit={handleUpdate} id="update-form">
-          <lablel>name</lablel>
-        <br/>
-          <input type="text" placeholder={selectedProduct?.name} onChange={(event) => setName(event.target.value)}/>
-        <br/>
-        <br/>
-          <lablel>description</lablel>
+      : "" }
+      <br />
+      {updateView ?
+      <div className="update-box">
+        <h2>Update Product</h2>
+          <label>Product Selection</label>
           <br/>
-          <textarea type="text" placeholder={selectedProduct?.description} onChange={(event) => setDescription(event.target.value)} />
-        <br/>
-        <br/>
-          <lablel>price</lablel>
-          <br/>
-          <input type="number" step="0.01" placeholder={selectedProduct?.price} onChange={(event) => setPrice(event.target.value)} />
-        <br/>
-        <br/>
-          <lablel>genre</lablel>
-          <br/>
-          <input type="text" placeholder={selectedProduct?.genre} onChange={(event) => setGenre(event.target.value)} />
-        <br/>
-        <br/>
-          <lablel>quantity</lablel>
-          <br/>
-          <input type="number" placeholder={selectedProduct?.quantity} onChange={(event) => setQuantity(event.target.value)} />
-        <br/>
-        <br/>
-          <lablel>image_url</lablel>
-          <br/>
-          <input type="text" placeholder={selectedProduct?.image_url} onChange={(event) => setImage(event.target.value)} />
-        {/* <br/>
-        <br/>
-          <span>active </span>
-        <span>{selectedProduct?.active ? <span className="product-active-indicator">&nbsp;active</span> 
-          : <span className="product-active-indicator">&nbsp;inactive</span>}</span> */}
-            {/* <select value={selectedProduct?.active ?? false} onChange={(event) => setActive(event.target.value)}>
-              <option value={true}>Yes</option>
-              <option value={false}>No</option>
-            </select> */}
-          <br/>
-          <br/>
-          <button type="submit" value={selectedProduct?.product_id} formtype="update-form" >Update {selectedProduct?.name}</button>
-      </form>
-      <h2>Deactivate / Reactivate</h2>
           <select className="productSelect" value={selectedProduct?.product_id || ""} onChange={handleOptionChange}>
-            <option value="">Select a product to deactivate / reactivate</option>
+              <option value="">Select a product to update</option>
               {productOptions}
           </select>
-            <button onClick={() => handleDeact(selectedProduct?.product_id)} >Deactivate {selectedProduct?.name}</button>
-            <button onClick={() => handleReact(selectedProduct?.product_id)} >Reactivate {selectedProduct?.name}</button>
+          <br/>
+          <br/>
+          <form onSubmit={handleUpdate} id="update-form">
+            <label>name</label>
+          <br/>
+            <input type="text" placeholder={selectedProduct?.name} onChange={(event) => setName(event.target.value)}/>
+          <br/>
+          <br/>
+            <label>description</label>
+            <br/>
+            <textarea type="text" placeholder={selectedProduct?.description} onChange={(event) => setDescription(event.target.value)} />
+          <br/>
+          <br/>
+            <label>price</label>
+            <br/>
+            <input type="number" step="0.01" placeholder={selectedProduct?.price} onChange={(event) => setPrice(event.target.value)} />
+          <br/>
+          <br/>
+            <label>genre</label>
+            <br/>
+            <input type="text" placeholder={selectedProduct?.genre} onChange={(event) => setGenre(event.target.value)} />
+          <br/>
+          <br/>
+            <label>quantity</label>
+            <br/>
+            <input type="number" placeholder={selectedProduct?.quantity} onChange={(event) => setQuantity(event.target.value)} />
+          <br/>
+          <br/>
+            <label>image_url</label>
+            <br/>
+            <input type="text" placeholder={selectedProduct?.image_url} onChange={(event) => setImage(event.target.value)} />
+          {/* <br/>
+          <br/>
+            <span>active </span>
+          <span>{selectedProduct?.active ? <span className="product-active-indicator">&nbsp;active</span> 
+            : <span className="product-active-indicator">&nbsp;inactive</span>}</span> */}
+              {/* <select value={selectedProduct?.active ?? false} onChange={(event) => setActive(event.target.value)}>
+                <option value={true}>Yes</option>
+                <option value={false}>No</option>
+              </select> */}
+            <br/>
+            <br/>
+            <button type="submit" value={selectedProduct?.product_id} formtype="update-form" >Update {selectedProduct?.name}</button>
+        </form>
+      </div>
+      : "" }
+      <br />
+      {drView ?
+      <div className="dr-box">
+        <h2>Product Status (Deactivate / Reactivate)</h2>
+            <select className="productSelect" value={selectedProduct?.product_id || ""} onChange={handleOptionChange}>
+              <option value="">Select a product to deactivate / reactivate</option>
+                {productOptions}
+            </select>
+              <button onClick={() => handleDeact(selectedProduct?.product_id)} >Deactivate {selectedProduct?.name}</button>
+              <button onClick={() => handleReact(selectedProduct?.product_id)} >Reactivate {selectedProduct?.name}</button>
+      </div>
+      : "" }
     </div>
   )
 }
@@ -334,3 +375,9 @@ export default AdminPage
   </li>
 ))}
 </ul> */}
+
+// const productOptions = allProducts ? allProducts.sort((a, b) => a.product_id - b.product_id).map(product => (
+//   <option key={product._id} value={product.product_id}>{product.product_id} - {product.name} - 
+//   {product.active ? <span className="product-active-indicator">&nbsp;active</span> 
+//   : <span className="product-active-indicator">&nbsp;inactive</span>}</option>
+// )) : null;
