@@ -18,7 +18,7 @@ import {
 
 function App() {
   const [username, setUsername] = useState("");
-  const [show, setShow] = useState(false);
+
 
 
   return (
@@ -28,15 +28,12 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/orderPage" element={<OrderPage />} />
         <Route
           path="/login"
           element={<Login username={username} setUsername={setUsername} />}
         />
       </Routes>
-      <button onClick={() => setShow(true)}>Show modal</button>
-      <Modal show={show} onClose={() => setShow(false)}>
-        {" "}
-      </Modal>
     </div>
   );
 }

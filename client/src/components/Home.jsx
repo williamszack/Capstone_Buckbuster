@@ -3,7 +3,7 @@
 import '../css/Home.css'
 import React, { useEffect, useState } from 'react'
 import { getAllProducts, addProductToUsersCart} from '../api/home'
-
+import Modal from './Modal'
 
 const Aside = () => {
   return (
@@ -19,7 +19,7 @@ const Aside = () => {
 
 
 const Home = () => {
-
+  const [show, setShow] = useState(false);
 const [products, setProducts] = useState ([])
 
 useEffect(() => {
@@ -77,11 +77,16 @@ const user_id = localStorage.getItem("user_id")
                   handleAddToCart(product_id)
                 }}
                 className='addToCart--button'>Add to cart
-                </button>    
+                </button> 
+                <button onClick={() => setShow(true)}>More Details</button>
+      
               </div> 
             )
           })}
         </div>
+        <Modal show={show} onClose={() => setShow(false)}>
+        {" "}
+      </Modal> 
       </div>
     </div>
   )
