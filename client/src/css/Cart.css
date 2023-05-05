@@ -32,3 +32,14 @@
   background-color: rgb(189, 250, 189);
   cursor: pointer;
 }
+
+.delete--btn {
+  height: 2rem;
+  width: 8rem;
+  margin-top: 4rem;
+  cursor: pointer;
+}
+
+.delete--btn:hover {
+  background-color: red;
+}
