@@ -75,7 +75,7 @@ export const getAllProducts = async () => {
 			},
 		});
 		const result = await response.json();
-		console.log("getAllProducts:", result);
+		// console.log("getAllProducts:", result);
 		return result;
 	} catch (error) {
 		console.error(error);
@@ -83,6 +83,7 @@ export const getAllProducts = async () => {
 };
 
 export const updateProduct = async ({
+	productId,
 	name,
 	description,
 	price,
@@ -92,29 +93,39 @@ export const updateProduct = async ({
 	active,
 }) => {
 	try {
+		// //create an object to hold the updated fields
+		const body = {};
+		if (name) {
+			body.name = name;
+		}
+		if (description) {
+			body.description = description;
+		}
+		if (price) {
+			body.price = price;
+		}
+		if (genre) {
+			body.genre = genre;
+		}
+		if (quantity) {
+			body.quantity = quantity;
+		}
+		if (image) {
+			body.image_url = image;
+		}
+		if (active !== undefined) {
+			body.active = active;
+		}
 		const response = await fetch(`${BASE_URL}/products/${productId}`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
 				Authorization: `Bearer ${token}`,
 			},
-			body: JSON.stringify({
-				name: name
-					.split(" ")
-					.map((title) => {
-						return title.charAt(0).toUpperCase() + title.slice(1);
-					})
-					.join(" "),
-				description: description.toUpperCase().charAt(0) + description.slice(1),
-				price: price,
-				genre: genre.toUpperCase().charAt(0) + genre.slice(1),
-				quantity: quantity,
-				image_url: image,
-				active: active,
-			}),
+			body: JSON.stringify(body),
 		});
 		const result = await response.json();
-		console.log("updateProduct:", updateProduct);
+		console.log("updateProduct:", result);
 		return result;
 	} catch (error) {
 		console.error(error);
@@ -154,24 +165,3 @@ export const reactivateProduct = async ({ productId }) => {
 		console.error(error);
 	}
 };
-
-//product selector for dropdown menu
-// const handleProductChange = (event) => {
-//   const productId = parseInt(event.target.value);
-//   const selectedProduct = allProducts.find(product => product._id === productId);
-//   setSelectedProduct(selectedProduct);
-// };
-
-//product selector for dropdown menu
-// const productOptions = allProducts.sort((a, b) => a.product_id - b.product_id).map((product) => (
-//   <option key={product._id} value={product._id}>{product.product_id} - {product.name} -
-//   <span>{product.active ? <span className="product-active-indicator">&nbsp;active</span>
-//   : <span className="product-inactive-indicator">&nbsp;inactive</span>}</span></option>
-// ));
-
-// {selectedProduct && (
-// 	<div>
-// 	  <p>Product Name: {selectedProduct.product_id}</p>
-// 	  <span>Active: {selectedProduct.active ? <span>&nbsp;Yes</span> : <span>&nbsp;No</span>}</span>
-// 	</div>
-//   )}

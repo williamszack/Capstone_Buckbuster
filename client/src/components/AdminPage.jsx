@@ -18,8 +18,6 @@ const AdminPage = ({ token }) => {
   useEffect(() => {
     fetchAllUsers();
   }, [fetchAllUsers])
-
-  // console.log("allusers", allUsers);
   
 //**************View all orders - done
   const [allOrders, setAllOrders] = useState([]);
@@ -70,7 +68,7 @@ const AdminPage = ({ token }) => {
     alert(message)
   }
 
-  //------------------------------------------------------------------------------------
+  //-------------------------------------------------------------------------------------
   //helper for bottom 3 functions
   const [allProducts, setAllProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState([]);
@@ -98,11 +96,30 @@ const AdminPage = ({ token }) => {
   )) : null;
 
 
-//**************Update product - 
+//**************Update product - done
  const handleUpdate = async (event) => {
   event.preventDefault();
 
-  const result = await updateProduct({ name, description, price, genre, quantity, image, active });
+  if (!selectedProduct) {
+    alert("Please select a product to update");
+    return;
+  }
+  if (name === "" &&
+  description === "" &&
+  price === "" &&
+  genre === "" &&
+  quantity === "" &&
+  image === "" &&
+  active === selectedProduct.active) {
+    console.log("Field(s) must be updated to process change");
+    alert("Field(s) must be updated to process change");
+    return null;
+  }
+
+  const result = await updateProduct({ 
+    productId: selectedProduct.product_id, //pass the selectedProduct.product_id as the productId parameter 
+    name, description, price, genre, quantity, image, active
+  });
   const message = result.error ? `Error ${result.message}` : `Product ${selectedProduct.name} updated`
   setName("");
   setDescription("");
@@ -112,6 +129,10 @@ const AdminPage = ({ token }) => {
   setImage("");
   console.log(message);
   alert(message)
+
+  //refresh product list after update
+  const updatedProductsData = await getAllProducts(); //fetch updated data
+  setAllProducts(updatedProductsData); //update state with new data
  }
 
 //**************Deactivate product - done
@@ -124,8 +145,8 @@ const handleDeact = async (productId) => {
   }
   try {
     await deactivateProduct({ token, productId });
-    setSelectedProduct([]);
     console.log(`Product ID: ${selectedProduct.product_id} deactivated`)
+    setSelectedProduct("");
 
     //refresh product list after deactivation
     const updatedProductsData = await getAllProducts(); //fetch updated data
@@ -146,7 +167,7 @@ const handleReact = async (productId) => {
   try{
     await reactivateProduct({ token, productId });
     console.log(`Product ID: ${selectedProduct.product_id} reactivated`)
-    setSelectedProduct([]);
+    setSelectedProduct("");
 
     //refresh product list after reactivation
     const updatedProductsData= await getAllProducts(); //fetch updated data
@@ -155,8 +176,6 @@ const handleReact = async (productId) => {
     console.error(error);
   }
 };
-
-console.log("is this: ", active);
 
   return (
     <div>
@@ -207,7 +226,6 @@ console.log("is this: ", active);
           <p>{order.user_id}</p>
           <p>{order.product_id}</p>
           <p>{order.quantity}</p>
-          {/* <p>{order.order_date}</p> */}
         </li>
       ))}
       </Fragment>
@@ -233,52 +251,56 @@ console.log("is this: ", active);
       <h2>Update</h2>
         <label>Product Selection</label>
         <br/>
-        <select className="productSelect" value={selectedProduct?.product_id} onChange={handleOptionChange}>
+        <select className="productSelect" value={selectedProduct?.product_id || ""} onChange={handleOptionChange}>
             <option value="">Select a product to update</option>
             {productOptions}
         </select>
         <br/>
         <br/>
-          <lable>name</lable>
+        <form onSubmit={handleUpdate} id="update-form">
+          <lablel>name</lablel>
         <br/>
           <input type="text" placeholder={selectedProduct?.name} onChange={(event) => setName(event.target.value)}/>
         <br/>
         <br/>
-          <lable>description</lable>
+          <lablel>description</lablel>
           <br/>
           <textarea type="text" placeholder={selectedProduct?.description} onChange={(event) => setDescription(event.target.value)} />
         <br/>
         <br/>
-          <lable>price</lable>
+          <lablel>price</lablel>
           <br/>
           <input type="number" step="0.01" placeholder={selectedProduct?.price} onChange={(event) => setPrice(event.target.value)} />
         <br/>
         <br/>
-          <lable>genre</lable>
+          <lablel>genre</lablel>
           <br/>
           <input type="text" placeholder={selectedProduct?.genre} onChange={(event) => setGenre(event.target.value)} />
         <br/>
         <br/>
-          <lable>quantity</lable>
+          <lablel>quantity</lablel>
           <br/>
           <input type="number" placeholder={selectedProduct?.quantity} onChange={(event) => setQuantity(event.target.value)} />
         <br/>
         <br/>
-          <lable>image_url</lable>
+          <lablel>image_url</lablel>
           <br/>
           <input type="text" placeholder={selectedProduct?.image_url} onChange={(event) => setImage(event.target.value)} />
+        {/* <br/>
         <br/>
-        <br/>
-          <span className="active-select">active </span>
-            <select value={selectedProduct?.active ?? false} onChange={(event) => setActive(event.target.value)}>
+          <span>active </span>
+        <span>{selectedProduct?.active ? <span className="product-active-indicator">&nbsp;active</span> 
+          : <span className="product-active-indicator">&nbsp;inactive</span>}</span> */}
+            {/* <select value={selectedProduct?.active ?? false} onChange={(event) => setActive(event.target.value)}>
               <option value={true}>Yes</option>
               <option value={false}>No</option>
-            </select>
+            </select> */}
           <br/>
           <br/>
-          <button onClick={() => handleReact(selectedProduct?.product_id)} >Update {selectedProduct?.name}</button>
+          <button type="submit" value={selectedProduct?.product_id} formtype="update-form" >Update {selectedProduct?.name}</button>
+      </form>
       <h2>Deactivate / Reactivate</h2>
-          <select className="productSelect" value={selectedProduct?.product_id} onChange={handleOptionChange}>
+          <select className="productSelect" value={selectedProduct?.product_id || ""} onChange={handleOptionChange}>
             <option value="">Select a product to deactivate / reactivate</option>
               {productOptions}
           </select>
