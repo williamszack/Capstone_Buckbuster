@@ -1,7 +1,6 @@
 import '../css/AdminPage.css'
 import { useCallback, useEffect, useState, Fragment } from 'react'
 import { addProduct, deactivateProduct, getAllOrders, getAllProducts, getAllUsers, reactivateProduct, updateProduct } from '../api/AdminPage'
-
 //child of App.js
 
 const AdminPage = ({ token, username }) => {
@@ -11,7 +10,7 @@ const AdminPage = ({ token, username }) => {
   const [ordersView, setOrdersView] = useState(false);
   const [addView, setAddView] = useState(false);
   const [updateView, setUpdateView] = useState(false);
-  const [drView, setDRView] = useState(true);
+  const [drView, setDRView] = useState(false);
 
 //**************View all users - done
   const [allUsers, setAllUsers] = useState([]);
@@ -193,7 +192,13 @@ const handleReact = async (productId) => {
         <button name="toggle" onClick={() => setUpdateView(prev => !prev)}>Update Product</button>
         <button name="toggle" onClick={() => setDRView(prev => !prev)}>Product Status (active/inactive)</button>
       </div>
-      {!usersView && !ordersView && !addView && !updateView && !drView ? <h1>Weclome Admin {username}</h1> : 
+      {!usersView && !ordersView && !addView && !updateView && !drView ? 
+        <>
+          <h1>Welcome Admin {username}</h1>
+          <div className="img">
+          <img src="https://media.istockphoto.com/id/1154370446/photo/funny-raccoon-in-green-sunglasses-showing-a-rock-gesture-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=kkZiaB9Q-GbY5gjf6WWURzEpLzNrpjZp_tn09GB21bI=" alt="Donkey" />
+          </div>
+        </>:
       <div>
       {usersView ?
       <div className="users-box">
