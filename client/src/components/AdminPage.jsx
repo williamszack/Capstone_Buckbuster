@@ -62,12 +62,12 @@ const AdminPage = ({ token, username }) => {
 
     const result = await addProduct({ name, description, price, genre, quantity, image, active });
     const message = result.error ? `Error ${result.message}` : `Product added to library`
-    setName("");
-    setDescription("");
-    setPrice("");
-    setGenre("");
-    setQuantity("");
-    setImage("");
+    // setName("");
+    // setDescription("");
+    // setPrice("");
+    // setGenre("");
+    // setQuantity("");
+    // setImage("");
     console.log(message);
     alert(message)
 
@@ -278,8 +278,8 @@ const handleReact = async (productId) => {
           <input type="text" required placeholder="Genre" onChange={(event) => setGenre(event.target.value)} />
           <input type="number" required placeholder="Quantity" onChange={(event) => setQuantity(event.target.value)} />
           <input type="text" required placeholder="Image_URL" onChange={(event) => setImage(event.target.value)} />
-          <span className="active-select">active&nbsp;
-            <select value={active ?? false} onChange={(event) => setActive(event.target.value)}>
+          <span className="active-label">active
+            <select className="active-select" value={active ?? false} onChange={(event) => setActive(event.target.value)}>
               <option value={true}>Yes</option>
               <option value={false}>No</option>
             </select>
@@ -292,7 +292,6 @@ const handleReact = async (productId) => {
       {updateView ?
       <div className="update-box">
         <h2>Update Product</h2>
-          <label>Product Selection</label>
           <br/>
           <select className="productSelect" value={selectedProduct?.product_id || ""} onChange={handleOptionChange}>
               <option value="">Select a product to update</option>

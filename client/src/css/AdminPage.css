@@ -40,18 +40,53 @@ button[name="toggle"]:hover {
   background-color: #0069d9;
 }
 
+input[type="text"],
+input[type="number"],
+textarea[type="text"] {
+  /* width: 100%; */
+  width: 480px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  background-color: #f7f7f7;
+  font-size: 16px;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea[type="text"]:focus {
+  outline: none;
+  box-shadow: 0px 0px 3px #6c757d;
+}
+
+select {
+  /* width: 30%; */
+  width: 350px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  margin-left: 1rem;
+  background-color: #f7f7f7;
+  font-size: 16px;
+}
+
 /*** button ***/
 button[name="button"] {
   background-color: rgb(255, 170, 7);
   color: white;
   padding: 10px;
-  width: 25%;
+  /* width: 25%; */
+  width: 130px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.2s ease;
   font-size: 16px;
   margin-left: 38%;
+  margin-right: 30%;
+
 }
 
 /* all div box*/
@@ -73,8 +108,9 @@ button[name="button"]:hover {
 }
 
 img {
-  border-radius: 150%;
+  border-radius: 50%;
 }
+
 
 /*** toggle view ***/
 .toggle-buttons{
@@ -85,13 +121,15 @@ img {
   margin: 1.5rem;
 }
 
+
 /*** users table ***/
 .users-table, .orders-table {
   /* display: table; */
   /* border-collapse: collapse; */
   border-spacing: 1px;
-  width: 80%; /*originally 100%*/
+  width: 1500px; /*originally 80%*/
   background-color: black;
+  font-size: 20px;
 }
 
 .users-table-header, .orders-table-header {
@@ -109,7 +147,6 @@ img {
   border: 1px solid black;
   background-color: white;
 }
-
   
 /* .user-table-row, .order-table-row {
     display: table-cell;
@@ -146,13 +183,21 @@ img {
 }
 
 
-
 /*** add product ***/
 #add-form {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 500px;
+  /* width: 50%; */
   gap: 1rem;
+  justify-content: center; /* Aligns content horizontally in the center */
+}
+
+.active-label {
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 25px;
   justify-content: center; /* Aligns content horizontally in the center */
 }
 
@@ -160,16 +205,21 @@ img {
   display: flex;
   align-items: center;
   color: black;
-  font-size: 20px;
+  font-size: 16px;
+  text-align-last: center;
   justify-content: center; /* Aligns content horizontally in the center */
+  width: 100px;
+  margin-left: 1rem;
 }
+
 
 
 /*** update product ***/
 #update-form {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 500px;
+  /* width: 50%; */
   gap: 1rem;
   justify-content: center; /* Aligns content horizontally in the center */
 }
@@ -181,9 +231,15 @@ img {
 }
 
 .dr-box button[name="button"] {
-  margin-left: 25%;
+  /* width: 100%; */
+  width: 100px;
+}
+.dr-buttons {
   margin-bottom: 1rem;
-  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* margin-left: 0; */
 }
 
 .product-active-indicator {
