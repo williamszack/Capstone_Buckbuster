@@ -20,7 +20,8 @@ const Aside = () => {
 
 const Home = () => {
   const [show, setShow] = useState(false);
-const [products, setProducts] = useState ([])
+  const [products, setProducts] = useState ([])
+  const [product_id, setProduct_id] = useState()
 
 useEffect(() => {
   const fetchData = async () => {
@@ -45,16 +46,14 @@ const user_id = localStorage.getItem("user_id")
     } else if (response.error) {
       alert("This movie already exists in your cart!")
     }
-   
   } catch (error) {
     console.error(error)
-  
   }
 }
 
   return (
   <div>
-    <h1 className='home--title'>Listing all products</h1>
+    <h1 className='home--title'>Buckbuster Movies</h1>
     <div className='home--container'>
       <div className='aside--container'> <Aside /> </div>
         <div className='allProducts--container'>
@@ -70,6 +69,7 @@ const user_id = localStorage.getItem("user_id")
                   <div className='now--price'>Now only ${movie.price}!!</div>
                 </div>
              <div>{movie.quantity} Left in stock</div>   
+
                <button 
                 value={movie.product_id}
                 onClick={e => {
@@ -78,13 +78,22 @@ const user_id = localStorage.getItem("user_id")
                 }}
                 className='addToCart--button'>Add to cart
                 </button> 
-                <button onClick={() => setShow(true)}>More Details</button>
-      
+
+                <button 
+                value={movie.product_id}
+                onClick={(e) => {
+                  const product_id = (e.target.value)
+                  setProduct_id(product_id)
+                  setShow(true)
+                }}
+                >More Details
+                </button>
+
               </div> 
             )
           })}
         </div>
-        <Modal show={show} onClose={() => setShow(false)}>
+        <Modal product_id={product_id} show={show} onClose={() => setShow(false)}>
         {" "}
       </Modal> 
       </div>

@@ -6,7 +6,6 @@ import Navbar from "./Navbar";
 import OrderPage from "./OrderPage";
 import Profile from "./Profile";
 import Register from "./Register";
-import Reviews from "./Reviews";
 import Search from "./Search";
 import SingleProductView from "./SingleProductView";
 import Modal from "./Modal";
@@ -20,7 +19,6 @@ export {
   OrderPage,
   Profile,
   Register,
-  Reviews,
   Search,
   SingleProductView,
   Modal,

@@ -127,8 +127,7 @@ usersRouter.post("/login", async (req, res, next) => {
         id: user.user_id,
         username,
       },
-      JWT_SECRET,
-      { expiresIn: '1h' }
+      JWT_SECRET
     );
 
     res.send({
