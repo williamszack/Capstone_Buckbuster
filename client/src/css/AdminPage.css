@@ -21,14 +21,61 @@ h2 {
     border: 1px dotted black;
 }
 
+/* background-color: rgb(15,64,169) #007bff; */
+button[name="toggle"] {
+  background-color: rgb(15,64,169);
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 16px;
+}
 
+button[name="toggle"]:hover {
+  background-color: #0069d9;
+}
+
+/*** button ***/
+button[name="button"] {
+  background-color: rgb(15,64,169);
+  color: white;
+  padding: 10px;
+  width: 25%;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 16px;
+  margin-left: 38%;
+}
+
+/* all div box*/
+.users-box, .orders-box, .add-box, .update-box, .dr-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button[name="button"]:hover {
+  background-color: #0069d9;
+}
+
+/*** toggle view ***/
+.toggle-buttons{
+  display: flex;
+  justify-content: center; /* Aligns content horizontally in the center */
+/* width: 100%; */
+  gap: 1rem;
+}
 
 /*** users table ***/
 .users-table, .orders-table {
   /* display: table; */
   /* border-collapse: collapse; */
   border-spacing: 1px;
-  width: 100%;
+  width: 80%; /*originally 100%*/
   background-color: black;
 }
 
@@ -85,19 +132,45 @@ h2 {
 
 
 
-
 /*** add product ***/
+#add-form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  gap: 1rem;
+  justify-content: center; /* Aligns content horizontally in the center */
+}
+
 .active-select {
-    color: white;
-    font-size: 20px;
+  display: flex;
+  align-items: center;
+  color: black;
+  font-size: 20px;
+  justify-content: center; /* Aligns content horizontally in the center */
 }
 
 
 /*** update product ***/
-
+#update-form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  gap: 1rem;
+  justify-content: center; /* Aligns content horizontally in the center */
+}
 
 
 /*** deactivate/reactivate product ***/
+.dr-box {
+  gap: 1rem;
+}
+
+.dr-box button[name="button"] {
+  margin-left: 25%;
+  margin-bottom: 1rem;
+  width: 50%;
+}
+
 .product-active-indicator {
   color: green;
 }

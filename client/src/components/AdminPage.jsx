@@ -4,16 +4,14 @@ import { addProduct, deactivateProduct, getAllOrders, getAllProducts, getAllUser
 
 //child of App.js
 
-const AdminPage = ({ token }) => {
+const AdminPage = ({ token, username }) => {
+
+  //**************Toggle view buttons - done
   const [usersView, setUsersView] = useState(false);
   const [ordersView, setOrdersView] = useState(false);
   const [addView, setAddView] = useState(false);
   const [updateView, setUpdateView] = useState(false);
-  const [drView, setDRView] = useState(false);
-
-//**************Toggle view buttons - 
-
-
+  const [drView, setDRView] = useState(true);
 
 //**************View all users - done
   const [allUsers, setAllUsers] = useState([]);
@@ -27,7 +25,7 @@ const AdminPage = ({ token }) => {
   useEffect(() => {
     fetchAllUsers();
   }, [fetchAllUsers])
-  
+
 //**************View all orders - done
   const [allOrders, setAllOrders] = useState([]);
 
@@ -73,6 +71,10 @@ const AdminPage = ({ token }) => {
     setImage("");
     console.log(message);
     alert(message)
+
+    //refresh product list after update
+    const updatedProductsData = await getAllProducts();
+    setAllProducts(updatedProductsData);
   }
 
   //-------------------------------------------------------------------------------------
@@ -99,7 +101,6 @@ const AdminPage = ({ token }) => {
   const productOptions = allProducts ? allProducts.sort((a, b) => a.product_id - b.product_id).map(product => (
     <option key={product._id} value={product.product_id} data-active={product.active}>{product.product_id} - {product.name} - {product.active ? "active" : "inactive"}</option>
     )) : null;
-
 
 //**************Update product - done
  const handleUpdate = async (event) => {
@@ -184,14 +185,16 @@ const handleReact = async (productId) => {
 
   return (
     <div>
-      <h1>AdminPage</h1>
       <div className="toggle-buttons">
-        <button onClick={() => setUsersView(prev => !prev)}>Users</button>
-        <button onClick={() => setOrdersView(prev => !prev)}>Orders</button>
-        <button onClick={() => setAddView(prev => !prev)}>Add Product</button>
-        <button onClick={() => setUpdateView(prev => !prev)}>Update Product</button>
-        <button onClick={() => setDRView(prev => !prev)}>Product Status (active/inactive)</button>
+
+        <button name="toggle" onClick={() => setUsersView(prev => !prev)}>Users</button>
+        <button name="toggle" onClick={() => setOrdersView(prev => !prev)}>Orders</button>
+        <button name="toggle" onClick={() => setAddView(prev => !prev)}>Add Product</button>
+        <button name="toggle" onClick={() => setUpdateView(prev => !prev)}>Update Product</button>
+        <button name="toggle" onClick={() => setDRView(prev => !prev)}>Product Status (active/inactive)</button>
       </div>
+      {!usersView && !ordersView && !addView && !updateView && !drView ? <h1>Weclome Admin {username}</h1> : 
+      <div>
       {usersView ?
       <div className="users-box">
         <h2>Users</h2>
@@ -264,18 +267,19 @@ const handleReact = async (productId) => {
       <div className="add-box">
       <h2>Add Product</h2>
         <form onSubmit={handleAdd} id="add-form">
-          <input type="text" required placeholder="name" onChange={(event) => setName(event.target.value)} />
-          <textarea type="text" required placeholder="description" onChange={(event) => setDescription(event.target.value)}  />
-          <input type="number" step="0.01" required placeholder="price" onChange={(event) => setPrice(parseFloat(event.target.value))} />
-          <input type="text" required placeholder="genre" onChange={(event) => setGenre(event.target.value)} />
-          <input type="number" required placeholder="quantity" onChange={(event) => setQuantity(event.target.value)} />
-          <input type="text" required placeholder="image_url" onChange={(event) => setImage(event.target.value)} />
-          <span className="active-select">active </span>
+          <input type="text" required placeholder="Name" onChange={(event) => setName(event.target.value)} />
+          <textarea type="text" required placeholder="Description" onChange={(event) => setDescription(event.target.value)}  />
+          <input type="number" step="0.01" required placeholder="Price" onChange={(event) => setPrice(parseFloat(event.target.value))} />
+          <input type="text" required placeholder="Genre" onChange={(event) => setGenre(event.target.value)} />
+          <input type="number" required placeholder="Quantity" onChange={(event) => setQuantity(event.target.value)} />
+          <input type="text" required placeholder="Image_URL" onChange={(event) => setImage(event.target.value)} />
+          <span className="active-select">active&nbsp;
             <select value={active ?? false} onChange={(event) => setActive(event.target.value)}>
               <option value={true}>Yes</option>
               <option value={false}>No</option>
             </select>
-          <button type="submit" formtype="add-form" >Add To Library</button>
+          </span>
+          <button name="button" formtype="add-form" >Add To Library</button>
         </form>
       </div>
       : "" }
@@ -292,34 +296,12 @@ const handleReact = async (productId) => {
           <br/>
           <br/>
           <form onSubmit={handleUpdate} id="update-form">
-            <label>name</label>
-          <br/>
-            <input type="text" placeholder={selectedProduct?.name} onChange={(event) => setName(event.target.value)}/>
-          <br/>
-          <br/>
-            <label>description</label>
-            <br/>
-            <textarea type="text" placeholder={selectedProduct?.description} onChange={(event) => setDescription(event.target.value)} />
-          <br/>
-          <br/>
-            <label>price</label>
-            <br/>
-            <input type="number" step="0.01" placeholder={selectedProduct?.price} onChange={(event) => setPrice(event.target.value)} />
-          <br/>
-          <br/>
-            <label>genre</label>
-            <br/>
-            <input type="text" placeholder={selectedProduct?.genre} onChange={(event) => setGenre(event.target.value)} />
-          <br/>
-          <br/>
-            <label>quantity</label>
-            <br/>
-            <input type="number" placeholder={selectedProduct?.quantity} onChange={(event) => setQuantity(event.target.value)} />
-          <br/>
-          <br/>
-            <label>image_url</label>
-            <br/>
-            <input type="text" placeholder={selectedProduct?.image_url} onChange={(event) => setImage(event.target.value)} />
+            <input type="text" placeholder={selectedProduct?.name || "Name"} onChange={(event) => setName(event.target.value)}/>
+            <textarea type="text" placeholder={selectedProduct?.description || "Description"} onChange={(event) => setDescription(event.target.value)} />
+            <input type="number" step="0.01" placeholder={selectedProduct?.price || "Price"} onChange={(event) => setPrice(event.target.value)} />
+            <input type="text" placeholder={selectedProduct?.genre || "Genre"} onChange={(event) => setGenre(event.target.value)} />
+            <input type="number" placeholder={selectedProduct?.quantity || "Quantity"} onChange={(event) => setQuantity(event.target.value)} />
+            <input type="text" placeholder={selectedProduct?.image_url || "Image_URL"} onChange={(event) => setImage(event.target.value)} />
           {/* <br/>
           <br/>
             <span>active </span>
@@ -329,24 +311,26 @@ const handleReact = async (productId) => {
                 <option value={true}>Yes</option>
                 <option value={false}>No</option>
               </select> */}
-            <br/>
-            <br/>
-            <button type="submit" value={selectedProduct?.product_id} formtype="update-form" >Update {selectedProduct?.name}</button>
+            <button name="button" value={selectedProduct?.product_id} formtype="update-form" >Update {selectedProduct?.name}</button>
         </form>
       </div>
       : "" }
       <br />
       {drView ?
       <div className="dr-box">
-        <h2>Product Status (Deactivate / Reactivate)</h2>
+        <h2>Product Status (active/inactive)</h2>
+            <div className="dr-buttons">
+              <button name="button" onClick={() => handleDeact(selectedProduct?.product_id)} >Deactivate {selectedProduct?.name}</button>
+              <button name="button" onClick={() => handleReact(selectedProduct?.product_id)} >Reactivate {selectedProduct?.name}</button>
+            </div>
             <select className="productSelect" value={selectedProduct?.product_id || ""} onChange={handleOptionChange}>
               <option value="">Select a product to deactivate / reactivate</option>
                 {productOptions}
             </select>
-              <button onClick={() => handleDeact(selectedProduct?.product_id)} >Deactivate {selectedProduct?.name}</button>
-              <button onClick={() => handleReact(selectedProduct?.product_id)} >Reactivate {selectedProduct?.name}</button>
       </div>
       : "" }
+      </div>
+    }
     </div>
   )
 }
