@@ -5,7 +5,7 @@ import '../css/OrderPage.css'
 
 const OrderPage = () => {
   return (
-    <div>OrderPage</div>
+    <h1>orderpage</h1>
   )
 }
 

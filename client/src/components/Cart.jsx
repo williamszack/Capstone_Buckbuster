@@ -2,9 +2,12 @@
 import React, { useState, useEffect } from "react";
 import { getUsersCart, removeItem } from "../api/cart";
 import '../css/Cart.css'
+import { submitOrder } from "../api/orders";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
 const [cartItems, setCartItems] =useState([])
+const navigate = useNavigate()
 
 const handleDelete =  async (product_id) => {
   const user_id = localStorage.getItem("user_id")
@@ -19,11 +22,29 @@ const handleDelete =  async (product_id) => {
   }
 }
 
+const handleOrder = async () => {
+  const user_id = localStorage.getItem("user_id")
+  try {
+    const response = await submitOrder(user_id)
+    console.log("success", response)
+
+    if (response.success) {
+      const updateCart = await getUsersCart()
+      setCartItems(updateCart)
+      alert("Order submitted!")
+      navigate("/orderPage")
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
   useEffect(() => {
-const fetchUserCart = async()=>{
+  const fetchUserCart = async()=>{
   const data = await getUsersCart()
   setCartItems(data)
-}
+  }
+  
  fetchUserCart()
   },[])
 
@@ -49,17 +70,25 @@ const fetchUserCart = async()=>{
           <h2>Price</h2>
           <p>{item.price}</p>
         </div>
-        <button className="delete--btn"
-        value={item.product_id}
-        onClick={e => {
+
+        <button 
+          className="delete--btn"
+          value={item.product_id}
+          onClick={e => {
           const product_id = (e.target.value)
           handleDelete(product_id)
-        }}
-        >delete</button>
+          }}
+        >delete
+        </button>
+
   </div>
 ))}
 
-<button className="checkout--btn">Check Out</button>
+<button 
+className="checkout--btn"
+onClick={() => handleOrder()}
+>Check Out
+</button>
 
 </div> 
   )
