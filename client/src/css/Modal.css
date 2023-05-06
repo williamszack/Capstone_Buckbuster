@@ -13,6 +13,7 @@
 .modal-content {
   width: 500px;
   background-color: #fff;
+  align-items: center;
 }
 
 .modal-header,

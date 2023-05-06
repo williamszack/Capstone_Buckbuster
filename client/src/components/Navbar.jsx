@@ -26,11 +26,11 @@ const Navbar = () => {
         </div>
         <div className="links">
           {isAuthenticated && <h2 className='loggedInUser'>Welcome {user}</h2>}
-          {!isAuthenticated && <Link to="/login"><a href="login">Login</a></Link>}
-          {!isAuthenticated && <Link to="/register"><a href="register">Register</a></Link>}
-          {isAuthenticated && <Link to="/cart"><a href="cart">Cart</a></Link>}
-          <Link to="/"><a href="home">Home</a></Link>
-          <a href="..">Profile</a>
+          {!isAuthenticated && <Link to="/login">Login</Link>}
+          {!isAuthenticated && <Link to="/register">Register</Link>}
+          {isAuthenticated && <Link to="/cart">Cart</Link>}
+          <Link to="/">Home</Link>
+          {isAuthenticated && <Link to="/profile">Profile</Link>}
           {isAuthenticated && <a className="logout--button" onClick={handleLogout} href="..">Logout</a>}
         </div>
       </nav>

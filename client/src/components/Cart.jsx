@@ -32,7 +32,7 @@ const handleOrder = async () => {
       const updateCart = await getUsersCart()
       setCartItems(updateCart)
       alert("Order submitted!")
-      navigate("/orderPage")
+      navigate("/profile")
     }
   } catch (error) {
     console.error(error)
@@ -58,7 +58,7 @@ const handleOrder = async () => {
   <div className='shoppingPage--container'>
     <h2>Shopping Cart</h2>
       {cartItems.map((item) => (
-        <div className='cartItem--container'>
+        <div className='cartItem--container' key={item.product_id}>
         <img className='image' src={item.image_url} alt="movieImage"></img>
 
         <div>
