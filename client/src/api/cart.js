@@ -19,7 +19,7 @@ return result
     }
 }
 
-
+             //submitOrder       (user_id)
 export const removeItem = async (product_id) => {
     const user_id =localStorage.getItem("user_id")
 
