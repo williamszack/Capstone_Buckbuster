@@ -34,7 +34,7 @@
 
   .title{
     font-family: 'Sigmar', sans-serif;
-    color: white;
+    color: rgb(254, 169, 0);
     margin: 0;
     margin-left: 2rem;
     font-size: 50px;
@@ -42,8 +42,8 @@
   }
 
   .loggedInUser{
-    color: yellow;
-    text-shadow: 1px 1px 0px #8a8a8a;
+    color: rgb(254, 169, 0);
+    text-shadow: 1px 1px 0px #000000;
   }
 
   a.logout--button:hover {

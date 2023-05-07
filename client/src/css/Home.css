@@ -48,11 +48,13 @@
     box-shadow: 
     0 5px 5px 0 rgba(0, 0, 0, 0.2), 
     0 6px 30px 0 rgba(118, 118, 118, 0.2);
-    border-radius: 5%;
+    border-radius: 3%;
 }
 
 .home--title {
     font-family: 'Sigmar', sans-serif;
+    color: rgb(254, 169, 0);
+    text-shadow: 4px 2px 3px rgb(2, 137, 220);
     text-align: center;
     margin: auto;
     font-size: 60px;
@@ -63,6 +65,7 @@
     min-height: 15rem;
     max-width: 12rem;
     max-height: 15rem;
+    box-shadow: 4px 2px 3px rgb(0, 0, 0);
 }
 
 .movie--title{
