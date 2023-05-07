@@ -98,7 +98,7 @@ const AdminPage = ({ token, username }) => {
   };
 
   const productOptions = allProducts ? allProducts.sort((a, b) => a.product_id - b.product_id).map(product => (
-    <option key={product._id} value={product.product_id} data-active={product.active}>{product.product_id} - {product.name} - {product.active ? "active" : "inactive"}</option>
+    <option key={product.product_id} value={product.product_id} data-active={product.active}>{product.product_id} - {product.name} - {product.active ? "active" : "inactive"}</option>
     )) : null;
 
 //**************Update product - done
@@ -196,7 +196,7 @@ const handleReact = async (productId) => {
         <>
           <h1 className='welcome--admin'>Welcome Admin {username}</h1>
           <div className="admin--img">
-          <img src="https://media.istockphoto.com/id/1154370446/photo/funny-raccoon-in-green-sunglasses-showing-a-rock-gesture-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=kkZiaB9Q-GbY5gjf6WWURzEpLzNrpjZp_tn09GB21bI=" alt="Donkey" />
+          <img className="admin--img" src="https://media.istockphoto.com/id/1154370446/photo/funny-raccoon-in-green-sunglasses-showing-a-rock-gesture-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=kkZiaB9Q-GbY5gjf6WWURzEpLzNrpjZp_tn09GB21bI=" alt="Donkey" />
           </div>
         </>:
       <div>
@@ -215,7 +215,7 @@ const handleReact = async (productId) => {
             </tr>
           </thead>
           {allUsers.map((user) => (
-            <tbody key={user._id}>
+            <tbody key={user.user_id}>
               <tr className={user.admin === true ? "admin-row users-table-row" : "users-table-row"}>
                 <td>{user.user_id}</td>
                 <td>{user.name}</td>
@@ -251,7 +251,7 @@ const handleReact = async (productId) => {
               {/* <p><strong>Order Date: </strong>{date}</p> */}
             </tbody>
           {ordersByDate[date].map((order, orderIndex) => (
-            <tbody key={order._id}>
+            <tbody key={order.order_id}>
               <tr className={`orders-table-row ${index % 2 === 0 ? 'even' : 'odd'}`}>
                 <td className={`date ${orderIndex === 0 ? 'bold-date' : 'rest-date'}`}>{date}</td>
                 <td>{order.order_id}</td>

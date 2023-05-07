@@ -38,7 +38,7 @@ useEffect(()=> {
 
         {
         reviews.length > 0 ? reviews.map(review => (
-          <div>
+          <div key={review.review_id}>
           <h4>User: {review.username}</h4>
           <div>Rating out of 5 stars: {review.rating} stars</div>
           <h4>{review.title}</h4>

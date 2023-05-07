@@ -49,3 +49,7 @@
   a.logout--button:hover {
     text-shadow: 1px 1px 2px rgb(254, 2, 2);
   }
+
+  a.adminView {
+    color: rgb(100, 251, 100);
+  }

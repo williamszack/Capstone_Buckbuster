@@ -2,8 +2,10 @@
     /* background-image: url("bbbg.png"); */
     /* background: linear-gradient(rgb(192, 251, 192), pink, rgb(192, 251, 192)); */
     /* background-color: white; */
+    margin-top: -2rem;
     background-color: rgb(15,64,169);
     background-size: cover;
+    min-height: 100vh;
     /* background-position: center -70px; */
 }
 

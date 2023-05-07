@@ -1,8 +1,11 @@
 const BASE_URL = "http://localhost:3001/api";
-const token =
-	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJldmFuIiwiaWF0IjoxNjgzMTQ0NzQyfQ.rcKjfpNiFDU8e-2x7yWr5urHks081ODDgqFq1uPLGJA";
+//const token =
+//	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJldmFuIiwiaWF0IjoxNjgzMTQ0NzQyfQ.rcKjfpNiFDU8e-2x7yWr5urHks081ODDgqFq1uPLGJA";
+
+
 
 export const getAllUsers = async () => {
+	const token = localStorage.getItem("token")
 	try {
 		const response = await fetch(`${BASE_URL}/users/admin`, {
 			method: "GET",
@@ -20,6 +23,7 @@ export const getAllUsers = async () => {
 };
 
 export const getAllOrders = async () => {
+	const token = localStorage.getItem("token")
 	try {
 		const response = await fetch(`${BASE_URL}/orders`, {
 			method: "GET",
@@ -37,6 +41,7 @@ export const getAllOrders = async () => {
 };
 
 export const addProduct = async ({ name, description, price, genre, quantity, image, active }) => {
+	const token = localStorage.getItem("token")
 	try {
 		const response = await fetch(`${BASE_URL}/products`, {
 			method: "POST",
@@ -68,6 +73,7 @@ export const addProduct = async ({ name, description, price, genre, quantity, im
 };
 
 export const getAllProducts = async () => {
+	
 	try {
 		const response = await fetch(`${BASE_URL}/products/`, {
 			headers: {
@@ -92,6 +98,7 @@ export const updateProduct = async ({
 	image,
 	active,
 }) => {
+	const token = localStorage.getItem("token")
 	try {
 		// //create an object to hold the updated fields
 		const body = {};
@@ -133,6 +140,7 @@ export const updateProduct = async ({
 };
 
 export const deactivateProduct = async ({ productId }) => {
+	const token = localStorage.getItem("token")
 	try {
 		const response = await fetch(`${BASE_URL}/products/deactivate/${productId}`, {
 			method: "PATCH",
@@ -150,6 +158,7 @@ export const deactivateProduct = async ({ productId }) => {
 };
 
 export const reactivateProduct = async ({ productId }) => {
+	const token = localStorage.getItem("token")
 	try {
 		const response = await fetch(`${BASE_URL}/products/reactivate/${productId}`, {
 			method: "PATCH",

@@ -68,6 +68,7 @@ usersRouter.post("/register", async (req, res, next) => {
           user: {
             id: user.user_id,
             username: user.username,
+            isAdmin: user.admin
           },
         };
         console.log("response", response);
@@ -134,6 +135,7 @@ usersRouter.post("/login", async (req, res, next) => {
       user: {
         id: user.user_id,
         username: username,
+        isAdmin: user.admin
       },
       token: token,
       message: "you're logged in!",
