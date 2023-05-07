@@ -5,18 +5,6 @@
     flex-direction: row;
 }
 
-@media screen and (max-width: 768px) {
-    .aside--container {
-        display: none;
-    }
-}
-
-.aside--container {
-    display: none;
-    flex: 1;
-    background-color: rgb(206, 247, 237);
-}
-
 .anchor--container {
     display: flex;
     flex-direction: column;
@@ -35,8 +23,22 @@
     flex: 5;
     margin-top: 2rem;
     text-align: center;
-gap: 2rem;
+    gap: 2rem;
 }
+
+@media (max-width: 600px) {
+
+    .home--container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .allProducts--container {
+        flex-direction: column;
+        align-items: center;
+    }
+  }
+
 
 .product--container {
     display: flex;
@@ -55,16 +57,6 @@ gap: 2rem;
     padding-top: 2rem;
     height: 32rem;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 0, 0, 0.2), 0 0 0px rgba(0, 0, 0, 0.1) inset;
-}
-
-.home--title {
-    font-family: 'Sigmar', sans-serif;
-    color: rgb(254, 169, 0);
-    text-shadow: 4px 2px 3px rgb(2, 137, 220);
-    text-align: center;
-    margin: auto;
-    font-size: 60px;
-    margin-top: 1rem;
 }
 
 .product--image {
@@ -86,7 +78,7 @@ gap: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-margin-top: 1rem;
+    margin-top: 1rem;
 }
 
 .was--price {
@@ -111,4 +103,55 @@ margin-top: 1rem;
 
 .addToCart--button:hover {
     background-color: rgb(103, 239, 103);
+
+.home--title {
+    font-family: 'Sigmar', sans-serif;
+    color: rgb(254, 169, 0);
+    text-shadow: 4px 2px 3px rgb(2, 137, 220);
+    text-align: center;
+    margin: auto;
+    font-size: 60px;
+    margin-top: 1rem;
 }
+
+@media (max-width: 600px) {
+    .home--title {
+      font-size: 30px;
+    }
+  }
+
+  .searchbar--container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0 auto;
+    
+  }
+  
+  .searchbar {
+    flex: 1; 
+    max-width: 40rem; 
+    height: 3.1rem; 
+    font-size: 24px;
+    border: 2px solid rgb(15, 64, 169);
+  }
+
+  .searchbtn {
+    width: 5rem;
+    height: 3.5rem; 
+    font-size: 30px;
+    background-color: rgb(254, 169, 0);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 2px solid rgb(15, 64, 169);
+    border-left: none;
+    cursor: pointer;
+  }
+
+  .searchbtn:hover {
+    background-color: rgb(255, 195, 75);
+    font-size: 35px;
+  }
+
+

@@ -41,6 +41,12 @@
     text-shadow: 1px 1px 2px black;
   }
 
+  @media (max-width: 600px) {
+    .title {
+      display: none;
+    }
+  }
+
   .loggedInUser{
     color: rgb(254, 169, 0);
     text-shadow: 1px 1px 0px #000000;
