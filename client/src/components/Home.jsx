@@ -63,6 +63,15 @@ const user_id = localStorage.getItem("user_id")
               <div className='movie--title'>{movie.name}</div>
               <div>{movie.genre}</div>
               <img className='product--image' src={movie.image_url} alt="movie"></img>
+                <button 
+                value={movie.product_id}
+                onClick={(e) => {
+                  const product_id = (e.target.value)
+                  setProduct_id(product_id)
+                  setShow(true)
+                }}
+                >More Details
+                </button>
                 <div className='prices'>
                   <div className='was--price'>Was $1,000,000</div>
                   <div className='now--price'>Now only ${movie.price}!!</div>
@@ -78,15 +87,6 @@ const user_id = localStorage.getItem("user_id")
                 className='addToCart--button'>Add to cart
                 </button> 
 
-                <button 
-                value={movie.product_id}
-                onClick={(e) => {
-                  const product_id = (e.target.value)
-                  setProduct_id(product_id)
-                  setShow(true)
-                }}
-                >More Details
-                </button>
 
               </div> 
             )
