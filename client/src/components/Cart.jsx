@@ -50,13 +50,13 @@ const handleOrder = async () => {
 
   if (cartItems.length === 0) {
     return (
-      <h2>No items in cart!</h2>
+      <h2 className="noitems--cart">No items in cart!</h2>
     )
   }
 
   return (
   <div className='shoppingPage--container'>
-    <h2>Shopping Cart</h2>
+    <h2 className="shopping--cart" >Shopping Cart</h2>
       {cartItems.map((item) => (
         <div className='cartItem--container' key={item.product_id}>
         <img className='image' src={item.image_url} alt="movieImage"></img>
