@@ -48,10 +48,11 @@
     box-shadow: 
     0 5px 5px 0 rgba(0, 0, 0, 0.2), 
     0 6px 30px 0 rgba(118, 118, 118, 0.2);
-    border-radius: 8px;
-    padding-bottom: 1rem;
-    padding-top: 1rem;
-    height: 30rem;
+border-radius: 8px;
+padding-bottom: 1rem;
+padding-top: 1rem;
+height: 30rem;
+box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 0, 0, 0.2), 0 0 0px rgba(0, 0, 0, 0.1) inset;
 }
 
 .home--title {
@@ -68,8 +69,8 @@
     min-height: 15rem;
     max-width: 12rem;
     max-height: 15rem;
-    box-shadow: 4px 2px 3px rgb(0, 0, 0);
-  border-radius: 5px;
+    box-shadow: 4px 2px 3px rgba(0, 0, 0, 0.58);
+border-radius: 5px;
 }
 
 .movie--title{
@@ -99,6 +100,7 @@
     margin: 1rem;
     width: 10rem;
     cursor: pointer;
+border-radius: 5px;
 }
 
 .addToCart--button:hover {

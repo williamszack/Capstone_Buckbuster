@@ -83,12 +83,13 @@ const handleOrder = async () => {
 
   </div>
 ))}
-
+<div className="checkout--container">
 <button 
 className="checkout--btn"
 onClick={() => handleOrder()}
 >Check Out
 </button>
+</div>
 
 </div> 
   )
