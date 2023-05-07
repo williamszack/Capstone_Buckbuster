@@ -324,8 +324,8 @@ const handleReact = async (productId) => {
       <div className="dr-box">
         <h2>Product Status (active/inactive)</h2>
             <div className="dr-buttons">
-              <button name="button" onClick={() => handleDeact(selectedProduct?.product_id)} >Deactivate {selectedProduct?.name}</button>
-              <button name="button" onClick={() => handleReact(selectedProduct?.product_id)} >Reactivate {selectedProduct?.name}</button>
+              <button name="button" onClick={() => handleDeact(selectedProduct?.product_id)} >Deactivate</button>
+              <button name="button" onClick={() => handleReact(selectedProduct?.product_id)} >Reactivate</button>
             </div>
             <select className="productSelect" value={selectedProduct?.product_id || ""} onChange={handleOptionChange}>
               <option value="">Select a product to deactivate / reactivate</option>

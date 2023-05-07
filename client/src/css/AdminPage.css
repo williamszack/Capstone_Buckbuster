@@ -62,12 +62,12 @@ textarea[type="text"]:focus {
 
 select {
   /* width: 30%; */
-  width: 350px;
+  width: 337px;
   padding: 10px;
   border: none;
   border-radius: 5px;
   margin-bottom: 20px;
-  margin-left: 1rem;
+  margin-left: 4px;
   background-color: #f7f7f7;
   font-size: 16px;
 }
@@ -85,7 +85,7 @@ button[name="button"] {
   transition: background-color 0.2s ease;
   font-size: 16px;
   margin-left: 38%;
-  margin-right: 31%;
+  margin-right: 35%;
 
 }
 
