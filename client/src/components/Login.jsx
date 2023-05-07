@@ -59,7 +59,7 @@ const Login = ({ username, setUsername }) => {
         </label>
         <br></br>
         <br></br>
-          <button formType="login" name="login">Login</button>
+          <button formtype="login" name="login">Login</button>
       </form>
     </>
   );

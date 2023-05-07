@@ -145,7 +145,8 @@ async function seedTables() {
 		await client.query(`
         INSERT INTO reviews (user_id, product_id, title, description, rating)
         VALUES (1, 1, 'Amazing movie!', 'I loved this movie from start to finish. The acting was superb and the storyline kept me engaged throughout.', 5),
-               (2, 3, 'One of the best superhero movies ever', 'This movie had everything - great action, amazing performances, and a compelling story. Highly recommended!', 4)
+               (2, 3, 'One of the best superhero movies ever', 'This movie had everything - great action, amazing performances, and a compelling story. Highly recommended!', 4),
+               (1, 3, 'One of the best superhero movies ever', 'This movie had everything - great action, amazing performances, and a compelling story. Highly recommended!', 4)
       `);
 		console.log("Finished creating reviews...");
 		// }

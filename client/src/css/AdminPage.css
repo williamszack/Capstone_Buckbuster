@@ -1,4 +1,4 @@
-.admin--body {
+.admin-body {
     /* background-image: url("bbbg.png"); */
     /* background: linear-gradient(rgb(192, 251, 192), pink, rgb(192, 251, 192)); */
     /* background-color: white; */
@@ -9,20 +9,16 @@
     /* background-position: center -70px; */
 }
 
-.welcome--admin {
+.welcome-admin {
     text-align: center;
     color: rgb(255, 168, 7);
 }
 
-.admin--h2 {
+.admin-h2 {
     font-size: x-large;
     text-align: center;
-    color: black;
-
-}
-
-.break {
-    border: 1px dotted black;
+    color: white;
+    text-decoration: underline rgb(255, 168, 7);
 }
 
 /* background-color: rgb(15,64,169) #007bff; */
@@ -42,7 +38,8 @@ button[name="toggle"]:hover {
   background-color: #0069d9;
 }
 
-input[type="text"],
+#add-form input[type="text"],
+#update-form input[type="text"],
 input[type="number"],
 textarea[type="text"] {
   /* width: 100%; */
@@ -55,8 +52,9 @@ textarea[type="text"] {
   font-size: 16px;
 }
 
-input[type="text"]:focus,
-input[type="email"]:focus,
+#add-form input[type="text"]:focus,
+#update-form input[type="text"]:focus,
+input[type="number"]:focus,
 textarea[type="text"]:focus {
   outline: none;
   box-shadow: 0px 0px 3px #6c757d;
@@ -88,29 +86,33 @@ button[name="button"] {
   font-size: 16px;
   margin-left: 38%;
   margin-right: 35%;
-
-}
-
-/* all div box*/
-.users-box, .orders-box, .add-box, .update-box, .dr-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 2px solid rgb(15,64,169);
-  padding-bottom: 1rem;
 }
 
 button[name="button"]:hover {
   background-color: #0069d9;
 }
 
-.admin--img  {
-  display: flex;
-  justify-content: center;
+/* all div box*/
+div .users-box, div .orders-box, div .add-box, div .update-box, div .dr-box {
+  /* border-bottom: 1px dotted black; */
+  /* border-bottom: 2px ridge black; */
+  padding-top: 1rem;
+  /* border-bottom: 2px ridge rgb(120, 120, 120); */
 }
 
-.admin--img {
+.users-box, .orders-box, .add-box, .update-box, .dr-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid rgb(15,64,169);
+  padding-bottom: 2rem;
+}
+
+.admin-img  {
+  display: flex;
+  justify-content: center;
   border-radius: 50%;
+  margin-top: 1rem;
 }
 
 
@@ -121,6 +123,9 @@ button[name="button"]:hover {
 /* width: 100%; */
   gap: 1rem;
   margin: 1.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 3px ridge black;
 }
 
 
