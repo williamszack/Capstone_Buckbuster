@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Arvo&family=Climate+Crisis&family=Inter&family=Sigmar&display=swap');
+
+.navbar {
+    background-color: rgb(15, 64, 169);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo img {
+   width: 5rem;
+   height: 4rem;
+   margin-left: 2rem;
+  }
+  
+  .links a {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-size: larger;
+    margin-right: 10px;
+    cursor: pointer;
+    text-shadow: 1px 1px 0px #000000;
+  }
+
+  .links a:hover {
+    text-shadow: 1px 1px 2px rgb(254, 246, 2);
+  }
+
+  .title{
+    font-family: 'Sigmar', sans-serif;
+    color: white;
+    margin: 0;
+    margin-left: 2rem;
+    font-size: 50px;
+    text-shadow: 1px 1px 2px black;
+  }
+
+  .loggedInUser{
+    color: yellow;
+    text-shadow: 1px 1px 0px #8a8a8a;
+  }
+
+  a.logout--button:hover {
+    text-shadow: 1px 1px 2px rgb(254, 2, 2);
+  }

@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Arvo&family=Climate+Crisis&family=Inter&family=Sigmar&display=swap');
+
+.home--container {
+    display: flex;
+    flex-direction: row;
+}
+
+@media screen and (max-width: 768px) {
+    .aside--container {
+       display: none;
+    }
+}
+
+.aside--container {
+    display: none;
+    flex: 1;
+    background-color: rgb(206, 247, 237);
+}
+
+.anchor--container {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   font-size: 30px;
+   gap: 5rem;
+   
+}
+.allProducts--container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex:5;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.product--container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    margin: 0.5rem;
+    gap: 5px;
+    width: 20rem;
+    margin-left: 5rem;
+    box-shadow: 
+    0 5px 5px 0 rgba(0, 0, 0, 0.2), 
+    0 6px 30px 0 rgba(118, 118, 118, 0.2);
+    border-radius: 5%;
+}
+
+.home--title {
+    font-family: 'Sigmar', sans-serif;
+    text-align: center;
+    margin: auto;
+    font-size: 60px;
+    margin-top: 1rem;
+}
+.product--image {
+    min-width: 12rem;
+    min-height: 15rem;
+    max-width: 12rem;
+    max-height: 15rem;
+}
+
+.movie--title{
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+.prices{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.was--price {
+    color: red;
+    text-decoration: line-through;
+}
+
+.now--price {
+    color: green;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.addToCart--button{
+    height: 3rem;
+    margin: 1rem;
+    width: 10rem;
+    cursor: pointer;
+}
+
+.addToCart--button:hover {
+    background-color: rgb(103, 239, 103);
+}
+

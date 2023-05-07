@@ -51,8 +51,10 @@ cartRouter.post('/', async (req, res, next) => {
   try {
 
     const newCartItem = await addToCart({user_id, product_id})
-
     res.send(newCartItem)
+    if (newCartItem) {
+      res.send({success: "success"})
+    }
   }catch (error){
     next(error);
   }

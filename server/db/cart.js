@@ -30,7 +30,7 @@ async function addToCart({
 async function getCartItemsByUserId(user_id) {
     try {
         const { rows: cartItems } = await client.query(`
-        SELECT products.name, products.price, products.product_id
+        SELECT products.name, products.price, products.product_id, products.image_url
         FROM cart
         JOIN products ON cart.product_id = products.product_id
         WHERE cart.user_id = $1;
