@@ -13,7 +13,7 @@
   margin: 1rem;
   width: 65rem;
   height:10rem;
-  background-color: rgb(206, 247, 237);
+  background-color: rgb(254, 254, 254);
 }
 
 .image {
@@ -29,8 +29,11 @@
   height: 3rem;
   margin: 1rem;
   margin-left: auto;
-  background-color: rgb(189, 250, 189);
   cursor: pointer;
+}
+
+.checkout--btn:hover {
+  background-color: rgb(189, 250, 189);
 }
 
 .delete--btn {

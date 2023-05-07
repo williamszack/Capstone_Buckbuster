@@ -183,7 +183,7 @@ const handleReact = async (productId) => {
 };
 
   return (
-    <div>
+    <div className='admin--body'>
       <div className="toggle-buttons">
 
         <button name="toggle" onClick={() => setUsersView(prev => !prev)}>Users</button>
@@ -194,15 +194,15 @@ const handleReact = async (productId) => {
       </div>
       {!usersView && !ordersView && !addView && !updateView && !drView ? 
         <>
-          <h1>Welcome Admin {username}</h1>
-          <div className="img">
+          <h1 className='welcome--admin'>Welcome Admin {username}</h1>
+          <div className="admin--img">
           <img src="https://media.istockphoto.com/id/1154370446/photo/funny-raccoon-in-green-sunglasses-showing-a-rock-gesture-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=kkZiaB9Q-GbY5gjf6WWURzEpLzNrpjZp_tn09GB21bI=" alt="Donkey" />
           </div>
         </>:
       <div>
       {usersView ?
       <div className="users-box">
-        <h2>Users</h2>
+        <h2 className='admin--h2'>Users</h2>
         <table className="users-table">
           <thead>
             <tr className="users-table-header">
@@ -232,7 +232,7 @@ const handleReact = async (productId) => {
       <br />
       {ordersView ?
       <div className="orders-box">
-        <h2>Orders</h2>
+        <h2 className='admin--h2'>Orders</h2>
         <table className="orders-table">
           <thead>
             <tr className="orders-table-header">
@@ -270,7 +270,7 @@ const handleReact = async (productId) => {
       <br />
       {addView ? 
       <div className="add-box">
-      <h2>Add Product</h2>
+      <h2 className='admin--h2'>Add Product</h2>
         <form onSubmit={handleAdd} id="add-form">
           <input type="text" required placeholder="Name" onChange={(event) => setName(event.target.value)} />
           <textarea type="text" required placeholder="Description" onChange={(event) => setDescription(event.target.value)}  />
@@ -291,7 +291,7 @@ const handleReact = async (productId) => {
       <br />
       {updateView ?
       <div className="update-box">
-        <h2>Update Product</h2>
+        <h2 className='admin--h2'>Update Product</h2>
           <br/>
           <select className="productSelect" value={selectedProduct?.product_id || ""} onChange={handleOptionChange}>
               <option value="">Select a product to update</option>
@@ -322,7 +322,7 @@ const handleReact = async (productId) => {
       <br />
       {drView ?
       <div className="dr-box">
-        <h2>Product Status (active/inactive)</h2>
+        <h2 className='admin--h2'>Product Status (active/inactive)</h2>
             <div className="dr-buttons">
               <button name="button" onClick={() => handleDeact(selectedProduct?.product_id)} >Deactivate</button>
               <button name="button" onClick={() => handleReact(selectedProduct?.product_id)} >Reactivate</button>

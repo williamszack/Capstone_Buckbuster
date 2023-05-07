@@ -1,4 +1,4 @@
-body {
+.admin--body {
     /* background-image: url("bbbg.png"); */
     /* background: linear-gradient(rgb(192, 251, 192), pink, rgb(192, 251, 192)); */
     /* background-color: white; */
@@ -7,12 +7,12 @@ body {
     /* background-position: center -70px; */
 }
 
-h1 {
+.welcome--admin {
     text-align: center;
-    color: rgb(255, 170, 7);
+    color: rgb(255, 168, 7);
 }
 
-h2 {
+.admin--h2 {
     font-size: x-large;
     text-align: center;
     color: black;
@@ -102,12 +102,12 @@ button[name="button"]:hover {
   background-color: #0069d9;
 }
 
-.img {
+.admin--img  {
   display: flex;
   justify-content: center;
 }
 
-img {
+.admin--img {
   border-radius: 50%;
 }
 
