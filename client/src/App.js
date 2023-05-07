@@ -12,7 +12,7 @@ import {
   Profile,
   Register,
   Search,
-  SingleProductView,
+  SingleProductView
 } from "./components";
 
 function App() {

@@ -5,19 +5,6 @@ import React, { useEffect, useState } from 'react'
 import { getAllProducts, addProductToUsersCart} from '../api/home'
 import Modal from './Modal'
 
-const Aside = () => {
-  return (
-    <div className='anchor--container'>
-    <a href='exampleLink.com'>I dont</a>
-    <a href='exampleLink.com'>know</a>
-    <a href='exampleLink.com'>what to</a>
-    <a href='exampleLink.com'>put for</a>
-    <a href='exampleLink.com'>these links</a>
-    </div>
-  )
-}
-
-
 const Home = () => {
   const [show, setShow] = useState(false);
   const [products, setProducts] = useState ([])
@@ -52,9 +39,14 @@ const user_id = localStorage.getItem("user_id")
 
   return (
   <div>
-    <h1 className='home--title'>Buckbuster Movies</h1>
+    <div className='search-title--container'>
+      <h1 className='home--title'>Buckbuster Movies</h1>
+        <span className='searchbar--container'>
+        <input className='searchbar' placeholder='Search for movie by title'></input>
+        <button type="submit" className='searchbtn'>&#128269;</button>
+        </span>
+      </div>
     <div className='home--container'>
-      <div className='aside--container'> <Aside /> </div>
         <div className='allProducts--container'>
         
           {products.map(movie => {

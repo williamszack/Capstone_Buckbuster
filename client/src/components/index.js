@@ -21,5 +21,5 @@ export {
   Register,
   Search,
   SingleProductView,
-  Modal,
+  Modal
 };
