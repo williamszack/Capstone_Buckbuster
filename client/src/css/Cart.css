@@ -57,3 +57,12 @@
 .delete--btn:hover {
   background-color: red;
 }
+
+div .product--title {
+  width: 11rem;
+  padding-top: 1.5rem;
+}
+
+div .price--title {
+  padding-top: 1.5rem;
+}

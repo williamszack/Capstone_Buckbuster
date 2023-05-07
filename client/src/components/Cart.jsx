@@ -61,12 +61,12 @@ const handleOrder = async () => {
         <div className='cartItem--container' key={item.product_id}>
         <img className='image' src={item.image_url} alt="movieImage"></img>
 
-        <div>
+        <div className="product--title">
         <h2>Title</h2>
         <p>{item.name}</p>
         </div>
 
-        <div>
+        <div className="price--title">
           <h2>Price</h2>
           <p>{item.price}</p>
         </div>
