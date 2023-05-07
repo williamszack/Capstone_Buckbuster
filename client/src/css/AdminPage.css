@@ -1,0 +1,261 @@
+body {
+    /* background-image: url("bbbg.png"); */
+    /* background: linear-gradient(rgb(192, 251, 192), pink, rgb(192, 251, 192)); */
+    /* background-color: white; */
+    background-color: rgb(15,64,169);
+    background-size: cover;
+    /* background-position: center -70px; */
+}
+
+h1 {
+    text-align: center;
+    color: rgb(255, 170, 7);
+}
+
+h2 {
+    font-size: x-large;
+    text-align: center;
+    color: black;
+
+}
+
+.break {
+    border: 1px dotted black;
+}
+
+/* background-color: rgb(15,64,169) #007bff; */
+button[name="toggle"] {
+  /* background-color: rgb(15,64,169); */
+  background-color: rgb(255, 170, 7);
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 16px;
+}
+
+button[name="toggle"]:hover {
+  background-color: #0069d9;
+}
+
+input[type="text"],
+input[type="number"],
+textarea[type="text"] {
+  /* width: 100%; */
+  width: 480px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  background-color: #f7f7f7;
+  font-size: 16px;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea[type="text"]:focus {
+  outline: none;
+  box-shadow: 0px 0px 3px #6c757d;
+}
+
+select {
+  /* width: 30%; */
+  width: 337px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  margin-left: 4px;
+  background-color: #f7f7f7;
+  font-size: 16px;
+}
+
+/*** button ***/
+button[name="button"] {
+  background-color: rgb(255, 170, 7);
+  color: white;
+  padding: 10px;
+  /* width: 25%; */
+  width: 130px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 16px;
+  margin-left: 38%;
+  margin-right: 35%;
+
+}
+
+/* all div box*/
+.users-box, .orders-box, .add-box, .update-box, .dr-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid rgb(15,64,169);
+  padding-bottom: 1rem;
+}
+
+button[name="button"]:hover {
+  background-color: #0069d9;
+}
+
+.img {
+  display: flex;
+  justify-content: center;
+}
+
+img {
+  border-radius: 50%;
+}
+
+
+/*** toggle view ***/
+.toggle-buttons{
+  display: flex;
+  justify-content: center; /* Aligns content horizontally in the center */
+/* width: 100%; */
+  gap: 1rem;
+  margin: 1.5rem;
+}
+
+
+/*** users table ***/
+.users-table, .orders-table {
+  /* display: table; */
+  /* border-collapse: collapse; */
+  border-spacing: 1px;
+  width: 1500px; /*originally 80%*/
+  background-color: black;
+  font-size: 20px;
+}
+
+.users-table-header, .orders-table-header {
+  display: table-row;
+  font-weight: bold;
+  background-color: lightgray;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  border: 1px solid black;
+}
+
+.users-table-row, .orders-table-row {
+  /* display: table-row; */
+  /* border-bottom: 1px solid #ddd; */
+  border: 1px solid black;
+  background-color: white;
+}
+  
+/* .user-table-row, .order-table-row {
+    display: table-cell;
+    padding: 8px;
+    border: 1px solid black;
+  } */
+
+.admin-row {
+    background-color: rgb(251, 213, 213);
+  }
+
+
+/*** orders table ***/
+.bold-date {
+    font-weight: bold;
+}
+
+.rest-date {
+    opacity: 0;
+}
+
+.even {
+    background-color: rgb(232, 231, 231);
+}
+    
+.odd {
+    background-color: white;
+}
+    
+.date-row {
+    font-weight: bold;
+    display: table-cell;
+    padding: 8px;
+}
+
+
+/*** add product ***/
+#add-form {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  /* width: 50%; */
+  gap: 1rem;
+  justify-content: center; /* Aligns content horizontally in the center */
+}
+
+.active-label {
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 25px;
+  justify-content: center; /* Aligns content horizontally in the center */
+}
+
+.active-select {
+  display: flex;
+  align-items: center;
+  color: black;
+  font-size: 16px;
+  text-align-last: center;
+  justify-content: center; /* Aligns content horizontally in the center */
+  width: 100px;
+  margin-left: 1rem;
+}
+
+
+
+/*** update product ***/
+#update-form {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  /* width: 50%; */
+  gap: 1rem;
+  justify-content: center; /* Aligns content horizontally in the center */
+}
+
+
+/*** deactivate/reactivate product ***/
+.dr-box {
+  gap: 1rem;
+}
+
+.dr-box button[name="button"] {
+  /* width: 100%; */
+  width: 100px;
+}
+.dr-buttons {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* margin-left: 0; */
+}
+
+.product-active-indicator {
+  color: green;
+}
+
+.product-inactive-indicator {
+  color: red;
+}
+
+option[data-active="true"] {
+  background-color: rgb(83, 191, 83);
+  color: white;
+}
+
+option[data-active="false"] {
+  background-color: rgb(252, 58, 58);
+  color: white;
+}
