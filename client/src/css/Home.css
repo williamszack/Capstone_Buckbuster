@@ -6,22 +6,24 @@
 }
 
 .anchor--container {
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   font-size: 30px;
-   gap: 5rem;
-   
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 30px;
+    gap: 5rem;
+
 }
+
 .allProducts--container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    flex:5;
+    flex: 5;
     margin-top: 2rem;
     text-align: center;
+    gap: 2rem;
 }
 
 @media (max-width: 600px) {
@@ -47,29 +49,36 @@
     gap: 5px;
     width: 20rem;
     margin-left: 5rem;
-    box-shadow: 
-    0 5px 5px 0 rgba(0, 0, 0, 0.2), 
-    0 6px 30px 0 rgba(118, 118, 118, 0.2);
-    border-radius: 3%;
+    box-shadow:
+        0 5px 5px 0 rgba(0, 0, 0, 0.2),
+        0 6px 30px 0 rgba(118, 118, 118, 0.2);
+    border-radius: 8px;
+    padding-bottom: 0.5rem;
+    padding-top: 2rem;
+    height: 32rem;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 0, 0, 0.2), 0 0 0px rgba(0, 0, 0, 0.1) inset;
 }
 
 .product--image {
     min-width: 12rem;
-    min-height: 15rem;
-    max-width: 12rem;
-    max-height: 15rem;
-    box-shadow: 4px 2px 3px rgb(0, 0, 0);
+    min-height: 17rem;
+    /* max-width: 12rem; */
+    width: 100%;
+    max-height: 17rem;
+    /* box-shadow: 4px 2px 3px rgba(0, 0, 0, 0.58); */
+    /* border-radius: 5px; */
 }
 
-.movie--title{
+.movie--title {
     font-size: 25px;
     font-weight: bolder;
 }
 
-.prices{
+.prices {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 1rem;
 }
 
 .was--price {
@@ -83,16 +92,17 @@
     font-size: larger;
 }
 
-.addToCart--button{
-    height: 3rem;
+.addToCart--button {
+    height: 2rem;
     margin: 1rem;
+    margin-top: 0;
     width: 10rem;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .addToCart--button:hover {
     background-color: rgb(103, 239, 103);
-}
 
 .home--title {
     font-family: 'Sigmar', sans-serif;
@@ -143,4 +153,5 @@
     background-color: rgb(255, 195, 75);
     font-size: 35px;
   }
+
 

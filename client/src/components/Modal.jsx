@@ -30,7 +30,7 @@ useEffect(()=> {
     <div className="modal" onClick={props.onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-        <img className='product--image' src={product.image_url} alt="movie"></img>
+        <img className='modal--image' src={product.image_url} alt="movie"></img>
           <div className="modal-title"><h3>Title</h3>{product.name}</div>
         </div>
         <div className="modal-body"><h3>Description</h3>{product.description}</div>
@@ -38,7 +38,7 @@ useEffect(()=> {
 
         {
         reviews.length > 0 ? reviews.map(review => (
-          <div key={review.review_id}>
+          <div className="modal--reviewer" key={review.review_id}>
           <h4>User: {review.username}</h4>
           <div>Rating out of 5 stars: {review.rating} stars</div>
           <h4>{review.title}</h4>
