@@ -103,7 +103,8 @@
 
 .addToCart--button:hover {
     background-color: rgb(103, 239, 103);
-
+}
+ 
 .home--title {
     font-family: 'Sigmar', sans-serif;
     color: rgb(254, 169, 0);
