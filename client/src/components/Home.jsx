@@ -5,8 +5,11 @@ import React, { useEffect, useState } from "react";
 import { getAllProducts, addProductToUsersCart } from "../api/home";
 import Search from "./Search";
 import Modal from "./Modal";
+import useNotification from './ui/useNotification';
 
 const Home = () => {
+  const { toastNotify } = useNotification();
+
   const [show, setShow] = useState(false);
   const [products, setProducts] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -25,16 +28,16 @@ const Home = () => {
   const handleAddToCart = async (product_id) => {
     const user_id = localStorage.getItem("user_id");
     if (!user_id) {
-      alert("You must be logged in to add an item to cart");
+      toastNotify("You must be logged in to add an item to cart", "error");
       return;
     }
     try {
       const response = await addProductToUsersCart(product_id, user_id);
       console.log(response);
       if (!response.error) {
-        alert("movie added to your cart!");
+        toastNotify("movie added to your cart!", "success");
       } else if (response.error) {
-        alert("This movie already exists in your cart!");
+        toastNotify("This movie already exists in your cart!",  "warning");
       }
     } catch (error) {
       console.error(error);
