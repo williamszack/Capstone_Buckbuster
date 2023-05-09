@@ -1,9 +1,11 @@
 import '../css/AdminPage.css'
 import { useCallback, useEffect, useState, Fragment } from 'react'
 import { addProduct, deactivateProduct, getAllOrders, getAllProducts, getAllUsers, reactivateProduct, updateProduct } from '../api/AdminPage'
+import useNotification from './ui/useNotification';
 //child of App.js
 
 const AdminPage = ({ token, username }) => {
+  const { toastNotify } = useNotification();
 
   //**************Toggle view buttons - done
   const [usersView, setUsersView] = useState(false);
@@ -62,14 +64,8 @@ const AdminPage = ({ token, username }) => {
 
     const result = await addProduct({ name, description, price, genre, quantity, image, active });
     const message = result.error ? `Error ${result.message}` : `Product added to library`
-    // setName("");
-    // setDescription("");
-    // setPrice("");
-    // setGenre("");
-    // setQuantity("");
-    // setImage("");
     console.log(message);
-    alert(message)
+    toastNotify(message, "success")
 
     //refresh product list after update
     const updatedProductsData = await getAllProducts();
@@ -89,7 +85,7 @@ const AdminPage = ({ token, username }) => {
   useEffect(() => {
     fetchAllProducts();
   }, [fetchAllProducts])
-
+  
   const handleOptionChange = (event) => {
     const productId = parseInt(event.target.value);
     const selectedProduct = allProducts.find(product => product.product_id === productId);
@@ -106,7 +102,7 @@ const AdminPage = ({ token, username }) => {
   event.preventDefault();
 
   if (!selectedProduct) {
-    alert("Please select a product to update");
+    toastNotify("Please select a product to update", "info");
     return;
   }
   if (name === "" &&
@@ -117,7 +113,7 @@ const AdminPage = ({ token, username }) => {
   image === "" &&
   active === selectedProduct.active) {
     console.log("Field(s) must be updated to process change");
-    alert("Field(s) must be updated to process change");
+    toastNotify("Field(s) must be updated to process change", "error");
     return null;
   }
 
@@ -125,7 +121,7 @@ const AdminPage = ({ token, username }) => {
     productId: selectedProduct.product_id, //pass the selectedProduct.product_id as the productId parameter 
     name, description, price, genre, quantity, image, active
   });
-  const message = result.error ? `Error ${result.message}` : `Product ${selectedProduct.name} updated`
+  const message = result.error ? `Error ${result.message}` : `Product updated`
   setName("");
   setDescription("");
   setPrice("");
@@ -133,7 +129,7 @@ const AdminPage = ({ token, username }) => {
   setQuantity("");
   setImage("");
   console.log(message);
-  alert(message)
+  toastNotify(message, "success");
 
   //refresh product list after update
   const updatedProductsData = await getAllProducts();
@@ -143,14 +139,15 @@ const AdminPage = ({ token, username }) => {
 //**************Deactivate product - done
 const handleDeact = async (productId) => {
   if(!selectedProduct.active) {
-    alert("product already inactive");
+    toastNotify("product already inactive", "info");
     return;
-  } else if (!productId) {
-    alert("Please select a product");
+  } else if (!productId || productId === "") {
+    toastNotify("Please select a product", "error");
+    return;
   }
   try {
     await deactivateProduct({ token, productId });
-    console.log(`Product ID: ${selectedProduct.product_id} deactivated`)
+    toastNotify(`Product ID: ${selectedProduct.product_id} - ${selectedProduct.name} deactivated`, "success");
     setSelectedProduct("");
 
     //refresh product list after deactivation
@@ -164,14 +161,15 @@ const handleDeact = async (productId) => {
 //**************Reactivate product - done
 const handleReact = async (productId) => {
   if(selectedProduct.active) {
-    alert("product already active");
+    toastNotify("product already active", "info");
     return;
-  } else if (!productId) {
-    alert("Please select a product");
+  } else if (!productId || productId === "") {
+    toastNotify("Please select a product", "error");
+    return;
   }
   try{
     await reactivateProduct({ token, productId });
-    console.log(`Product ID: ${selectedProduct.product_id} reactivated`)
+    toastNotify(`Product ID: ${selectedProduct.product_id} - ${selectedProduct.name} reactivated`, "success");
     setSelectedProduct("");
 
     //refresh product list after reactivation
