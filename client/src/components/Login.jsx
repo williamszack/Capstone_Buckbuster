@@ -3,8 +3,11 @@ import React, { useEffect, useState } from "react";
 import { userLogin } from "../api/Login";
 import { useNavigate } from "react-router-dom";
 import '../css/Login.css'
+import useNotification from './ui/useNotification';
 
 const Login = ({ username, setUsername }) => {
+  const { toastNotify } = useNotification();
+
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
@@ -17,7 +20,7 @@ const Login = ({ username, setUsername }) => {
 
     if (result && result.token) {
 
-        alert("You're logged in!");
+        toastNotify("You're logged in!", "success");
         console.log("logged-in user:", username);
         localStorage.setItem("token", result.token);
         localStorage.setItem("user", username)
@@ -25,7 +28,7 @@ const Login = ({ username, setUsername }) => {
         localStorage.setItem("user_id", result.user.id)
         navigate("/");
         } else {
-          alert("Invalid Credentials");
+          toastNotify("Invalid Credentials", "warning");
         }
       } catch (error) {
       console.error(error);
