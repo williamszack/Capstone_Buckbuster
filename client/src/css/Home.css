@@ -121,38 +121,4 @@
     }
   }
 
-  .searchbar--container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin: 0 auto;
-    
-  }
-  
-  .searchbar {
-    flex: 1; 
-    max-width: 40rem; 
-    height: 3.1rem; 
-    font-size: 24px;
-    border: 2px solid rgb(15, 64, 169);
-  }
-
-  .searchbtn {
-    width: 5rem;
-    height: 3.5rem; 
-    font-size: 30px;
-    background-color: rgb(254, 169, 0);
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    border: 2px solid rgb(15, 64, 169);
-    border-left: none;
-    cursor: pointer;
-  }
-
-  .searchbtn:hover {
-    background-color: rgb(255, 195, 75);
-    font-size: 35px;
-  }
-
 

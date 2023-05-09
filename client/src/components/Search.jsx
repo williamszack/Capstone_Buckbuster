@@ -25,6 +25,11 @@ const Search = (props) => {
     setSearchInput("");
   };
 
+  const handleResetSearch = () => {
+    setSearchInput(""); 
+    props.setFilteredData(props.products);
+  }
+
   return (
     <div className="searchbar--container">
       <input
@@ -34,8 +39,18 @@ const Search = (props) => {
         onChange={handleChange}
         value={searchInput}
       />
+
       <button className="searchbtn" onClick={handleSearch}>
         &#128269;
+      </button>
+
+      <button 
+      className="allbtn"
+      onClick={() => {
+        setSearchInput('');
+        handleResetSearch();
+      }}>
+        &#8634;
       </button>
     </div>
   );
