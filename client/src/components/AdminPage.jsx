@@ -239,7 +239,7 @@ const handleReact = async (productId) => {
               <th><strong>Name</strong></th>
               <th><strong>User ID</strong></th>
               <th><strong>Product ID</strong></th>
-              <th><strong>Quantity</strong></th>
+              {/* <th><strong>Quantity</strong></th> */}
               {/* <p><strong>Order Date</strong></p> */}
             </tr>
           </thead>
@@ -256,7 +256,7 @@ const handleReact = async (productId) => {
                 <td>{order.name}</td>
                 <td>{order.user_id}</td>
                 <td>{order.product_id}</td>
-                <td>{order.quantity}</td>
+                {/* <td>{order.quantity}</td> */}
               </tr>
             </tbody>
           ))}
