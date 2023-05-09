@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Arvo&family=Climate+Crisis&family=Inter&family=Sigmar&display=swap');
+
 .navbar {
     background-color: rgb(15, 64, 169);
     display: flex;
@@ -20,8 +22,10 @@
   .links a {
     text-decoration: none;
     color: rgb(255, 255, 255);
+    font-size: larger;
     margin-right: 10px;
     cursor: pointer;
+    text-shadow: 1px 1px 0px #000000;
   }
 
   .links a:hover {
@@ -29,13 +33,29 @@
   }
 
   .title{
-    color: white;
+    font-family: 'Sigmar', sans-serif;
+    color: rgb(254, 169, 0);
     margin: 0;
     margin-left: 2rem;
     font-size: 50px;
     text-shadow: 1px 1px 2px black;
   }
 
+  @media (max-width: 600px) {
+    .title {
+      display: none;
+    }
+  }
+
   .loggedInUser{
-    color: yellow;
+    color: rgb(254, 169, 0);
+    text-shadow: 1px 1px 0px #000000;
+  }
+
+  a.logout--button:hover {
+    text-shadow: 1px 1px 2px rgb(254, 2, 2);
+  }
+
+  a.adminView {
+    color: rgb(100, 251, 100);
   }

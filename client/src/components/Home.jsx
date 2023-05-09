@@ -6,6 +6,7 @@ import { getAllProducts, addProductToUsersCart } from "../api/home";
 import Search from "./Search";
 import Modal from "./Modal";
 
+
 const Aside = () => {
   return (
     <div className="anchor--container">
@@ -33,6 +34,7 @@ const Home = () => {
     fetchData();
   }, []);
 
+
   const handleAddToCart = async (product_id) => {
     const user_id = localStorage.getItem("user_id");
     if (!user_id) {
@@ -50,7 +52,7 @@ const Home = () => {
     } catch (error) {
       console.error(error);
     }
-  };
+
 
   useEffect(() => {
     const updatedProductsToDisplay =
@@ -58,6 +60,7 @@ const Home = () => {
     setProductsToDisplay(updatedProductsToDisplay);
   }, [filteredData, products]);
   return (
+
     <div>
       <Search
         products={products}
@@ -105,6 +108,7 @@ const Home = () => {
         <Modal show={show} onClose={() => setShow(false)}>
           {" "}
         </Modal>
+
       </div>
     </div>
   );

@@ -32,7 +32,7 @@ const handleOrder = async () => {
       const updateCart = await getUsersCart()
       setCartItems(updateCart)
       alert("Order submitted!")
-      navigate("/orderPage")
+      navigate("/profile")
     }
   } catch (error) {
     console.error(error)
@@ -50,23 +50,23 @@ const handleOrder = async () => {
 
   if (cartItems.length === 0) {
     return (
-      <h2>No items in cart!</h2>
+      <h2 className="noitems--cart">No items in cart!</h2>
     )
   }
 
   return (
   <div className='shoppingPage--container'>
-    <h2>Shopping Cart</h2>
+    <h2 className="shopping--cart" >Shopping Cart</h2>
       {cartItems.map((item) => (
-        <div className='cartItem--container'>
+        <div className='cartItem--container' key={item.product_id}>
         <img className='image' src={item.image_url} alt="movieImage"></img>
 
-        <div>
+        <div className="product--title">
         <h2>Title</h2>
         <p>{item.name}</p>
         </div>
 
-        <div>
+        <div className="price--title">
           <h2>Price</h2>
           <p>{item.price}</p>
         </div>
@@ -83,12 +83,13 @@ const handleOrder = async () => {
 
   </div>
 ))}
-
+<div className="checkout--container">
 <button 
 className="checkout--btn"
 onClick={() => handleOrder()}
 >Check Out
 </button>
+</div>
 
 </div> 
   )

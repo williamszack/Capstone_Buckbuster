@@ -4,6 +4,10 @@
   align-items: center;
 }
 
+.noitems--cart, .shopping--cart {
+  padding: 1rem;
+}
+
 .cartItem--container {
   display: flex;
   justify-content: space-around;
@@ -11,17 +15,25 @@
     0 5px 5px 0 rgba(0, 0, 0, 0.2), 
     0 6px 30px 0 rgba(118, 118, 118, 0.2);
   margin: 1rem;
-  width: 65rem;
+  width: 60rem;
   height:10rem;
-  background-color: rgb(206, 247, 237);
+  background-color: rgb(254, 254, 254);
+  padding-top: 1rem;
+  border-radius: 8px;
+  box-shadow: 
+  0 5px 5px 0 rgba(0, 0, 0, 0.2), 
+  0 6px 30px 0 rgba(118, 118, 118, 0.2);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 0, 0, 0.2), 0 0 0px rgba(0, 0, 0, 0.1) inset;
 }
 
 .image {
   min-height: 8rem;
-  min-width: 6rem;
-  max-width: 6rem;
+  min-width: 7rem;
+  max-width: 7rem;
   max-height: 8rem;
-  margin:5px
+  margin:5px;
+  box-shadow: 4px 2px 3px rgba(0, 0, 0, 0.58);
+  border-radius: 5px;
 }
 
 .checkout--btn{
@@ -29,8 +41,12 @@
   height: 3rem;
   margin: 1rem;
   margin-left: auto;
-  background-color: rgb(189, 250, 189);
   cursor: pointer;
+border-radius: 5px;
+}
+
+.checkout--btn:hover {
+  background-color: rgb(189, 250, 189);
 }
 
 .delete--btn {
@@ -38,8 +54,22 @@
   width: 8rem;
   margin-top: 4rem;
   cursor: pointer;
+border-radius: 5px;
 }
 
 .delete--btn:hover {
   background-color: red;
+}
+
+div .product--title {
+  width: 11rem;
+  padding-top: 1.5rem;
+}
+
+div .price--title {
+  padding-top: 1.5rem;
+}
+
+.checkout--container {
+  margin-left: 46rem;
 }

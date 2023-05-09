@@ -14,12 +14,14 @@ const Login = ({ username, setUsername }) => {
     try {
     const result = await userLogin({ username, password });
     console.log(result)
+
     if (result && result.token) {
 
         alert("You're logged in!");
         console.log("logged-in user:", username);
         localStorage.setItem("token", result.token);
         localStorage.setItem("user", username)
+        localStorage.setItem("isAdmin", result.user.isAdmin)
         localStorage.setItem("user_id", result.user.id)
         navigate("/");
         } else {
@@ -57,7 +59,7 @@ const Login = ({ username, setUsername }) => {
         </label>
         <br></br>
         <br></br>
-          <button formType="login" name="login">Login</button>
+          <button formtype="login" name="login">Login</button>
       </form>
     </>
   );

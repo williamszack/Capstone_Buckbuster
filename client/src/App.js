@@ -11,9 +11,8 @@ import {
   OrderPage,
   Profile,
   Register,
-  Reviews,
   Search,
-  SingleProductView,
+  SingleProductView
 } from "./components";
 
 function App() {
@@ -25,10 +24,12 @@ function App() {
     <div className="App">
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/adminPage" element={<AdminPage/>} />
+        <Route path="/" element={<Home/>} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/register" element={<Register />} />
         <Route path="/orderPage" element={<OrderPage />} />
+        <Route path="/profile" element={<Profile />} />
         <Route
           path="/login"
           element={<Login username={username} setUsername={setUsername} />}

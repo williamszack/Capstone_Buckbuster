@@ -53,7 +53,7 @@ ordersRouter.post("/:user_id", async (req, res, next) => {
 		if (!order) {
 			res.status(404).send({ message: "No products in cart" });
 		} else {
-			res.send({ message: "Order created successfully", order: order });
+			res.send({ success: "Order created successfully", order: order });
 		}
 	} catch (error) {
 		next(error);
