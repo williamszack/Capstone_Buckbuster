@@ -26,14 +26,17 @@ const Search = (props) => {
   };
 
   return (
-    <div>
+    <div className="searchbar--container">
       <input
+        className="searchbar"
         type="text"
         placeholder="Search for movies here"
         onChange={handleChange}
         value={searchInput}
       />
-      <button onClick={handleSearch}>Search</button>
+      <button className="searchbtn" onClick={handleSearch}>
+        &#128269;
+      </button>
     </div>
   );
 };
