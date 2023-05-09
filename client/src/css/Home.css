@@ -1,72 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Arvo&family=Climate+Crisis&family=Inter&family=Sigmar&display=swap');
 
 .home--container {
     display: flex;
     flex-direction: row;
 }
 
-@media screen and (max-width: 768px) {
-    .aside--container {
-       display: none;
-    }
-}
-
-.aside--container {
-    flex: 1;
-    background-color: rgb(206, 247, 237);
-}
-
 .anchor--container {
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   font-size: 30px;
-   gap: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 30px;
+    gap: 5rem;
+
 }
+
 .allProducts--container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
-    flex:5;
+    flex: 5;
     margin-top: 2rem;
+    text-align: center;
+    gap: 2rem;
 }
+
+@media (max-width: 600px) {
+
+    .home--container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .allProducts--container {
+        flex-direction: column;
+        align-items: center;
+    }
+  }
+
 
 .product--container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgb(206, 247, 237);
+    background-color: rgb(255, 255, 255);
     margin: 0.5rem;
     gap: 5px;
     width: 20rem;
     margin-left: 5rem;
-    box-shadow: 
-    0 5px 5px 0 rgba(0, 0, 0, 0.2), 
-    0 6px 30px 0 rgba(118, 118, 118, 0.2);
+    box-shadow:
+        0 5px 5px 0 rgba(0, 0, 0, 0.2),
+        0 6px 30px 0 rgba(118, 118, 118, 0.2);
+    border-radius: 8px;
+    padding-bottom: 0.5rem;
+    padding-top: 2rem;
+    height: 32rem;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 0, 0, 0.2), 0 0 0px rgba(0, 0, 0, 0.1) inset;
 }
 
-.home--title {
-    text-align: center;
-    margin: auto;
-    font-size: 60px;
-    margin-top: 1rem;
-}
 .product--image {
-    min-width: 15rem;
-    min-height: 15rem;
-    max-width: 15rem;
-    max-height: 15rem;
+    min-width: 12rem;
+    min-height: 17rem;
+    /* max-width: 12rem; */
+    width: 100%;
+    max-height: 17rem;
+    /* box-shadow: 4px 2px 3px rgba(0, 0, 0, 0.58); */
+    /* border-radius: 5px; */
 }
 
-.movie--title{
+.movie--title {
     font-size: 25px;
     font-weight: bolder;
 }
 
-.prices{
+.prices {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 1rem;
 }
 
 .was--price {
@@ -80,14 +92,67 @@
     font-size: larger;
 }
 
-.addToCart--button{
-    height: 3rem;
+.addToCart--button {
+    height: 2rem;
     margin: 1rem;
+    margin-top: 0;
     width: 10rem;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .addToCart--button:hover {
     background-color: rgb(103, 239, 103);
 }
+ 
+.home--title {
+    font-family: 'Sigmar', sans-serif;
+    color: rgb(254, 169, 0);
+    text-shadow: 4px 2px 3px rgb(2, 137, 220);
+    text-align: center;
+    margin: auto;
+    font-size: 60px;
+    margin-top: 1rem;
+}
+
+@media (max-width: 600px) {
+    .home--title {
+      font-size: 30px;
+    }
+  }
+
+  .searchbar--container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0 auto;
+    
+  }
+  
+  .searchbar {
+    flex: 1; 
+    max-width: 40rem; 
+    height: 3.1rem; 
+    font-size: 24px;
+    border: 2px solid rgb(15, 64, 169);
+  }
+
+  .searchbtn {
+    width: 5rem;
+    height: 3.5rem; 
+    font-size: 30px;
+    background-color: rgb(254, 169, 0);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 2px solid rgb(15, 64, 169);
+    border-left: none;
+    cursor: pointer;
+  }
+
+  .searchbtn:hover {
+    background-color: rgb(255, 195, 75);
+    font-size: 35px;
+  }
+
 

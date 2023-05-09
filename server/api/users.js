@@ -24,11 +24,11 @@ usersRouter.get("/admin", async (req, res, next) => {
   try {
     const users = await getAllUsers();
 
-    res.send({
+    res.send(
       users,
-    });
-  } catch ({ name, message }) {
-    next({ name, message });
+    );
+  } catch (error) {
+    next(error);
   }
 });
 
@@ -68,14 +68,15 @@ usersRouter.post("/register", async (req, res, next) => {
           user: {
             id: user.user_id,
             username: user.username,
+            isAdmin: user.admin
           },
         };
         console.log("response", response);
         res.send(response);
       }
     }
-  } catch ({ name, message }) {
-    next({ name, message });
+  } catch (error) {
+    next(error);
   }
 });
 
@@ -127,14 +128,14 @@ usersRouter.post("/login", async (req, res, next) => {
         id: user.user_id,
         username,
       },
-      JWT_SECRET,
-      { expiresIn: '1h' }
+      JWT_SECRET
     );
 
     res.send({
       user: {
         id: user.user_id,
         username: username,
+        isAdmin: user.admin
       },
       token: token,
       message: "you're logged in!",
