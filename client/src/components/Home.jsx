@@ -1,55 +1,72 @@
 //all products will be displayed here
 //child of App.js
-import '../css/Home.css'
-import React, { useEffect, useState } from 'react'
-import { getAllProducts, addProductToUsersCart} from '../api/home'
-import Modal from './Modal'
+import "../css/Home.css";
+import React, { useEffect, useState } from "react";
+import { getAllProducts, addProductToUsersCart } from "../api/home";
+import Search from "./Search";
+import Modal from "./Modal";
+
+
 
 const Home = () => {
   const [show, setShow] = useState(false);
-  const [products, setProducts] = useState ([])
-  const [product_id, setProduct_id] = useState()
+  const [products, setProducts] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [productsToDisplay, setProductsToDisplay] = useState([]);
 
-useEffect(() => {
-  const fetchData = async () => {
-    const data = await getAllProducts()
-    setProducts(data)
-  }
-  fetchData()
-},[])
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getAllProducts();
+      console.log(data);
+      setProducts(data);
+    };
+    fetchData();
+  }, []);
 
-const handleAddToCart = async (product_id) => {
-const user_id = localStorage.getItem("user_id")
-  if (!user_id) {
-    alert ("You must be logged in to add an item to cart")
-    return;
-  }
-  try {
-    const response = await addProductToUsersCart(product_id, user_id)
-    console.log(response)
-    if (!response.error) {
-      alert("movie added to your cart!")
-    } else if (response.error) {
-      alert("This movie already exists in your cart!")
+
+
+  const handleAddToCart = async (product_id) => {
+    const user_id = localStorage.getItem("user_id");
+    if (!user_id) {
+      alert("You must be logged in to add an item to cart");
+      return;
     }
-  } catch (error) {
-    console.error(error)
-  }
-}
+    try {
+      const response = await addProductToUsersCart(product_id, user_id);
+      console.log(response);
+      if (!response.error) {
+        alert("movie added to your cart!");
+      } else if (response.error) {
+        alert("This movie already exists in your cart!");
+      }
+    } catch (error) {
+      console.error(error);
+    }
 
+  };
+
+
+  useEffect(() => {
+    const updatedProductsToDisplay =
+      filteredData.length > 0 ? filteredData : products;
+    setProductsToDisplay(updatedProductsToDisplay);
+  }, [filteredData, products]);
   return (
+
   <div>
     <div className='search-title--container'>
       <h1 className='home--title'>Buckbuster Movies</h1>
-        <span className='searchbar--container'>
-        <input className='searchbar' placeholder='Search for movie by title'></input>
-        <button type="submit" className='searchbtn'>&#128269;</button>
-        </span>
+        <Search
+        products={products}
+        setProducts={setProducts}
+        filteredData={filteredData}
+        setFilteredData={setFilteredData}
+      ></Search>
       </div>
     <div className='home--container'>
         <div className='allProducts--container'>
         
-          {products.map(movie => {
+          {productsToDisplay.map(movie => {
             return (
               <div className='product--container' key={movie.product_id}>
               <div className='movie--title'>{movie.name}</div>
@@ -89,7 +106,7 @@ const user_id = localStorage.getItem("user_id")
       </Modal> 
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
