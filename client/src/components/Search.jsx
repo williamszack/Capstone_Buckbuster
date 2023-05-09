@@ -30,7 +30,7 @@ const Search = (props) => {
       <input
         className="searchbar"
         type="text"
-        placeholder="Search for movies here"
+        placeholder="Search for movies by title"
         onChange={handleChange}
         value={searchInput}
       />
