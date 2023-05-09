@@ -28,7 +28,7 @@ const Login = ({ username, setUsername }) => {
         localStorage.setItem("user_id", result.user.id)
         navigate("/");
         } else {
-          toastNotify("Invalid Credentials", "warning");
+          toastNotify("Invalid Credentials", "error");
         }
       } catch (error) {
       console.error(error);

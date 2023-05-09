@@ -1,4 +1,4 @@
-.shoppingPage--container {
+.shoppingPage--container, .noitems--cart {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,7 +46,7 @@ border-radius: 5px;
 }
 
 .checkout--btn:hover {
-  background-color: rgb(189, 250, 189);
+  background-color: rgb(103, 239, 103);
 }
 
 .delete--btn {
@@ -72,4 +72,15 @@ div .price--title {
 
 .checkout--container {
   margin-left: 46rem;
+}
+
+.continue--shopping {
+  width: 10rem;
+  height: 3rem;
+  cursor: pointer;
+border-radius: 5px;
+}
+
+.continue--shopping:hover {
+  background-color: rgb(103, 239, 103);
 }

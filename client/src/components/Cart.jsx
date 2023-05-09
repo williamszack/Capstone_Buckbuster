@@ -4,8 +4,11 @@ import { getUsersCart, removeItem } from "../api/cart";
 import '../css/Cart.css'
 import { submitOrder } from "../api/orders";
 import { useNavigate } from "react-router-dom";
+import useNotification from './ui/useNotification';
 
 const Cart = () => {
+  const { toastNotify } = useNotification();
+
 const [cartItems, setCartItems] =useState([])
 const navigate = useNavigate()
 
@@ -17,6 +20,8 @@ const handleDelete =  async (product_id) => {
     console.log(response)
     const updateCart = await getUsersCart()
     setCartItems(updateCart)
+
+    toastNotify("Product removed from cart", "success");
   } catch(err){
     console.error(err)
   }
@@ -31,7 +36,7 @@ const handleOrder = async () => {
     if (response.success) {
       const updateCart = await getUsersCart()
       setCartItems(updateCart)
-      alert("Order submitted!")
+      toastNotify("Order submitted!", "success")
       navigate("/profile")
     }
   } catch (error) {
@@ -50,9 +55,13 @@ const handleOrder = async () => {
 
   if (cartItems.length === 0) {
     return (
-      <h2 className="noitems--cart">No items in cart!</h2>
+      <div className="noitems--cart">
+        <h2>No items in cart!</h2>
+        <button className="continue--shopping" onClick={() => navigate("/")}>Continue Shopping</button>
+      </div>
     )
   }
+
 
   return (
   <div className='shoppingPage--container'>
