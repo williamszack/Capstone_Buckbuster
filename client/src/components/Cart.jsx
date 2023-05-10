@@ -52,7 +52,7 @@ const handleOrder = async () => {
   
  fetchUserCart()
   },[])
-
+console.log(cartItems)
   if (cartItems.length === 0) {
     return (
       <div className="noitems--cart">
