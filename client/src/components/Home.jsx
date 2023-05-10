@@ -8,6 +8,8 @@ import Modal from "./Modal";
 import useNotification from './ui/useNotification';
 
 const Home = () => {
+
+
   const { toastNotify } = useNotification();
 
   const [show, setShow] = useState(false);
