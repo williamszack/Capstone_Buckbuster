@@ -18,8 +18,8 @@ export async function createAccount(username, password, email, name) {
   })
     .then((response) => response.json())
     .then((result) => {
-      console.log("you successfully registered an account", result);
-      alert(result.message);
+      console.log("You successfully registered an account", result);
+      // alert(result.message);
     })
     .catch(console.error);
 }

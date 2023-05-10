@@ -65,7 +65,8 @@ const Register = () => {
               setConfirmPassword("");
               setEmail("");
               setName("");
-              // navigate('/login')
+              toastNotify("Thank you for signing up!", "success");
+              navigate('/login')
             }
             // console.log("navigating");
             // navigateLogin("/login");
