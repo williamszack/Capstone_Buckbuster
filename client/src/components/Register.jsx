@@ -3,13 +3,18 @@ import React, { useState } from "react";
 import { createAccount } from "../api/Register";
 import "../css/Register.css";
 import { useNavigate } from "react-router-dom";
+import useNotification from './ui/useNotification';
+
 const Register = () => {
+  const { toastNotify } = useNotification();
+
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [duplicateError, setDuplicateError] = useState(false); //maybe dont need
 
   const navigate = useNavigate()
 
@@ -25,7 +30,7 @@ const Register = () => {
           event.preventDefault();
           if (password.length < 8) {
             setPasswordError("Password must be at least 8 characters long");
-            alert("Password must be at least 8 characters long");
+            toastNotify("Password must be at least 8 characters long", "warning");
           } else if (
             !password.match(
               /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
@@ -34,12 +39,12 @@ const Register = () => {
             setPasswordError(
               "Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character"
             );
-            alert(
-              "Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character"
+            toastNotify(
+              "Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character", "warning"
             );
           } else if (password !== confirmPassword) {
             setPasswordError("Passwords do not match");
-            alert("Passwords do not match");
+            toastNotify("Passwords do not match", "warning");
           } else {
             // Password is valid, do something here like submitting the form
             setPasswordError("");
@@ -53,13 +58,14 @@ const Register = () => {
               );
             } catch (err) {
               console.error(err);
-              alert(message);
+              toastNotify(message, "error");
             } finally {
               setPassword("");
               setUsername("");
               setConfirmPassword("");
               setEmail("");
               setName("");
+              toastNotify("Thank you for signing up!", "success");
               navigate('/login')
             }
             // console.log("navigating");
