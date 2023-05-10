@@ -22,9 +22,10 @@ async function getOrdersByUserId(user_id) {
 			rows: order,
 		} = await client.query(
 			`
-        SELECT *
+        SELECT orders.*, products.image_url
         FROM orders
-        WHERE user_id = $1;
+		JOIN products ON orders.product_id = products.product_id
+        WHERE orders.user_id = $1;
             `,
 			[user_id]
 		);

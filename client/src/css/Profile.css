@@ -1,0 +1,9 @@
+.mappedorders {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 13rem;
+    margin: 2rem;
+    border-top: 1px solid #5b5a5a;
+    border-bottom: 1px solid rgb(94, 93, 93);
+}
