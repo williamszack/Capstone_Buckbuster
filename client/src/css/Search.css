@@ -12,12 +12,20 @@
   max-width: 35%;
   justify-content: center;
   border: 2px solid rgb(15, 64, 169);
-  font-size: 30px;
   height: 50px;
 }
 
+.searchbar[type="text"] {
+  font-size: 28px;
+}
+
+.searchbar::placeholder {
+  font-size: 28px;
+  color: rgba(2, 35, 201, 0.532);
+}
+
 .searchbtn {
-  width: 5%;
+  min-width: 4rem;
   height: 70px;
   font-size: 30px;
   background-color: rgb(254, 169, 0);
@@ -26,7 +34,7 @@
 }
 
 .allbtn{
-  min-width: 4%;
+  min-width: 4rem;
   height: 70px;
   font-size: 50px;
   color: white;
@@ -37,7 +45,7 @@
 }
 
 .allbtn:hover {
-  min-width: 4%;
+  min-width: 4rem;
   height: 70px;
   font-size: 60px;
   line-height: 50px;
