@@ -2,26 +2,47 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: stretch;
   margin: 0 auto;
 }
 
 .searchbar {
-  flex: 1;
-  max-width: 40rem;
-  height: 3.1rem;
-  font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  max-width: 35%;
+  justify-content: center;
   border: 2px solid rgb(15, 64, 169);
+  font-size: 30px;
+  height: 50px;
 }
 
 .searchbtn {
-  width: 5rem;
-  height: 3.5rem;
+  width: 5%;
+  height: 70px;
   font-size: 30px;
   background-color: rgb(254, 169, 0);
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  border: 2px solid rgb(15, 64, 169);
+  border-left: none;
+  cursor: pointer;
+}
+
+.allbtn{
+  min-width: 4%;
+  height: 70px;
+  font-size: 50px;
+  color: white;
+  line-height: 50px;
+  background-color: rgb(15, 64, 169);
+  border-left: none;
+  cursor: pointer;
+}
+
+.allbtn:hover {
+  min-width: 4%;
+  height: 70px;
+  font-size: 60px;
+  line-height: 50px;
+  color: rgb(255, 195, 75);
+  background-color: rgb(84, 119, 196);
   border-left: none;
   cursor: pointer;
 }
