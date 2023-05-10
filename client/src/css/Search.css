@@ -11,13 +11,20 @@
   flex-direction: column;
   max-width: 35%;
   justify-content: center;
-  border: 2px solid rgb(15, 64, 169);
-  font-size: 30px;
   height: 50px;
 }
 
+.searchbar[type="text"] {
+  font-size: 28px;
+}
+
+.searchbar::placeholder {
+  font-size: 28px;
+  color: rgba(2, 35, 201, 0.532);
+}
+
 .searchbtn {
-  width: 5%;
+  min-width: 4rem;
   height: 70px;
   font-size: 30px;
   background-color: rgb(254, 169, 0);
@@ -26,7 +33,7 @@
 }
 
 .allbtn{
-  min-width: 4%;
+  min-width: 4rem;
   height: 70px;
   font-size: 50px;
   color: white;
@@ -37,7 +44,7 @@
 }
 
 .allbtn:hover {
-  min-width: 4%;
+  min-width: 4rem;
   height: 70px;
   font-size: 60px;
   line-height: 50px;
@@ -50,4 +57,16 @@
 .searchbtn:hover {
   background-color: rgb(255, 195, 75);
   font-size: 35px;
+}
+
+.category{
+  min-width: 8rem;
+  max-width: 14rem;
+  margin-left: 0;
+  border: 1px solid rgba(0, 0, 0, 0.222);
+  cursor: pointer;
+}
+
+.category:hover {
+  background-color: rgba(235, 234, 234, 0.696);
 }
