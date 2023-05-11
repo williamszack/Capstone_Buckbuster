@@ -26,6 +26,7 @@ const Search = (props) => {
     setSearchInput("");
   };
 
+
   const filterProductsByCategory = () => {
     if (selectedCategory === '') {
       props.setFilteredData(props.products);
@@ -34,6 +35,12 @@ const Search = (props) => {
       props.setFilteredData(results);
     }
   };
+
+  const uniqueGenres = [...new Set(props.products.map((product) => product.genre))];
+  const optionSelect = uniqueGenres.sort((a, b) => a.localeCompare(b)).map((genre) => (
+    <option key={genre} value={genre}>{genre}</option>
+  ));
+
 
   useEffect(() => {
     filterProductsByCategory();
@@ -63,6 +70,8 @@ const Search = (props) => {
       >
       <option disabled>Sort by Genre</option>
       <option value="">All movies</option>
+      {optionSelect}
+      {/*}
       <option value="Action">Action</option>
       <option value="Crime">Crime</option>
       <option value="Drama">Drama</option>
@@ -72,7 +81,7 @@ const Search = (props) => {
       <option value="Animation">Animation</option>
       <option value="Romance">Romance</option>
       <option value="Documentary">Documentary</option>
-      <option value="Horror">Horror</option>
+      <option value="Horror">Horror</option> */}
       </select>
 
       <button className="searchbtn" onClick={handleSearch}>
