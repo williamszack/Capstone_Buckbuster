@@ -63,9 +63,15 @@ const AdminPage = ({ token, username }) => {
     event.preventDefault();
 
     const result = await addProduct({ name, description, price, genre, quantity, image, active });
-    const message = result.error ? `Error ${result.message}` : `Product added to library`
+    const message = result.error ? `${result.message}` : `Product added to library`
+    setName("");
+    setDescription("");
+    setPrice("");
+    setGenre("");
+    setQuantity("");
+    setImage("");
     console.log(message);
-    toastNotify(message, "success")
+    toastNotify(message, result.error ? "error" : "success");
 
     //refresh product list after update
     const updatedProductsData = await getAllProducts();
@@ -121,15 +127,15 @@ const AdminPage = ({ token, username }) => {
     productId: selectedProduct.product_id, //pass the selectedProduct.product_id as the productId parameter 
     name, description, price, genre, quantity, image, active
   });
-  const message = result.error ? `Error ${result.message}` : `Product updated`
+  const message = result.error ? `${result.message}` : 'Product updated';
   setName("");
   setDescription("");
   setPrice("");
   setGenre("");
   setQuantity("");
   setImage("");
-  console.log(message);
-  toastNotify(message, "success");
+  console.log(result);
+  toastNotify(message, result.error ? "error" : "success");
 
   //refresh product list after update
   const updatedProductsData = await getAllProducts();
