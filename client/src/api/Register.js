@@ -1,4 +1,5 @@
-const BASE_URL = "http://localhost:3001/api/";
+// const BASE_URL = "http://localhost:3001/api/";
+const BASE_URL = "https://buckbuster.onrender.com/api"
 
 //creates a new account
 export async function createAccount(username, password, email, name) {
